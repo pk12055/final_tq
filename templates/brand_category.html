@@ -1,0 +1,231 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+
+{% block title %}Brand Homepage{% endblock title %}
+{% block extra_css %}
+
+<style>
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %} !important;
+    }
+
+    .brand_style_main_color{
+        background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};
+    }
+
+    .brand_style_background_color_2nd{
+        background-color: {% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd  }}{% else %}#EFEFEF{% endif %} !important;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-lg-2">
+            {% include 'brand_sidebar.html' %}
+        </div>
+        <div class="col-lg-10" style="padding:0px;">
+            <div class="container-fluid p-0">
+            	<div class="row no-gutters">
+            		<div class="col-lg-12 brand_style_background_color_2nd" style="padding-bottom:250px;">
+			             	<div class="wrapper pl-5 mt-5 pt-5" style="justify-content: start !important;">
+				                <div class="underline-area brand_style_main_color" style="height: 40px;">
+				                    <div class="title brand_style_text_color" style="font-size: 60px; margin-top: -60px; margin-left: -45px;">
+				                        CATEGORIES
+				                    </div>
+				                </div>
+				            </div>
+				            <p class="font-medium-reg mt-2 pl-5 brand_style_text_color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+				            incididunt ut labore et dolore magna</p>
+				        
+            		</div>
+            		<div class="col-lg-12 p-5" style="margin-top: -210px;">
+            			<form method="POST" id="brand_category" autocomplete="off" enctype='multipart/form-data'>
+                			{% csrf_token %}
+				        	<div class="row">
+				            	<div class="col-lg-6">
+				                	<div class="card-img img-color1 brand_style_main_color" style="height: 420px;">
+				                    	<div class="image-upload" style="text-align:center;">
+			                                <label for="file-input1">
+			                                    <img id="preview-img1" src="{% if cat_obj.main_pic_1 %} /media/{{ cat_obj.main_pic_1.name }}{% else %} {% endif %}" style="height: 420px; width: 470px;" />
+			                                </label>
+			                                <input id="file-input1" type="file" name="main_pic_1" onchange="readURL1(this);"
+			                                    id="brand_logo" />
+			                            </div>
+					                    <div class="{% if cat_obj.main_pic_1 %} hide {% endif %}" style="color:white; position: absolute; top: 40%; left: 25%;">
+		                                    <i class="fa fa-plus main_pic_1 brand_style_text_color" style="color:white; padding-left: 120px;"></i>
+		                                    <p class="text brand_style_text_color text-center main_pic_1" style="color:white;">ADD A VIDEO OR PHOTO FOR BANNER</p>
+		                                </div>
+				                    	<div class="banner">
+				                        	<div class="row">
+				                            	<div class="col-md-8 brand_style_text_color">
+				                                	<input name='first_main_text' class="input-control mb-1 brand_style_text_color" type="text" id="first_main_text" value="{{ cat_obj.first_main_text }}" />
+				                                	<p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+				                            	</div>
+					                            <div class="col-md-2">
+					                                <a href="{% url 'product_list' %}?flag=women" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+					                            </div>
+				                        	</div>
+				                    	</div>
+				                	</div>
+				            	</div>
+				            	<div class="col-lg-6">
+				                	<div class="card-img img-color2 brand_style_main_color" style="height: 420px;">
+				                    	<div class="image-upload" style="text-align:center;">
+			                                <label for="file-input2">
+			                                    <img id="preview-img2" src="{% if cat_obj.main_pic_2 %} /media/{{ cat_obj.main_pic_2.name }}{% else %} {% endif %}" style="height: 420px; width: 470px;"/>
+			                                </label>
+			                                <input id="file-input2" type="file" name="main_pic_2" onchange="readURL2(this);"
+			                                    id="brand_logo" />
+			                            </div>
+			                            <div class="{% if cat_obj.main_pic_2 %} hide {% endif %}" style="color:white; position: absolute; top: 40%; left: 25%;">
+		                                    <i class="fa fa-plus main_pic_2 brand_style_text_color" style="color:white; padding-left: 120px;"></i>
+		                                    <p class="text brand_style_text_color text-center main_pic_2" style="color:white;">ADD A VIDEO OR PHOTO FOR BANNER</p>
+		                                </div>
+				                    	<div class="banner">
+				                        	<div class="row">
+				                            	<div class="col-md-8 brand_style_text_color">
+				                            		<input name='second_main_text' class="input-control mb-1 brand_style_text_color" type="text" id="second_main_text" value="{{ cat_obj.second_main_text }}" />
+				                                	<p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+				                            	</div>
+					                            <div class="col-md-2">
+					                                <a href="{% url 'product_list' %}?flag=women" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+					                            </div>
+				                        	</div>
+				                    	</div>
+				                	</div>
+				            	</div>
+				            </div>
+				            <input type="hidden" name="is_draft" value="" id="draft" />
+				        </form>
+			        </div>
+			    </div>
+            </div>
+
+
+            <div class="container mt-5 p-5 brand_style_background_color_2nd" style="padding-left:0px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="float-left brand_style_text_color">
+                            <h3>SHOP EDITOR'S PICS</h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <div class="p-2 text-center">
+                            <div class="row">
+	                            {% with ''|center:6 as range %}
+	                            {% for i in range %}
+	                            <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+	                                <div class="card" style="border: 2px dotted #8080805e; text-align:center;">
+	                                    <img id="preview" src="" />
+	                                    <i class="fa fa-plus brand_style_text_color" style="padding-top:100px;"></i>
+	                                    <p class="brand_style_text_color" style="padding:0px 0px 100px 0px; font-size: 13px;">ADD A PHOTO FOR BANNER</p>
+	                                </div>
+	                            </div>
+	                            {% endfor %}
+	                            {% endwith %}
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-5 pb-5" style="padding-left:0px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <div class="wrapper pt-4">
+                                <div class="underline-area brand_style_main_color">
+                                    <div class="title brand_style_text_color">
+                                        DO YOU LIKE WHAT YOU SEE?
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="font-medium-reg p-3 brand_style_text_color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="p-2 text-center">
+                            <button class="tq-btn tq-btn-primary brand_style_text_color" style="{% if brand_style.main_color %}background-color: {{ brand_style.main_color  }}{% endif %} !important;">FOLLOW</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+    {% block extra_js %}
+    <script>
+        function readURL1(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+	                var img = new Image;
+	                valid = false;
+	                img.onload = function() {
+	                    if(img.width >= 470 && img.height >= 420 && input.files[0].size/1024/1024 <=20){
+	                        valid = true;
+	                    }
+	                    if(valid){
+	                        $('.main_pic_1').hide();
+		                    $('.img-color1').removeClass();
+		                    $('#preview-img1')
+		                        .attr('src', e.target.result)
+		                        .height(420)
+		                        .width(470);
+			            }
+	                    else{
+	                        toastr.error('Select image greater than 470*420 and less than 20mb')
+	                    }
+	                };
+	                img.src = reader.result;
+	            };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURL2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+	                var img = new Image;
+	                valid = false;
+	                img.onload = function() {
+	                    if(img.width >= 470 && img.height >= 420 && input.files[0].size/1024/1024 <=50){
+	                        valid = true;
+	                    }
+	                    if(valid){
+	                        $('.main_pic_2').hide();
+		                    $('.img-color2').removeClass();
+		                    $('#preview-img2')
+		                        .attr('src', e.target.result)
+		                        .height(420)
+		                        .width(470);
+		                }
+	                    else{
+	                        toastr.error('Select image greater than 470*420 and less than 20mb')
+	                    }
+	                };
+	                img.src = reader.result;
+	            };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    $("#form-submit").on("click", function(){
+        $('#brand_category').submit();
+    });
+
+    $("#draft-submit").on("click", function(){
+        var b = document.getElementById("draft");
+        b.setAttribute("value", "true");
+        $('#brand_category').submit();
+    });
+    </script>
+    {% endblock %}

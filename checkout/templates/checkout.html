@@ -1,0 +1,678 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<style>
+ .disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block title %}Your Bag{% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid" style="background-color: #EFEFEF;">
+
+    <div class="row pb-5">
+        <div class="page-title mt-5 pt-5">
+            <div class="wrapper pl-3" style="justify-content: start !important;">
+            <div class="underline-area" style="height: 40px; min-width: 177px;">
+                <div class="title" style="font-size: 60px; margin-top: -60px; margin-left: -45px;">
+                    CHECKOUT
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="row pt-5 pb-5"></div>
+    <div class="row mt-5">
+        <div class="col-lg-12 p-5">
+            <div class="checkout-tabs">
+                <div class="container pr-4">
+                    <ul class="nav nav-fill pb-2" id="myTab" role="tablist" style="padding-left: 200px !important; padding-right: 200px !important;">
+                        <li class="nav-item">
+                            <a class="nav-link {% if not user.is_authenticated %} active {% else %}  disabled {% endif %}" id="welcome-tab" data-toggle="tab" href="#welcome" role="tab"
+                                aria-controls="welcome" aria-selected="true"><i class="checkout-circle">1 </i>WELCOME</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link {% if user.is_authenticated and delevery %}active {% else %}  disabled {% endif %}" id="delivery-tab" data-toggle="tab" href="#delivery" role="tab"
+                                aria-controls="delivery" aria-selected="true"><i class="checkout-circle">2 </i>DELIVERY</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link {% if billing %}active {% else %}  disabled {% endif %}" id="payment-tab" data-toggle="tab" href="#payment" role="tab"
+                                aria-controls="payment" aria-selected="false"><i class="checkout-circle">3 </i>PAYMENT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if confirmation %} active {% else %} disabled {% endif %}" id="confirmation-tab" data-toggle="tab" href="#confirmation" role="tab"
+                                aria-controls="confirmation" aria-selected="false"><i class="checkout-circle">4 </i>CONFIRMATION</a>
+                        </li>
+                    </ul>
+                    <hr / style="width: 88%;">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade {% if not user.is_authenticated %} active show{% else %} disabled {% endif %}" id="welcome" role="tabpanel" aria-labelledby="welcome-tab">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% include 'checkout_welcome.html' %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade {% if user.is_authenticated and delevery %}active show {% else %}  disabled {% endif %}" id="delivery" role="tabpanel" aria-labelledby="delivery-tab">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    {% include 'checkout_delivery.html' %}
+                                </div>
+                                <div class="col-lg-6">
+                                    {% include 'accounts/myprofile/addresses.html' %}
+                                </div>
+                                <div class="col-lg-12 text-center mt-5">
+                                    <button class="tq-btn tq-btn-primary" id="billing-submit">CONTINUE</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade {% if billing %}active show {% else %}  disabled {% endif %}" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+                            <div class="col-lg-12">
+                                {% include 'checkout_payment.html' %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade {% if confirmation %} active show {% else %} disabled {% endif %}" id="confirmation" role="tabpanel" aria-labelledby="confirmation-tab">
+                            <div class="col-lg-12">
+                                {% include 'checkout_confirmation.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="stripeToken" id="stripe_token">
+    </div>
+
+</div>
+<div class="modal fade" id="AddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-3">
+            <div class="row">
+                <div class="col-md-9 margin-left-40" id="address-edit">
+                    <h1>NEW ADDRESS</h1>
+                </div>
+                <div class="col-md-1">
+                    <span class="fa fa-close" data-dismiss="modal"></span>
+                </div>
+            </div>
+            <form method="POST" id="address-form" autocomplete="off">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 pb-2">
+                                <input id="autocomplete" name="address" class="input-control" type="search"
+                                    placeholder="Address" />
+                            </div>
+                        </div>
+                        <div id="address">
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <input name="city" class="input-control field" type="text" placeholder="City"
+                                        id="locality" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input name="zip_code" class="input-control field" type="text" id="postal_code"
+                                        placeholder="Zipcode" />
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <input name="state" class="input-control field" type="text"
+                                        id="administrative_area_level_1" placeholder="State" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input name="country" class="input-control field" type="text" id="country"
+                                        placeholder="Country" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 pt-2 mb-3 mt-3">
+                                    <select class="select-control" name="address_type" id="address_type">
+                                        <option value="Home" selected="selected">Home</option>
+                                        <option value="Office">Office</option>
+                                        <option value="Other">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 pt-2 mb-3 mt-3">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="is_parent" name="is_parent">
+                                        <label class="custom-control-label" for="is_parent">Primary Address</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="action" value="add" id="action_id">
+                <input type="hidden" name="user" value="{{user.id}}" id="current_user">
+                <input type="hidden" name="address_id" id="address_id">
+                <div class="text-center container mt-2 pb-2">
+                    <button type="submit" id="_action" class="tq-btn tq-btn-primary" value="ADD">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="RemoveAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-3">
+            <div class="row">
+                <div class="col-md-9 margin-left-40">
+                    <h1>ARE YOU SURE?</h1>
+                </div>
+                <div class="col-md-1">
+                    <span class="fa fa-close" data-dismiss="modal"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="container" id="remove_message">
+                    </div>
+                </form>
+            </div>
+            <div class="text-center container mt-2 pb-2">
+                <button type="button" id="remove_action" class="tq-btn tq-btn-primary">REMOVE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}
+
+
+{% block extra_js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClkKrCiFMsgoAOqDvyrjLoxAlFNwZ6nQ0&callback=initAutocomplete&libraries=places&v=weekly"
+    async></script>
+<script type="text/javascript">
+    $(function validate() {
+
+        var secure_rules = {
+            rules: {
+                address: {
+                    required: true
+                },
+                city: {
+                    required: true,
+                },
+                zip_code: {
+                    required: true,
+                },
+                country: {
+                    required: true,
+                },
+                state: {
+                    required: true,
+                },
+            },
+            submitHandler: function (f) {
+                $.ajax({
+                    url: "{% url 'account' %}",
+                    type: "POST",
+                    data: $(f).serialize(),
+                    success: function (response) {
+                        response = JSON.parse(response)
+                        location.href = window.location
+                    }
+                });
+            },
+            invalidHandler: function (f) {
+                $(f).submit();
+            }
+        }
+        $('#address-form').validate(secure_rules);
+    });
+
+    jQuery("body").on("click", ".remove_address", function () {
+        var address_id = jQuery(this).data('value');
+        var title = jQuery(this).data('text');
+        $("#remove_message").html('<p>' + title + ' will be removed </p>')
+        $("#remove_action").on("click", function () {
+            $.ajax({
+                'url': "{% url 'account' %}",
+                'type': 'POST',
+                'cache': false,
+                'data': {
+                    'address_id': address_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'action': 'remove'
+                },
+                success: function (response) {
+                    response = JSON.parse(response);
+                    location.href = window.location
+                }
+            });
+        })
+    });
+
+    jQuery("body").on("click", ".edit_address", function () {
+        var address_id = jQuery(this).data('value');
+        var title = jQuery(this).data('text');
+        $("#_action").text('Edit')
+        $("#address_id").val(address_id)
+        $("#action_id").val('edit')
+        $("#address-edit").html('<h1>EDIT ADDRESS</h1>')
+        $("#autocomplete").val(title);
+        $.ajax({
+            url: "{% url 'get_address' %}",
+            type: "POST",
+            data: {
+                'address_id': address_id,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (response) {
+                response = JSON.parse(response)
+                type = response['address_type']
+                $("#locality").val(response['city'])
+                $("#postal_code").val(response['zip_code'])
+                $("#administrative_area_level_1").val(response['state'])
+                $("#country").val(response['country'])
+                $("#address_type").val(type)
+                $('#address_type').find('option[value=' + type + ']').attr('selected', 'selected');
+
+                $("#_action").on("click", function () {
+                    $.ajax({
+                        'url': "{% url 'account' %}",
+                        'type': 'POST',
+                        'cache': false,
+                        data: $('#address-form').serialize(),
+                        success: function (response) {
+                            response = JSON.parse(response)
+                            location.href = window.location
+                        }
+                    });
+                })
+            }
+        });
+    })
+
+    $('#AddressModal').on('hidden.bs.modal', function (e) {
+        $(this).find("input,textarea,select").val('').end()
+        $("#_action").text('Add')
+        $("#address-edit").html('<h1>ADD ADDRESS</h1>')
+        $('#address-form').trigger("reset");
+        $("#address_type").val('Home')
+        $('#address_type').find('option[value="Home"]').attr('selected', 'selected');
+        $("#address-form").find('input[name=csrfmiddlewaretoken]').val('{{ csrf_token }}')
+        $("#current_user").val('{{user.id}}')
+        $("#action_id").val('add')
+    })
+</script>
+
+<script>
+    // This sample uses the Autocomplete widget to help the user select a
+    // place, then it retrieves the address components associated with that
+    // place, and then it populates the form fields with those details.
+    // This sample requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script
+    // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+    let placeSearch;
+    let autocomplete;
+    const componentForm = {
+        // street_number: "short_name",
+        // route: "long_name",
+        locality: "long_name",
+        administrative_area_level_1: "short_name",
+        country: "long_name",
+        postal_code: "short_name",
+    };
+
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search predictions to
+        // geographical location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById("autocomplete"),
+            { types: ["geocode"] }
+        );
+        // Avoid paying for data that you don't need by restricting the set of
+        // place fields that are returned to just the address components.
+        autocomplete.setFields(["address_component"]);
+        // When the user selects an address from the drop-down, populate the
+        // address fields in the form.
+        autocomplete.addListener("place_changed", fillInAddress);
+    }
+
+    function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        const place = autocomplete.getPlace();
+
+        for (const component in componentForm) {
+            $("#" + component).val('');
+            // document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details,
+        // and then fill-in the corresponding field on the form.
+        for (const component of place.address_components) {
+            const addressType = component.types[0];
+
+            if (componentForm[addressType]) {
+                const val = component[componentForm[addressType]];
+                $("#" + addressType).val(val);
+                if ($("#" + addressType).val()) {
+                    $("#" + addressType).prop('readonly', true);
+                }
+                // document.getElementById(addressType).value = val;
+            }
+        }
+    }
+
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                const circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy,
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
+
+    jQuery("body").on("click", ".upload-avatar", function () {
+        jQuery("#inputfile").click();
+    });
+
+    jQuery("body").on("click", ".remove-avatar", function () {
+        jQuery(".avatar").attr('src', '/static/images/default.png');
+        jQuery(".remove-avatar").hide()
+        jQuery.ajax({
+            type: 'POST',
+            url: '/remove-image/',
+            data: {},
+            contentType: false,
+            dataType: "json",
+            processData: false,
+            success: function (response) {
+            }
+        });
+    });
+
+    jQuery("#inputfile").change(function () {
+        var fd = new FormData();
+        var file = this.files;
+        fd.append("images", file[0]);
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '/upload-image/',
+            data: fd,
+            contentType: false,
+            dataType: "json",
+            processData: false,
+            success: function (response) {
+                jQuery(".avatar").attr('src', '/media/' + response.image_name);
+                jQuery(".remove-avatar").show()
+            }
+        });
+    });
+
+</script>
+<script>
+
+    $("#sale").on("click", function(){
+        var same_address = document.getElementById('checkout_address');
+        valid = same_address.classList.contains('disabledbutton')
+        if(valid){
+            $('#checkout_address').removeClass('disabledbutton')
+        }
+        else{
+            $('#checkout_address').addClass('disabledbutton')   
+        }
+    });
+
+    $("#billing-submit").on("click", function(){
+        var same_address = document.getElementById('checkout_address');
+        valid_class = same_address.classList.contains('disabledbutton')
+        valid = true;
+
+        var address = '{{user_addres_count}}';
+        if(address == 0){
+            toastr.error('Add Address to process')
+            valid = false;
+        }
+        if(valid){
+            $('#billing-form').submit();
+        }
+
+    });
+</script>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+    // $('#coupon-exist').on('click', function(){
+    //     $(this).hide();
+    //     $('.coupon-check').show()
+    // });
+
+    var stripe = Stripe('{{ STRIPE_PUBLISH_KEY }}');
+
+    // Create an instance of Elements.
+    var elements = stripe.elements({
+        fonts: [
+          {
+            cssSrc: 'https://fonts.googleapis.com/css?family=Quicksand',
+          },
+        ]
+    });
+
+    var elementStyles = {
+        base: {
+          color: '#424770',
+          fontWeight: 600,
+          fontFamily: 'Quicksand, Open Sans, Segoe UI, sans-serif',
+          fontSize: '16px',
+          fontSmoothing: 'antialiased',
+
+            ':focus': {
+                color: '#424770',
+            },
+
+            '::placeholder': {
+                color: '#9BACC8',
+            },
+
+            ':focus::placeholder': {
+                color: '#CFD7DF',
+            },
+           },
+           invalid: {
+            color: '#ff7979',
+            ':focus': {
+               color: '#FA755A',
+            },
+              '::placeholder': {
+                color: '#ff7979',
+              },
+            },
+        };
+
+    var elementClasses = {
+        focus: 'focus',
+        empty: 'empty',
+        invalid: 'invalid',
+        base: 'form-control'
+    };
+
+    // Create an instance of the card Element.
+
+    var cardNumber = elements.create('cardNumber', {
+        style: elementStyles,
+        classes: elementClasses,
+        placeholder: 'Card Number'
+    });
+
+    cardNumber.mount('#element-card-number');
+
+    var cardExpiry = elements.create('cardExpiry', {
+        style: elementStyles,
+        classes: elementClasses,
+        placeholder: 'Card expiry(MM/YY)'
+    });
+    cardExpiry.mount('#element-card-expiry');
+
+    var cardCvc = elements.create('cardCvc', {
+        style: elementStyles,
+        classes: elementClasses,
+        placeholder: 'CVC/CVV'
+    });
+    cardCvc.mount('#element-card-cvc');
+
+    // registerElements([cardNumber, cardExpiry, cardCvc], 'payment-form');
+
+    cardNumber.addEventListener('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+    var is_coupon_valid = false;
+
+    // Handle form submission.
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var card_name = $('#name-on-card').val();
+      var condition_checkbox = $('#checkbox:checked').val();
+
+      $('#submit-btn').prop('disabled', true);
+      if(!card_name){
+          $('#card-name-errors').text('You must enter a name');
+          $('#submit-btn').prop('disabled', false);
+          return;
+      }else{
+          $('#card-name-errors').text(' ');
+      }
+      if(!condition_checkbox){
+          $('#card-checkbox-errors').text('Please accept terms and conditions.');
+          $('#submit-btn').prop('disabled', false);
+          return;
+      }else{
+          $('#card-checkbox-errors').text(' ');
+      }
+
+      stripe.createToken(cardNumber).then(function(result) {
+        if (result.error) {
+          // Inform the user if there was an error.
+          $('#submit-btn').prop('disabled', false);
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(result.token);
+          $('#stripe_token').val(result.token.id);
+          $.ajax({
+            type: "POST",
+            url: "{% url 'bill_pay' %}",
+            'data':{
+                'stripeToken': $('#stripe_token').val(),
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'product_id': {{ product_obj.id }}
+            },
+            success:function(response){
+                
+            }
+            });
+        
+        }
+      });
+    });
+
+    // $(document).ready(function(){
+
+    //     $('#apply-btn').on('click', function(e){
+    //         e.preventDefault();
+    //         var coupon = $('#coupon_code').val();
+    //         if (coupon){
+    //             validateCoupon(coupon);
+    //         }else{
+    //             $('#coupon_code').focus();
+    //             $('#coupon-errors').html('');
+    //             $('#coupon-errors').html('Please enter the coupon code.');
+    //         }
+    //     });
+
+    //     $('#coupon_code').keyup(function(){
+    //         if ($(this).val() == '') {
+    //             $('#submit-btn').prop('disabled', false);
+    //         } else {
+    //             $('#submit-btn').prop('disabled', true);
+    //         }
+    //     });
+    // });
+
+    // function validateCoupon(coupon){
+    //     $.ajax({
+    //         type: "POST",
+    //         data:{
+    //             'coupon': coupon,
+    //             'csrfmiddlewaretoken': '{{ csrf_token }}'
+    //         },
+    //         success:function(response){
+    //             $('#submit-btn').prop('disabled', false);
+    //             if(!response.valid){
+    //                 if(coupon){
+    //                     is_coupon_valid = false;
+    //                     $('#coupon-errors').show();
+    //                     $('#coupon-errors').html('Coupon code is not valid.');
+    //                 }else{
+    //                     $('#coupon-errors').hide();
+    //                 }
+    //             }else{
+    //                 is_coupon_valid = true;
+    //                 $('#coupon-errors').hide();
+    //                 toastr.success('Coupon Code Applyed Successfully');
+    //             }
+    //         }
+    //     });
+    // }
+
+    // Submit the form with the token ID.
+    function stripeTokenHandler(token) {
+        // Insert the token ID into the form so it gets submitted to the server
+        var form = document.getElementById('payment-form');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', token.id);
+        is_valid = 'True'
+
+
+        form.appendChild(hiddenInput);
+
+        // Submit the form
+        form.submit();
+    }
+
+</script>
+{% endblock %}

@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Categories{% endblock title %}
+{% block extra_css %}
+<style>
+    
+    .cat-text{
+        text-decoration: none !important;
+        color:  black !important;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+
+<div class="main-container bg-gray" style="margin-bottom: 0px;">
+    <div class="container top-seller-container" style="padding-bottom: 300px;">
+        <div class="tq-join-text pt-5 mt-5">
+            <div class="wrapper pl-4" style="justify-content: start !important;">
+                <div class="underline-area d-none d-lg-block" style="height: 40px;">
+                    <div class="title" style="font-size: 60px; margin-top: -60px; margin-left: -45px;">
+                        CATEGORIES
+                    </div>
+                </div>
+                <div class="underline-area d-lg-none d-xs-block" style="height: 40px;">
+                    <div class="title" style="font-size: 41px; margin-top: -36px; margin-left: -45px;">
+                        CATEGORIES
+                    </div>
+                </div>
+            </div>
+            <p class="font-medium-reg pl-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna</p>
+        </div>
+    </div>
+
+    <div class="top-seller-wrapper mt-5 pb-5 d-none d-lg-block" >
+        <div class="row row-right-margin" style="padding-left: 145px; padding-right: 110px;">
+            <div class="col-lg-6" style="margin-top: -180px;">
+                <div class="card-img">
+                    <img src="{% static  'images/women.svg' %}" width="100%" />
+<!--                     <div class="category-img-container">
+                        <img class="img-fluid" src="{% static  'images/women.svg' %}"/>
+                    </div>
+ -->
+                    <div class="banner">
+                        <div class="row">
+                            <div class="col-md-8">WOMEN
+                                <p class="text-muted font10 font-medium-reg">
+                                    <a class="cat-text" href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{% url 'product_list' %}?flag=WOMEN" class="font10 font-medium-reg" style="color: #007bff !important;">BROWSE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 category-margin-top" >
+                <div class="card-img">
+                    <img src="{% static  'images/men.svg' %}" width="100%" />
+
+                    <!-- <div class="category-img-container">
+                        <img class="img-fluid" src="{% static  'images/men.svg' %}"/>
+                    </div> -->
+                    <div class="banner">
+                        <div class="row">
+                            <div class="col-md-8">MEN
+                                <p class="text-muted font10 font-medium-reg">
+                                    <a class="cat-text" href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{% url 'product_list' %}?flag=MEN" class="font10 font-medium-reg" style="color: #007bff !important;">BROWSE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+    </style>
+    <div class="mobile-top-saller-wrapper d-lg-none d-xs-block">
+        <div class="mob-image-container">
+            <img class="img-fluid" src="{% static  'images/women.svg' %}"/>
+            <div class="mob-banner">
+                <div class="d-flex">
+                    <div class="flex-even">WOMEN
+                        <p class="text-muted font10 font-medium-reg">
+                            <a href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                    </div>
+                    <div class="flex-even">
+                        <a href="{% url 'product_list' %}?flag=WOMEN" class="font10 font-medium-reg" style="color: #007bff !important;">BROWSE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mob-image-container1">
+            <img class="img-fluid" src="{% static  'images/men.svg' %}"/>
+            <div class="mob-banner">
+                <div class="d-flex">
+                    <div class="flex-even">MEN
+                        <p class="text-muted font10 font-medium-reg">
+                            <a href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                    </div>
+                    <div class="flex-even">
+                        <a href="{% url 'product_list' %}?flag=MEN" class="font10 font-medium-reg" style="color: #007bff !important;">BROWSE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" bg-gray owl-mid-container">
+        <h4>SHOP EDITOR'S PICKS</h4>
+        <div class="row">
+            {% if products.count > 2 %}
+                <div class="owl-carousel">
+                    {% include 'product_filter.html' %}
+                </div>
+            {% else %}
+                {% include 'product_filter.html' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="top-seller-wrapper pt-5">
+    <div class="row row-right-margin " style="padding-left: 145px; padding-right: 110px;">
+        <div class="col-md-6 d-none d-lg-block">
+            <div class="card-img">
+                <img src="{% static  'images/women.svg' %}"  width="100%"/>
+                <div class="category_banner">
+                    <div class="row">
+                        <div class="col-md-8">
+                            ON SALE
+                            <p class="text-muted font10 font-medium-reg">
+                            <a class="cat-text" href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" class="font10 font-medium-reg">BROWSE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 d-none d-lg-block">
+            <div class="row">
+                <img src="{% static  'images/men.svg' %}" height="220" />
+                <div class="top-banner">
+                    <div class="row">
+                        <div class="col-md-8">
+                            NEW HOT STUFF
+                            <p class="text-muted font10 font-medium-reg">
+                                <a class="cat-text" href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" class="font10 font-medium-reg">BROWSE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <img src="{% static  'images/men.svg' %}" height="220" />
+                <div class="top-banner1">
+                    <div class="row">
+                        <div class="col-md-8">
+                            NEW HOT STUFF
+                            <p class="text-muted font10 font-medium-reg">
+                                <a class="cat-text" href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a class="cat-text" href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" class="font10 font-medium-reg">BROWSE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-top-saller-wrapper mt-4 d-lg-none d-xs-block">
+        <div class="mob-image-container">
+            <img class="img-fluid" src="{% static  'images/women.svg' %}"/>
+            <div class="mob-banner">
+                <div class="d-flex">
+                    <div class="flex-even">
+                        ON SALE
+                        <p class="text-muted font10 font-medium-reg">
+                        <a href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                    </div>
+                    <div class="flex-even">
+                        <a href="#" class="font10 font-medium-reg">BROWSE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mob-image-container1">
+            <img class="img-fluid" src="{% static  'images/men.svg' %}"/>
+            <div class="mob-banner">
+                <div class="d-flex">
+                    <div class="flex-even">
+                        NEW HOT STUFF
+                        <p class="text-muted font10 font-medium-reg">
+                            <a href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                    </div>
+                    <div class="flex-even">
+                        <a href="#" class="font10 font-medium-reg">BROWSE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mob-image-container1 mt-4">
+            <img class="img-fluid" src="{% static  'images/men.svg' %}"/>
+            <div class="mob-banner">
+                <div class="d-flex">
+                    <div class="flex-even">
+                        NEW HOT STUFF
+                        <p class="text-muted font10 font-medium-reg">
+                            <a href="{% url 'product_list' %}?flag=ALL">ALL</a>  |  <a href="{% url 'product_list' %}?flag=NEW">NEW</a>  |  <a href="{% url 'product_list' %}?flag=CLOTHING">CLOTHING</a>  |  <a href="{% url 'product_list' %}?flag=ACCESSORIES">ACCESSORIES</a></p>
+                    </div>
+                    <div class="flex-even">
+                        <a href="#" class="font10 font-medium-reg">BROWSE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" bg-gray owl-mid-container">
+        <h4>SHOP EDITOR'S PICKS</h4>
+        <!-- <div class="row"> -->
+            {% if products.count > 2 %}
+                <div class="owl-carousel">
+                    {% include 'product_filter.html' %}
+                </div>
+            {% else %}
+                {% include 'product_filter.html' %}
+            {% endif %}
+        <!-- </div> -->
+    </div>
+</div>
+<div class="mid-container bg-gray mt-5 p-5" style="margin-left: 0px;">
+    <div class="text-center">
+        <div class="wrapper">
+            <div class="underline-area d-none d-lg-block ">
+                <div class="title">
+                    DO YOU OWN A BRAND?
+                </div>
+            </div>
+            <div class="d-lg-none d-xs-block">
+                <div class="" style="font-size: 20px; font-weight: 900;">
+                   <p>DO YOU OWN A BRAND?</p> 
+                </div>
+            </div>
+        </div>
+        <p class="font-medium-reg text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo magna aliqua. Ut enim ad minim veniam</p>
+        <a class="tq-btn tq-btn-primary mt-4" href="{% url 'bussiness' %}">DISCOVER</a>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+$('.owl-carousel').owlCarousel({
+    responsiveClass:true,
+    
+    
+    responsive:{
+        0:{
+            items:1,
+            nav:false,
+            autoWidth: false,
+            
+        },
+        600:{
+            items:2,
+            nav:false,
+        },
+        1000:{
+            items:3,
+            nav:false,
+            loop:false,
+         
+           
+        }
+    },
+    nav: false, 
+    dots: true,
+    loop: true,
+    touchDrag  : true,
+    mouseDrag  : true,
+    navText: [
+        "<i class='fa fa-angle-left'></i>",
+        "<i class='fa fa-angle-right'></i>"
+      ],
+      autoplay: true,
+    });
+</script>
+{% endblock %}

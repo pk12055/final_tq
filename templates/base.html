@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock title %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- FAVICONS -->
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/apple-touch-icon.png">
+    <link rel="shortcut icon" href="assets/favicon.ico">
+    <meta name="theme-color" content="#3063A0">
+    <!-- End FAVICONS -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static "css/styles.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "css/price_filter.css" %}" />
+
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css">
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="app">
+        {% include 'sidebar.html' %}
+        {% include 'header.html' %}
+
+        <main class="{% if contact %}app-main{% elif request.user.is_authenticated %}app-main{% else %}auth-app{% endif %}" id="main-app">
+
+            {% block content %}{% endblock content %}
+            {% include 'footer.html' %}
+        </main>
+
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            {% if messages %}
+               {% for message in messages %}
+                    toastr.{{ message.tags }}("{{ message }}");
+                {% endfor %}
+            {% endif %}
+
+            $('#show-password').click(function () {
+                var type = document.getElementById('password').type;
+                if (type == 'text') {
+                    $('#password').attr('type', 'password');
+                    $('#show-password').removeClass('fa-eye');
+                    $('#show-password').addClass('fa-eye-slash');
+                } else {
+                    $('#password').attr('type', 'text');
+                    $('#show-password').addClass('fa-eye');
+                    $('#show-password').removeClass('fa-eye-slash');
+                }
+            })
+
+        });
+        toasterOptions();
+
+        function toasterOptions() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "100",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "show",
+                "hideMethod": "hide"
+            };
+        };
+
+        jQuery('#brand_country, #store_country').change(function() {
+            var obj_id = jQuery(this).val();
+
+            if (obj_id) {
+                jQuery.ajax({
+                    type: 'get',
+                    url: '/get_sub_info',
+                    data: {
+                        obj_id: obj_id,
+                        type: 'state'
+                    },
+                    success: function(data) {
+                        jQuery('#brand_state, #store_state').html(data);
+                    }
+                });
+                // $('#ads_city').attr('required');
+            } else {
+                jQuery('#brand_state, #store_state').html("<option>All Regions</option>");
+            }
+            jQuery('#brand_city, #store_city').html("<option value=''>All Locations</option>");
+        });
+
+        jQuery('#brand_state, #store_state').change(function() {
+            var obj_id = jQuery(this).val();
+
+            if (obj_id) {
+                jQuery.ajax({
+                    type: 'get',
+                    url: '/get_sub_info',
+                    data: {
+                        obj_id: obj_id,
+                        type: 'city'
+                    },
+                    success: function(data) {
+                        jQuery('#brand_city, #store_city').html(data);
+                    }
+                });
+            } else {
+                jQuery('#brand_city, #store_city').html("<option value=''>All Locations</option>");
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+
+</html>

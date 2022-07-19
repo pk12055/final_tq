@@ -1,0 +1,228 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+
+{% block title %}Brand Homepage{% endblock title %}
+{% block extra_css %}
+
+<style>
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %} !important;
+    }
+
+    .brand_style_main_color{
+        background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};
+    }
+
+    .brand_style_background_color_2nd{
+        background-color: {% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd  }}{% else %}#EFEFEF{% endif %} !important;
+    }
+
+    .brand-name-centered {
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      text-transform: uppercase;
+      font-size: 60px;
+      color: white;
+      font-family: 'din-medium';
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-lg-12">
+            <div class="container-fluid p-0">
+                <div class="row no-gutters">
+                    <div class="col-lg-12">
+                        <div id="carouselExampleControls" class="carousel slide text-center" data-ride="carousel">
+                            <div class="carousel-inner text-left">
+                                <div class="carousel-item active image-container" style="position:relative;">
+                                    {% if category_obj.main_pic_1 and not category_obj.is_draft %} 
+                                    <div class="card-img brand_style_main_color">
+                                        <img class="" src="/media/{{ category_obj.main_pic_1 }}" alt="profile_pic" style="height: 550px; filter: brightness(50%);" width="100%"/>
+                                        <div class="brand-name-centered">{{ category_obj.brand.brand_name }}</div>
+                                    </div>
+                                    {% else %}
+                                    <div class="card-img brand_style_main_color" style=" height: 550px;">
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="carousel-item image-container">
+                                    {% if category_obj.main_pic_2 and not category_obj.is_draft %} 
+                                    <div class="card-img brand_style_main_color">
+                                        <img class="" src="/media/{{ category_obj.main_pic_2 }}" alt="profile_pic" style="height: 550px; filter: brightness(50%);" width="100%"/>
+                                        <div class="brand-name-centered">{{ category_obj.brand.brand_name }}</div>
+                                    </div>
+                                    {% else %}
+                                    <div class="card-img brand_style_main_color" style=" height: 550px;">
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="position: absolute; color: black; left: 80px;">
+                                <span class="carousel-control-prev-icon"  aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" style="position: absolute;">
+                                <span class="carousel-control-next-icon" aria-hidden="true" style="color: black;"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-5" style="padding-left:0px;">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-11">
+                        <div class="text-center">
+                            <div class="wrapper pt-4">
+                                <div class="underline-area brand_style_main_color">
+                                    <div class="title brand_style_text_color">
+                                        DO YOU LIKE WHAT YOU SEE?
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="font-medium-reg p-3 brand_style_text_color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="p-2 text-center">
+                            <div class="row">
+                                {% include "product_filter.html" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 p-5 brand_style_background_color_2nd" style="padding-left:0px; margin-left: 100px;">
+                <div class="row">
+                    <div class="col-lg-6">
+                        {% if category_obj.normal_pic_1 and not category_obj.is_draft %} 
+                        <div class="card-img brand_style_main_color">
+                            <img class="" src="/media/{{ category_obj.normal_pic_1 }}" alt="profile_pic" style="height: 560px;" width="100%"/>
+                            <div class="builder-banner">
+                                <div class="row">
+                                    <div class="col-md-8 brand_style_text_color">
+                                        ON SALE
+                                        <p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="card-img brand_style_main_color" style="height: 560px;">
+                            <div class="builder-banner">
+                                <div class="row">
+                                    <div class="col-md-8 brand_style_text_color">
+                                        ON SALE
+                                        <p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            {% if category_obj.normal_pic_2 and not category_obj.is_draft %} 
+                            <div class="card-img brand_style_main_color">
+                                <img class="" src="/media/{{ category_obj.normal_pic_2 }}" alt="profile_pic" style="height: 274px;" width="100%"/>
+                                <div class="builder-top-banner">
+                                    <div class="row">
+                                        <div class="col-md-8" brand_style_text_color>
+                                            NEW HOT STUFF
+                                            <p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="#" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="card-img brand_style_main_color" style="height: 274px;">
+                                <div class="builder-top-banner">
+                                    <div class="row">
+                                        <div class="col-md-8 brand_style_text_color">
+                                            NEW HOT STUFF
+                                            <p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="#" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="row mt-2">
+                            {% if category_obj.normal_pic_3 and not category_obj.is_draft %} 
+                            <div class="card-img brand_style_main_color">
+                                <img class="" src="/media/{{ category_obj.normal_pic_3 }}" alt="profile_pic" style="height: 274px;" width="100%"/>
+                                <div class="builder-top-banner2">
+                                    <div class="row">
+                                        <div class="col-md-8 brand_style_text_color">
+                                            NEW HOT STUFF
+                                            <p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="#" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="card-img brand_style_main_color" style="height: 274px;">
+                                <div class="builder-top-banner2">
+                                    <div class="row">
+                                        <div class="col-md-8 brand_style_text_color">
+                                            NEW HOT STUFF
+                                            <p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="#" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-5 pb-5" style="padding-left:0px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <div class="wrapper pt-4">
+                                <div class="underline-area brand_style_main_color">
+                                    <div class="title brand_style_text_color">
+                                        DO YOU LIKE WHAT YOU SEE?
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="font-medium-reg p-3 brand_style_text_color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="p-2 text-center">
+                            <button class="tq-btn tq-btn-primary brand_style_text_color" style="{% if brand_style.main_color %}background-color: {{ brand_style.main_color  }}{% endif %} !important;">FOLLOW</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

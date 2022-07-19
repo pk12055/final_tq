@@ -1,0 +1,35 @@
+{% load static %}
+{% block content %}
+<div class="container">
+    <h4>REFERRALS</h4>
+    <div class="mt-5 ">
+        <textarea style="width: 100%" placeholder="Type email addresses here, divided by a comma" rows="12" class="referrals"></textarea>
+        <div class="text-right mt-2">
+            <button class="tq-btn tq-btn-primary" id="donateform">SEND</button>
+        </div>
+    </div>
+</div>
+
+
+    {% endblock %}
+
+{% block extra_js %}
+
+    <script>
+	$(document).on('click', '#donateform', function(e){
+		var search_val = $('.referrals').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '{% url "send_referral_alert" %}',
+            data: {
+				'referral': search_val
+            },
+            success: function(response) {
+				toastr.success('referral request sent too users!')
+            },
+        });
+    });
+    </script>
+
+{% endblock %}

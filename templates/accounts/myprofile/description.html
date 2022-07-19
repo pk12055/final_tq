@@ -1,0 +1,109 @@
+{% load static %}
+
+{% block extra_css %}
+
+<style>
+    
+    .product_name
+{
+    font-size:25px;
+}
+.product_name::-webkit-input-placeholder {
+    font-size: 25px;
+    line-height: 3;
+}
+.uploadedImg{height:100%;left:0;overflow:hidden;position:absolute;top:0;width:100%}
+.upload-image-thumbs li.upload-image{cursor:pointer;background-color:#f5f5f4;background-image:url(/static/images/add-image.png)}
+.upload-image-thumbs li{background-color:#f5f5f4;background-position:center center;background-repeat:no-repeat;background-size:75% auto;display:block;float:left;height:75px;list-style:outside none none;margin:.5em .7em .5em 0;position:relative;width:75px}
+.upload-placeholder.active{border:solid 6px #01ff70;border-radius:5px;width:106px;height:105px;margin:5px 8px 3px 0}
+.image-responsive{display:block;max-width:100%;height:100%}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h4>DESCRIPTION</h4>
+    <div class="mt-5">
+        <textarea style="width: 100%" placeholder="Type email addresses here, divided by a comma" rows="6"></textarea>
+    </div>
+</div>
+<div class="container">
+    <h4>PHOTOS</h4>
+    <div style="margin-left: -35px;">
+    <ul id="loaded-files" class="upload-image-thumbs upload-image-ul inline">
+    </ul>
+    <ul id="loaded-files1" class="upload-image-thumbs upload-image-ul">
+        <li class="upload-placeholder upload-image">
+            <div class="uploadedImg"></div>
+            <input type="hidden" name="uploded_id[]" class="uploded_id" />
+        </li>
+    </ul>
+    <div style="display:none;" id="upload_btn" class="upload_btn button button-primary">
+        Add pictures
+        <input id="inputfile" type="file" name="files[]" data-maxfilesize="4000000" class="" data-maxuploadfile="4" data-imagequality="0.7" multiple="" accept="image/*,video/mp4,video/x-m4v,video/*"/>
+    </div></div>
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script>
+
+    window.liindex = 0;
+    jQuery("body").on("click", ".upload-image", function() {
+        window.liindex = jQuery(this).index();
+        jQuery("#inputfile").click();
+    });
+
+    $("#image").hide();
+    $("#other_file").hide();
+    $("#inputfile").change(function () {
+        var input = document.getElementById('inputfile');
+        var fd = new FormData();
+        var a = 1024*1024;
+
+        for (var i = 0; i < input.files.length; i++) {
+
+            if (input.files.item(i).size/a<=100){
+                $("#loaded-files").append("<li id='"+input.files.item(i).name.replace(/\./g, '').replace(/\-/g, '').replace(/\s/g, '').replace(/\(/, '').replace(/\)/, '')+i+ "' class='loader_img'></li>")
+                fd.append("images", input.files.item(i));
+                fd.append("uid", input.files.item(i).name.replace(/\./g, '').replace(/\-/g, '').replace(/\s/g, '').replace(/\(/, '').replace(/\)/, '')+i);
+                valid = true;
+
+            }else{
+                alert(input.files.item(i).name + " Can not uploaded, file is more then 100mb")
+            }
+            if (valid){
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '{% url "product_img" %}',
+                    data: fd,
+                    contentType: false,
+                    dataType: "json",
+                    processData: false,
+                    success: function(response) {
+                        if (response.status){
+                            jQuery(".upload-image").find('input[class="uploded_id"]').val(response.image_name);
+                            
+                            var image = '<img class="image-responsive" src="' + response.image_url + '" >';
+                            jQuery("#loaded-files li#"+response.uid).removeClass("loader_img").html(jQuery(".upload-image").html());
+
+                            jQuery("#loaded-files li#"+response.uid+" .uploadedImg").html(image);
+                            jQuery("#loaded-files li#"+response.uid).addClass("upload-placeholder")
+
+                            const ul = document.getElementById('loaded-files');
+                            const listItems = ul.getElementsByTagName('li');
+                            if (listItems.length >=4){
+                                $("#loaded-files1").hide()
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+
+{% block title %}Brand Homepage{% endblock title %}
+{% block extra_css %}
+
+<style>
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %} !important;
+    }
+
+    .brand_style_main_color{
+        background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};
+    }
+
+    .brand_style_background_color_2nd{
+        background-color: {% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd  }}{% else %}#EFEFEF{% endif %} !important;
+    }
+        .close_brand_img {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    padding: 3px 5px 0px 6px;
+    right: 0px;
+    top:  0px;
+}
+
+.hide-btn{
+    display: none;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-lg-2">
+            {% include 'brand_sidebar.html' %}
+        </div>
+        <div class="col-lg-10">
+            <form method="POST" id="who-we-are-form" autocomplete="off" enctype='multipart/form-data'>
+            {% csrf_token %}
+                <div class="container-fluid p-0">
+                	<div class="row no-gutters">
+                        <div class="col-lg-12 pb-4">
+                            <div class="card-img brand_style_main_color" style=" height: 550px;">
+                                {% if who_we_are_obj.pic %}
+                                <div class="image-upload">
+                                
+                                    <label for="file-input1">
+                                        <img id="preview-product-img" src="{% if who_we_are_obj.pic %} /media/{{ who_we_are_obj.pic.name }}{% else %} {% endif %}" style="height: 550px;width: 1065px;" />
+                                    </label>
+                                    <input id="file-input1" type="file" name="pic" onchange="readURL(this);">                
+                                </div>
+                                {% else %}
+                                <div class="image-upload">
+                                    <label for="file-input1">
+                                        <div>
+                                            <i class="fa fa-times close_brand_img hide-btn" id="hellobutton"></i>
+                                            <img id="preview-product-img" src="" style="height: 550px;width: 1065px;" />
+                                        </div>
+                                    </label>
+                                    <input id="file-input1" type="file" name="pic" onchange="readURL(this);">
+                                </div>
+                                {% endif %}
+                                <div class="{% if who_we_are_obj.pic %}hide{% endif %}" style="color:white; position: absolute; top: 40%; left: 40%;">
+                                    <i class="fa fa-plus preview-img1 brand_style_text_color" style="color:white; padding-left:110px;"></i>
+                                    <p class="text brand_style_text_color text-center" style="color:white;">ADD A VIDEO OR PHOTO FOR BANNER</p>
+                                </div>
+                                <div class="who-we-are-banner">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="wrapper pl-4 pt-4" style="justify-content: start !important;">
+                                                <div class="underline-area brand_style_main_color">
+                                                    <div class="title brand_style_text_color">
+                                                        WHO WE ARE
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea name='para_1' rows="4" class="input-control mb-5 brand_style_text_color" type="text" id="para_1" value="" />{{ who_we_are_obj.para_1 }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container mt-5 p-4">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <textarea name='para_2' class="input-control mb-5 brand_style_text_color" type="text" id="para_2" value=""/>{{ who_we_are_obj.para_2 }}</textarea>
+                        </div>
+
+                        <div class="col-lg-11 mt-5">
+                            <textarea name='para_3' class="input-control mb-5 brand_style_text_color" type="text" id="para_3" value=""/>{{ who_we_are_obj.para_3 }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="is_draft" value="" id="draft" />
+            </form>
+
+            <div class="container mt-5 pt-5 pb-5 brand_style_background_color_2nd" style="padding-left:0px;">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="float-right">
+                            <a class="nav-link" href="{% url 'account' %}">
+                            <img class="nav-img" src="{% if user.profile_pic %}/media/{{user.profile_pic}}{% else %}{{default_image}}{% endif %}" alt="profile_pic" height="75" width="75" /></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-12 brand_style_text_color">
+                                <h3>PULKIT KUMAR</h3>
+                            </div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 pt-3">
+                        <button class="tq-btn tq-btn-primary brand_style_text_color" style="{% if brand_style.main_color %}background-color: {{ brand_style.main_color  }}{% endif %} !important;">FOLLOW</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+
+    $("#form-submit").on("click", function(){
+        $('#who-we-are-form').submit();
+    });
+
+    $("#draft-submit").on("click", function(){
+        var b = document.getElementById("draft");
+        b.setAttribute("value", "true");
+        $('#who-we-are-form').submit();
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var img = new Image;
+                valid = false;
+                img.onload = function() {
+                    if(img.width >= 1065 && img.height >= 550 && input.files[0].size/1024/1024 <=20  && input.files[0].size/1024/1024 >=0){
+                        valid = true;
+                    }
+                    if(valid){
+                        $('.preview-img1').hide();
+                        $('.text').hide();
+                        $('.hide-btn').show();
+                        $('#preview-product-img')
+                            .attr('src', e.target.result)
+                            .width(1070)
+                            .height(550);
+                    }
+                    else{
+                        toastr.error('Select image greater than 1060*550 and less than 20mb')
+                    }
+                };
+                img.src = reader.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+{% endblock %}

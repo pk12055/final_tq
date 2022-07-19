@@ -1,0 +1,70 @@
+{% load static %}
+{% if products %}
+	{% for i in products %}
+
+	<div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-5">
+		<div class="product-card">
+			<a href="{% if edit_mode_sale %}{% url 'edit_product' i.id %}{% else %}{% url 'product_detail' i.id %}{% endif %}">
+				<div class="product-card-body">
+					<div class="product-like-area">
+						<div class="product-like">
+							<form action="{% url 'favourite' %}" method="POST">
+								{% csrf_token %}
+								<input type="hidden" name="product_id" value="{{ i.id }}">
+								{% if user not in i.favourite.all %}
+								<button type="submit" class="follow_btn"><i class="fa fa-heart-o"></i></button>
+								{% else %}
+								<button type="submit" class="follow_btn"><i class="fa fa-heart"></i></button>
+								{% endif %}
+							</form>
+						</div>
+					</div>
+					<img class="card-img product-image"
+						src="{% if i.product_pic %}/media/{{i.product_pic}}{% else %}{%static 'images/product-image.svg' %}{% endif %}"
+						height="100%" alt="Vans" />
+
+				</div>
+			</a>
+			<div class="product-card-details">
+				<div class="product-title">
+					{% if i.product_name is not None %}{{ i.product_name }}{% endif %}
+				</div>
+				<div class="product-brand-name">
+					{% if i.brand is not None %}{{ i.brand }}{% endif %}
+				</div>
+				<div class="row">
+					<div class="col-6 product-price">
+						{% if i.product_price is not None %}$ {{ i.product_price }}{% else %}$ 0.00{% endif %}
+					</div>
+					<div class="col-6 text-right">
+						{% for review in product_review %}
+							{% if i == review.product %}
+								{% with ''|center:review.rating as range %}
+		           				{% for i in range %}
+									<i class="fa fa-star" style="font-size: 25px;"></i>
+								{% endfor %}
+
+								{% if 2  > 0 and 2 < 6 %}
+									{% with ''|center:2 as range %}
+		           						{% for j in range %}
+											<i class="fa fa-star-o" style="font-size: 25px;"></i>
+										{% endfor %}
+									{% endwith %}
+								{% endif %}
+
+								{% endwith %}
+							{% endif %}
+
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endfor %}
+{% else %}
+<div class="col-lg-12" style="padding: 150px 50px 300px 50px; text-align: center;">
+	<h2>OOPS! THERE IS NO PRODUCT ADDED FOR THIS CATEGORY</h2>
+</div>
+{% endif %}

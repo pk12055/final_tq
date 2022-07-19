@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}10Quarters{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="main-container bg-gray">
+	<div class="hero-slider container res-margin-top" id="first-img">
+		<div class="row">
+			<div class="col-lg-5 col-md-6">
+				<h1 class="hero-title">
+					WORLDS
+					HUB FOR
+					INDIE
+					BRANDS</h1>
+				<div class="hero-title-bg"></div>
+			</div>
+			<div class="col-lg-2 heros-image">
+				<img class="hero-slider-img" src="{%static 'images/hero-slider-one.png' %}">
+			</div>
+			<div class="col-lg-5">
+				<div class="hero-slider-brand-logo d-none d-lg-block">
+					<img src="{% static 'images/arrow-thin-right.png' %}" height="10" />
+					<p class="font12">THIS MODEL WEARS</p>
+					<div class="brand-logo">
+						<img src="{% static 'images/brand-logo.png' %}" height="60" />
+					</div>
+				</div>
+				<div class="hero-slider-controls d-none d-lg-block">
+					<div class="hero-slider-no">
+						01
+					</div>
+					<div class="row">
+						<div class="col-4 hero-slider-prev">
+							<img class="" src="{%static 'images/chevron-thin-left.png' %}" height="10">
+						</div>
+						<div class="col-1"></div>
+						<div class="col-4 hero-slider-next" id="next_img">
+							<img class="" src="{%static 'images/chevron-thin-right.png' %}" height="10">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hero-slider container" id="second-img">
+		<div class="row">
+			<div class="col-lg-5">
+				<h1 class="hero-title">
+					WORLDS
+					HUB FOR
+					INDIE
+					BRANDS</h1>
+				<div class="hero-title-bg"></div>
+			</div>
+			<div class="col-lg-2 heros-image">
+				<img class="hero-slider-img2" src="{%static 'images/hero-slider-two.svg' %}" height="550">
+			</div>
+			<div class="col-lg-5">
+				<div class="hero-slider-brand-logo d-none d-lg-block">
+					<img src="{% static 'images/arrow-thin-right.png' %}" height="10" />
+					<p class="font12">THIS MODEL WEARS</p>
+					<div class="brand-logo">
+						<img src="{% static 'images/brand-logo-2.svg' %}" height="60" />
+					</div>
+				</div>
+				<div class="hero-slider-controls d-none d-lg-block">
+					<div class="hero-slider-no">
+						02
+					</div>
+					<div class="row">
+						<div class="col-4 hero-slider-prev" id="prev_img">
+							<img class="" src="{%static 'images/chevron-thin-left.png' %}" height="10">
+						</div>
+						<div class="col-1"></div>
+						<div class="col-4 hero-slider-next">
+							<img class="" src="{%static 'images/chevron-thin-right.png' %}" height="10">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="top-seller-wrapper">
+		<div class="container top-seller-container">
+			<div class="text-center">
+				<div class="wrapper pl-4 pt-4">
+					<div class="underline-area">
+						<div class="title">
+							TOP SELLERS
+						</div>
+					</div>
+				</div>
+				<p class="font-medium-reg p-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua.</p>
+			</div>
+			<div class="conatiner">
+				<div class="row" id="product_list">
+					{% include 'product_filter.html' %}
+				</div>
+			</div>
+		</div>
+
+		{% if has_next %}
+		<div class="p-5 text-center">
+			<a class="tq-btn tq-btn-primary" value="{{ next_page }}" page={{ next_page }} id="load-more">VIEW MORE</a>
+		</div>
+		{% endif %}
+	</div>
+
+	<div class="mid-container bg-gray" style="margin-left: 0px; padding-left: 145px; padding-right: 110px;">
+	</div>
+	
+	<div class="container ccc">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="title-desc">
+					<h1 class=" indie-titles indie-title-desc">DO YOU OWN AN INDIE BRAND?</h1>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, assumenda? Unde a nobis
+						nostrum minima necessitatibus tempora sapiente ab ea.</p>
+					<div style="display: flex; justify-content: center;">
+						<a class="tq-btn tq-btn-primary">DISCOVER</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<img class="img-fluid" src="{%static 'images/home.png' %}" style="position: relative; z-index: 2;">
+			</div>
+			<div class="indie-title-bg"></div>
+		</div>
+	</div>
+	<div class="top-seller-wrapper">
+		<div class="container top-seller-container">
+			<div class="text-center">
+				<div class="wrapper pl-4 pt-4">
+					<div class="underline-area">
+						<div class="title">
+							TOP BRANDS
+						</div>
+					</div>
+				</div>
+				<p class="font-medium-reg p-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua.</p>
+			</div>
+			<div class="conatiner">
+				<div id="product_list">
+					{% include 'brand/brand_card.html' %}
+				</div>
+			</div>
+		</div>
+
+		{% if has_next %}
+		<div class="p-5 text-center">
+			<a class="tq-btn tq-btn-primary" value="{{ next_page }}" page={{ next_page }} id="load-more">VIEW MORE</a>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+	$("#second-img").css('display', 'none')
+	$("#first-img").css('display', 'block')
+	$("#prev_img").on("click", function () {
+		$("#first-img").css('display', 'block')
+		$("#second-img").css('display', 'none')
+	})
+	$("#next_img").on("click", function () {
+		$("#first-img").css('display', 'none')
+		$("#second-img").css('display', 'block')
+	})
+
+	$("#load-more").on("click", function () {
+		page = $("#load-more").attr('page');
+		data = {
+			'page': page
+		}
+		$.get({
+			'url': "{% url 'homepage' %}",
+			'data': data,
+			'cache': false,
+			'success': function (response) {
+				response = JSON.parse(response)
+				$('#product_list').append(response['data'])
+				if (!response['has_next']) {
+					$("#load-more").hide();
+				}
+				$("#load-more").val(response['next_page'])
+			}
+		})
+	})
+</script>
+
+{% endblock extra_js %}

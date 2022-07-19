@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock title %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+<div class="profile-wrapper">
+    <div class="profile-header"> 
+        <div class="container top-seller-container" style="background-color: #EFEFEF; padding-bottom: 15rem;">
+            <div class="wrapper pl-4 pr-4">
+                <div class="underline-area">
+                    <div class="title">
+                        CONTACTS
+                    </div>
+                </div>
+            </div>
+            <p class="pl-4 pr-4 title-text">SELECT A STATE TO DISCOVER NEW AWESOME INDEPENDENT BRANDS</p>
+        </div>
+    </div>
+    <div class="container top-seller-container" style="margin-top: -300px;">
+        <form method="POST" class="contact-input p-4">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-6 col-12 mt-3">
+                    <input type="text" class="form-control" name="name" placeholder="Name" style="box-shadow: 2px 2px 4px grey;">
+                </div>
+
+                <div class="col-lg-6 col-12 mt-3">
+                    <input type="email" class="form-control" name="email" placeholder="Email" style="box-shadow: 2px 2px 4px grey;">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-12 col-12">
+                    <textarea class="form-control" rows="10" placeholder="Type your message here...." name="message" style="box-shadow: 2px 2px 4px grey;"></textarea>
+                </div>
+            </div>
+            <div class="row mt-5 mb-5">
+                <div class="col-lg-6" style="text-align: start;">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input for_sale" id="agree" name="agree" value="agree">
+                        <label class="custom-control-label brand_style_text_color" for="agree">ELECT A STATE TO DISCOVER</label>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 contact-btn">
+                    <button class="tq-btn tq-btn-primary brand_style_text_color" id="agree_btn" disabled>Send</button> 
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{%endblock%}
+
+
+{% block extra_js %}
+<script>
+    $('.contact-input').validate({
+        rules:{
+            name:{
+                required: true
+            },
+            email:{
+                required: true
+            }
+        }
+    });
+   
+   $('#agree').click(function () {
+        if ($(this).is(':checked')) {
+
+            $('#agree_btn').removeAttr('disabled'); //enable input
+
+        } else {
+            $('#agree_btn').attr('disabled', true); //disable input
+        }
+    });
+   </script>
+    {%endblock%}

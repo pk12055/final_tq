@@ -1,0 +1,542 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+{% load filter %}
+
+
+{% block title %}Brand Homepage{% endblock title %}
+{% block extra_css %}
+
+<style>
+.close_img {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    padding: 3px 0px 0px 6px;
+    position: absolute;
+    right: 0;
+}
+
+.close_color {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    padding: 3px 6px;
+    right: 0;
+    height: 24px;
+    width: 24px;
+	position: absolute;
+}
+
+.close_size {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    padding: 3px 6px;
+    right:22px;
+    height: 24px;
+    width: 24px;
+    position: absolute;
+}
+
+.close_main_img {
+    background: #000 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    padding: 3px 5px 0px 6px;
+    position: absolute;
+    right: -55px;
+    top:  -10px;
+}
+
+	.product_name
+{
+    font-size:25px;
+}
+.product_name::-webkit-input-placeholder {
+    font-size: 25px;
+    line-height: 3;
+}
+.uploadedImg{height:100%;left:0;overflow:hidden;position:absolute;top:0;width:100%}
+.upload-image-thumbs li.upload-image{cursor:pointer;background-color:#f5f5f4;background-image:url(/static/images/add-image.png)}
+.upload-image-thumbs li{background-color:#f5f5f4;background-position:center center;background-repeat:no-repeat;background-size:75% auto;display:block;float:left;height:75px;list-style:outside none none;margin:.5em .7em .5em 0;position:relative;width:75px}
+.upload-placeholder.active{border:solid 6px #01ff70;border-radius:5px;width:106px;height:105px;margin:5px 8px 3px 0}
+.image-responsive{display:block;max-width:100%;height:100%}
+
+.upload-color-thumbs li.upload-color{cursor:pointer;background-color:#f5f5f4;background-image:url(/static/images/add-image.png)}
+
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %} !important;
+    }
+
+    .brand_style_main_color{
+        background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};
+    }
+    .brand_filter{
+    	border-bottom: 1px solid #ced4da !important;
+    }
+
+.hide-cross{
+	display: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="padding:0px; margin:0px; padding-bottom: 150px;">
+    <div class="row no-gutters">
+        <div class="col-lg-2">
+            {% include 'brand_sidebar.html' %}
+        </div>
+        <div class="col-lg-10 pl-3">
+        	<form method="POST" id="product-form" autocomplete="off" enctype='multipart/form-data'>
+                {% csrf_token %}
+            	<div class="container-fluid pt-5">
+	            	<div class="row no-gutters">
+	                    <div class="col-lg-4">
+	                    	<div class="row">
+		                    	<div class="card-img img-color brand_style_main_color" style="height: 520px;">
+			                    	<div class="image-upload"  style="text-align: center">
+		                                <label for="file-input3">
+		                                	<i class="fa fa-times close_main_img hide-cross"></i>
+		                                	<img id="preview-product-img" src="{% if edit_item %}{% if product_form.product_pic.value %} /media/{{ product_form.product_pic.value }}{% else %}{%static 'images/product-image.svg' %}{% endif %}{% else %}{% endif %}" style="{% if edit_item and product_form.product_pic.value %}height: 520px; {% endif %}" width="100%" />
+		                                    <i class="fa fa-plus product-img brand_style_text_color {% if edit_item %}hide{% endif %}" style="color:white; padding-top: 230px"></i>
+		                                </label>
+	                                    <input id="file-input3" type="file" name="product_pic" onchange="readURL(this);"/>
+		                            </div>
+		                            <p class="product-img brand_style_text_color {% if edit_item %}hide{% endif %}" style="color:white; text-align: center; font-size: 13px;">Add a photo of the product</p>
+			                	</div>
+			                </div>
+			                <div style="margin-left: -55px;">
+			                	<ul id="loaded-files" class="upload-image-thumbs upload-image-ul inline">
+                                {% if edit_item and product_img %}
+                                    {% for i in product_img %}
+                            		<li class="upload-placeholder" id="88">
+                                		<div class="uploadedImg">
+                                			<i class="fa fa-times close_img"></i>
+                                			<img src="/media/{{ i.name }}" class="image-responsive">
+                                		</div>
+                                		<input type="hidden" name="uploded_id[]" class="uploded_id" value="{{ i.name }}">
+                                    </li>
+                                    {% endfor %}
+                                {% endif %}
+                                </ul>
+                                <ul id="loaded-files1" class="upload-image-thumbs upload-image-ul">
+                                    <li class="upload-placeholder upload-image">
+                                        <div class="uploadedImg"></div>
+                                        <input type="hidden" name="uploded_id[]" class="uploded_id" />
+                                    </li>
+                                </ul>
+                                <div style="display:none;" id="upload_btn" class="upload_btn button button-primary">
+                                    Add pictures
+                                    <input id="inputfile1" type="file" name="files[]" data-maxfilesize="4000000" class="" data-maxuploadfile="4" data-imagequality="0.7" multiple="" accept="image/*,video/mp4,video/x-m4v,video/*"/>
+                                </div>
+			                </div>
+
+	                    </div>
+	                    <div class="col-lg-6 pl-5">
+	                    	<div class="row">
+	                    		<div class="col-lg-12 pr-5 pl-5">
+	                    			<label for="product_name" style="color: grey;">Name:</label>
+	                    			<b><input name='product_name' id="product_name" class="input-control product_name brand_style_text_color" type="text" value="{% if edit_item %}{{ product_form.product_name.value }} {% endif %}" /></b>
+	                    		</div>
+	                    	</div>
+	                    	<div class="row">
+	                    		<div class="col-lg-12 pl-5 pt-5 pr-5">
+	                    			<label for="product_description" style="color: grey; font-weight: inherit;">Description:</label>
+	                    			<textarea name='product_description' id="product_description" rows='5' class="brand_style_text_color input-control mb-5" type="text">{% if edit_item %}{{ product_form.product_description.value }} {% endif %}</textarea>
+	                    		</div>
+	                    	</div>
+	                    	<div class="row" style="padding-right: 32px;">
+	                    		<div class="col-lg-12 pl-5">
+	                    			<label for="product_tags" style="color: grey; font-weight: inherit;">Tags:</label>	
+	                    		</div>
+	                    		
+	                    		<div class="col-lg-4 pl-5">
+	                    			<input name='tag_1' class="brand_style_text_color input-control mb-5" type="text" style="padding-left: 30px;" value="{% if edit_item %}{{ product_form.tag_1.value }} {% endif %}"></input>
+	                    		</div>
+	                    		<div class="col-lg-4 pl-5">
+	                    			<input name='tag_2' class="brand_style_text_color input-control mb-5" type="text" style="padding-left: 30px;" value="{% if edit_item %}{{ product_form.tag_2.value }} {% endif %}"></input>
+	                    		</div>
+	                    		<div class="col-lg-4 pl-5">
+	                    			<input name='tag_3' class="brand_style_text_color input-control mb-5" type="text" style="padding-left: 30px;" value="{% if edit_item %}{{ product_form.tag_3.value }} {% endif %}"></input>
+	                    		</div>
+	                    	</div>
+	                    	<div class="row pt-2">
+	                    		<div class="col-lg-5 pl-5">
+	                    			<div class="row">
+		                    			<div class="col-lg-12">
+		                    				<label for="product_tags" style="color: grey; font-weight: inherit;">Price:</label>
+		                    			</div>
+		                    			<div class="col-lg-1">
+		                    				<span style="font-family: 'din-medium'">$</span>
+		                    			</div>
+		                    			<div class="col-lg-9">
+		                    				<input name='product_price' class="brand_style_text_color input-control" type="number" value="{% if edit_item %}{{ product_form.product_price.value }}{% endif %}" style="margin-left: -15px;" min="0">
+		                    			</div>
+	                    			</div>
+	                    		</div>
+	                    		<div class="col-lg-5">
+	                    			<label for="product_tags" style="color: grey; font-weight: inherit;">Material:</label>
+	                    			<input name='product_material' class="brand_style_text_color input-control" type="text" value="{% if edit_item %}{{ product_form.product_material.value }} {% endif %}">
+	                    		</div>
+	                    	</div>
+
+	                    	<div class="row pt-5">
+	                    		<div class="col-lg-5 pl-5">
+	                    			<label for="product_tags" style="color: grey; font-weight: inherit;">Category:</label>
+	                    			<select class="brand_filter mb-3 brand_filter_text" aria-label=".form-select-lg example" name="product_category">
+										<option selected class="brand_style_text_color">{% if edit_item and product_form.product_category.value is not None %}{{ product_form.product_category.value }}{% else %}Choose Category{% endif %}</option>
+						                <option value="Activewears" class="brand_style_text_color">Activewears</option>
+						                <option value="Dresses" class="brand_style_text_color">Dresses</option>
+						                <option value="Jackets And Coats" class="brand_style_text_color">Jackets And Coats</option>
+						                <option value="Jumpsuits and Playsuits" class="brand_style_text_color">Jumpsuits and Playsuits</option>
+						                <option value="Knitwear" class="brand_style_text_color">Knitwear</option>
+						                <option value="Swimwear" class="brand_style_text_color">Swimwear</option>
+						                <option value="Tops" class="brand_style_text_color">Tops</option>
+						                <option value="Trouser" class="brand_style_text_color">Trouser</option>
+						                <option value="Other" class="brand_style_text_color">Other</option>
+									</select>
+	                    		</div>
+	                    		<div class="col-lg-2"></div>
+	                    	</div>
+
+	                    	<div class="row pt-3" id="cat_row">
+	                    		<div class="col-lg-12 pl-5">
+	                    			<label for="product_tags" style="color: grey; font-weight: inherit;">Size and Quantity:</label>
+	                    		</div>
+	                    		{% if edit_item and product_form.product_size_and_quantity.value %}
+	                    		{% with product_form.product_size_and_quantity.value|dict as remaining_size_and_quantity%}
+	                    		{% for key, value in remaining_size_and_quantity.items %}
+	                    		<div class="row">
+		                    		<div class="col-lg-6 pl-5" style="width: 140px; margin-left: 15px;">
+		                    			<select class="brand_filter brand_size mb-3 brand_filter_text" aria-label=".form-select-lg example" name="product_size">
+											<option selected class="brand_style_text_color" value="{{ key }}">{{ key }}</option>
+							                <option value="XXS" class="brand_style_text_color">XXS</option>
+							                <option value="XS" class="brand_style_text_color">XS</option>
+							                <option value="S" class="brand_style_text_color">S</option>
+							                <option value="M" class="brand_style_text_color">M</option>
+							                <option value="L" class="brand_style_text_color">L</option>
+							                <option value="XL" class="brand_style_text_color">XL</option>
+							                <option value="XXL" class="brand_style_text_color">XXL</option>
+							                <option value="XXXL" class="brand_style_text_color">XXXL</option>
+										</select>
+		                    		</div>
+		                    		<div class="col-lg-4" style="width: 170px; margin-left: 30px;">
+		                    			<input type="number" name="added_product_quantity" class="brand_filter brand_qty mb-3 brand_filter_text" placeholder="Add Quantity" value="{{ value }}">
+		                    		</div>
+		                    		<i class="fa fa-times close_size"></i>
+	                    		</div>
+	                    		{% endfor %}
+	                    		{% endwith %}
+	                    		{% endif %}
+	                    		<div class="col-lg-5 pl-5">
+	                    			<select class="brand_filter brand_size mb-3 brand_filter_text" aria-label=".form-select-lg example" name="product_size">
+										<option disabled selected class="brand_style_text_color">Choose a Size</option>
+						                <option value="XXS" class="brand_style_text_color">XXS</option>
+						                <option value="XS" class="brand_style_text_color">XS</option>
+						                <option value="S" class="brand_style_text_color">S</option>
+						                <option value="M" class="brand_style_text_color">M</option>
+						                <option value="L" class="brand_style_text_color">L</option>
+						                <option value="XL" class="brand_style_text_color">XL</option>
+						                <option value="XXL" class="brand_style_text_color">XXL</option>
+						                <option value="XXXL" class="brand_style_text_color">XXXL</option>
+									</select>
+	                    		</div>
+	                    		<div class="col-lg-5">
+	                    			<input type="number" name="added_product_quantity" class="brand_filter brand_qty mb-3 brand_filter_text" placeholder="Add Quantity">
+	                    		</div>
+	                    		<div class="col-lg-2 mt-2">
+		                            <i class="fa fa-plus add_cat_option add_option" aria-hidden="true" style="margin-left: 10px;font-size: larger; cursor: pointer;"></i>
+	                    		</div>
+	                    		<input type="hidden" id="product_size" name="product_size[]">
+	                    		<input type="hidden" id="product_quantity" name="product_quantity[]">
+	                    	</div>
+
+	                    	<div class="row p-4">
+	                    		<div class="col-lg-5 pl-4">
+	                    			<div class="custom-control custom-switch">
+									  	<input type="checkbox" class="custom-control-input for_sale brand_style_text_color" id="sale" name="is_sale" value="1">
+									  	<label class="custom-control-label brand_style_text_color" for="sale">For sale</label>
+									</div>
+	                    		</div>
+	                    	</div>
+
+	                    	<div class="row" id="sale_box">
+	                    		<div class="col-lg-5 pl-5">
+	                    			<label for="product_tags" style="color: grey; font-weight: inherit;">Sale Type:</label>
+	                    			<select class="brand_filter mb-3 brand_filter_text" aria-label=".form-select-lg example" name="product_sale_type">
+										<option selected class="brand_style_text_color">{% if edit_item and product_form.product_sale_type.value is not None %}{{ product_form.product_sale_type.value }}{% else %}Sale Type{% endif %}</option>
+						                <option value="Value" class="brand_style_text_color">Value</option>
+						                <option value="Percentage" class="brand_style_text_color">Percentage</option>
+									</select>
+	                    		</div>
+	                    		<div class="col-lg-5 pl-5">
+	                    			<label for="product_tags" style="color: grey; font-weight: inherit;">Sale Value:</label>
+	                    			<input name='product_sale_amount' class="brand_style_text_color input-control" type="number" value="{% if edit_item %}{{ product_form.product_sale_amount.value }}{% endif %}" min="0">
+	                    		</div>
+	                    	</div>
+	                    	
+	                    	<div class="row pt-3">
+	                    		<div class="col-lg-12 pl-5">
+	                    			<label for="product_tags" style="color: grey; font-weight: inherit;">Item Colors:</label>
+	                    		</div>
+			                	<div class="row pl-5" id="color_show">
+			                		{% if edit_item and product_form.product_color %}
+				                		{% with product_form.product_color.value|split:',' as colors %}
+					                		{% for col in colors %}
+					                		<div style="position: relative">
+							                	<input type="color" name="product_color[]" class="pro_color ml-2"  style="height: 80px; width: 80px; border-bottom: none;" value="{{ col }}">
+							                	<i class="fa fa-times close_color"></i>
+							                </div>
+						                	{% endfor %}
+					                	{% endwith %}
+					                {% endif %}
+					                <input type="color" name="product_color[]" class="pro_color ml-2"  style="height: 80px; width: 80px; border-bottom: none;">
+				                </div>
+			                	<i class="fa fa-plus add_color_option" id="pro_color" style="margin-left: 20px; background-color: white; border: 1px solid black;  padding: 30px 30px 0px 30px; cursor: pointer;"></i>
+			                </div><!-- 
+			                <div class="row">
+
+	                    		<div class="col-lg-12"></div>
+	                    		<div class="col-lg-6 pt-5">
+	                            	<button class="brand_style_text_color tq-btn tq-btn-primary {% if user.user_type == Brand %} disabled {% endif %}" style="border: none; cursor: not-allowed !important; {% if brand_style.main_color %}background-color: {{ brand_style.main_color  }}{% endif %} !important;" disabled>ADD TO MY WISHLIST</button>
+	                    		</div>
+	                    		<div class="col-lg-4 p-5">
+	                            	<div class="container pb-2">
+					                    <button class="brand_style_text_color tq-btn tq-btn-primary not-allowed {% if user.user_type == 'Brand' %} disabled {% endif %}" style="{% if brand_style.main_color %}background-color: {{ brand_style.main_color  }}{% endif %} !important; cursor: not-allowed !important;" disabled>ADD TO CART</button>
+	                            		
+					                </div>
+	                    		</div>
+	                    	</div> -->
+	                    </div>
+	                </div>
+            	</div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+    catagory_field_option = '<div class="row"><div class="col-lg-6 pl-5" style="width: 140px; margin-left: 15px;"><select class="brand_filter brand_size mb-3 brand_filter_text" aria-label=".form-select-lg example" name="product_size"><option selected>Choose a Size</option><option value="XXS">XXS</option><option value="XS">XS</option><option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option><option value="XXL">XXL</option><option value="XXXL">XXXL</option></select></div><div class="col-lg-4" style="width: 170px; margin-left: 30px;"><input type="number" name="added_product_quantity" class="brand_filter brand_qty mb-3 brand_filter_text" placeholder="Add Quantity"></div><i class="fa fa-times close_size"></i></div>'
+
+	$('.add_cat_option').on('click', function(){
+        $('#cat_row').append(catagory_field_option)
+    })
+
+	$('.hide-cross').hide();
+    color_pick = '<div style="position: relative"><input type="color" name="product_color[]" class="pro_color" style="height: 80px; width: 80px; border-bottom: none;"><i class="fa fa-times close_color"></i></div>'
+
+	$('.add_color_option').on('click', function(){
+        $('#color_show').append(color_pick)
+    })
+
+    $('.pro_color').change(function(){
+    	var color = $("input[name='product_color']").val()
+    	jQuery(".upload-color").find('input[class="uploded_color"]').val(color);
+    })
+
+
+	$(function validate() {
+
+        var secure_rules = {
+            rules: {
+                product_name: {
+                    required: true
+                },
+                product_size: {
+                    required: true,
+                },
+                product_quantity: {
+                    required: true,
+                },
+                product_price: {
+                    required: true,
+                },
+
+            },
+        }
+        $('#product-form').validate(secure_rules);
+    });
+
+
+	const ul = document.getElementById('loaded-files');
+	const listItems = ul.getElementsByTagName('li');
+	if (listItems.length >=4){
+		$("#loaded-files1").hide()
+	}
+
+    $("#product-submit").on("click", function(){
+
+    	brnd_size = [];
+    	brnd_qty = [];
+    	jQuery('.brand_size').each(function(){
+    		value = jQuery(this).val()
+    		if (value){
+	    		brnd_size.push(value);
+    		}
+    	})
+    	jQuery('.brand_qty').each(function(){
+    		value = jQuery(this).val()
+    		if (value){
+	    		brnd_qty.push(value);
+    		}
+    	})
+    	$("#product_quantity").val(brnd_qty)
+    	$("#product_size").val(brnd_size)
+    	$('#product-form').submit();
+
+	});
+
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+            	var img = new Image;
+            	valid = false;
+	            img.onload = function() {
+	            	if(img.width >= 260 && img.height >= 520 && input.files[0].size/1024/1024 <=20){
+	            		valid = true;
+	            	}
+	            	if(valid){
+		            	$('.product-img').hide();
+		            	$('.img-color').removeClass();
+		            	$('.hide-cross').show();
+		                $('#preview-product-img')
+		                    .attr('src', e.target.result)
+		                    .width(400)
+		                    .height(520);
+		            }
+		            else{
+		            	toastr.error('Select image greater than 260*520 and less than 20mb')
+		            }
+	            };
+	            img.src = reader.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    // $(document).on('click', '.for_sale', function(){
+    //     $('#sale_box').toggle();
+    // });
+    $('#sale_box').hide();
+
+    $('#sale').click(function() {
+
+	    if(!$(this).is(':checked')){
+			$('#sale_box').hide();
+	    }else{
+	    	$('#sale_box').show();
+	    }
+	})
+
+    window.liindex = 0;
+    jQuery("body").on("click", ".upload-image", function() {
+        window.liindex = jQuery(this).index();
+        jQuery("#inputfile1").click();
+    });
+
+    $("#image").hide();
+    $("#other_file").hide();
+    $("#inputfile1").change(function () {
+        var input = document.getElementById('inputfile1');
+        var fd = new FormData();
+        var a = 1024*1024;
+
+        for (var i = 0; i < input.files.length; i++) {
+
+            if (input.files.item(i).size/a<=5){
+                $("#loaded-files").append("<li id='"+input.files.item(i).name.replace(/\./g, '').replace(/\-/g, '').replace(/\s/g, '').replace(/\(/, '').replace(/\)/, '').replace(/\@/, '')+i+ "' class='loader_img'></li>")
+                fd.append("images", input.files.item(i));
+                fd.append("uid", input.files.item(i).name.replace(/\./g, '').replace(/\-/g, '').replace(/\s/g, '').replace(/\(/, '').replace(/\)/, '').replace(/\@/, '')+i);
+                valid = true;
+
+            }else{
+                alert(input.files.item(i).name + " Can not uploaded, file is more then 5mb")
+            }
+            if (valid){
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '{% url "product_img" %}',
+                    data: fd,
+                    contentType: false,
+                    dataType: "json",
+                    processData: false,
+                    success: function(response) {
+                        if (response.status){
+                            jQuery(".upload-image").find('input[class="uploded_id"]').val(response.image_name);
+                            var image = '<i class="fa fa-times close_img"></i><img class="image-responsive" src="' + response.image_url + '" >';
+                            jQuery("#loaded-files li#"+response.uid).removeClass("loader_img").html(jQuery(".upload-image").html());
+                            jQuery("#loaded-files li#"+response.uid+" .uploadedImg").html(image);
+                            jQuery("#loaded-files li#"+response.uid).addClass("upload-placeholder")
+
+                            const ul = document.getElementById('loaded-files');
+							const listItems = ul.getElementsByTagName('li');
+							if (listItems.length >=4){
+								$("#loaded-files1").hide()
+							}
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+
+    jQuery("body").on("click", ".close_img", function() {
+        var dataid = jQuery(this).parent().parent().parent().find("input").attr("value");
+        jQuery(this).parent().parent().addClass('remove_uploded_img');
+        $( this ).parent().parent().remove();
+        const ul = document.getElementById('loaded-files');
+        const listItems = ul.getElementsByTagName('li');
+		if (listItems.length <=4){
+			$("#loaded-files1").show()
+		}
+
+        jQuery.ajax({
+            type: 'post',
+            url: '{% url "productimage_delete" %}',
+            dataType: 'json',
+            data: {
+                image_name: dataid,
+            },
+            success: function(data) {
+                jQuery(".remove_uploded_img").remove();
+                $( this ).parent().parent().remove();
+            }
+        });
+
+    });
+
+    jQuery("body").on("click", ".close_main_img", function() {
+    	var dataid = jQuery(this).find("input").attr("value");
+    	alert(dataid);
+
+    });
+
+    jQuery("body").on("click", ".close_color", function() {
+        $( this ).parent().remove();
+
+    });
+
+    jQuery("body").on("click", ".close_size", function() {
+        $( this ).parent().remove();
+
+    });
+
+</script>
+{% endblock %}

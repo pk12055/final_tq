@@ -1,0 +1,61 @@
+{% load static %}
+
+
+<style>
+    .tq-input-group {
+        justify-content: center !important;
+    }
+</style>
+
+    <div class="row">
+        <div class="col-lg-4 col-sm-12 col-12">
+            <div class="tq-input-group mt-3 mb-3">
+                <input name="main_search" class="list_brand_filter_text" type="search" value="{{ name }}" placeholder="Brand name" autocomplete="off" id="brand_name" />
+                <span class="">
+                    <div class="brand_filter_icon"><i class="fa fa-search"></i></div>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12 col-12">
+            <div class="tq-input-group mt-3 mb-3">
+                <input name="main_search" class="list_brand_filter_text" type="search" value="{{ name }}" placeholder="Choose Address" autocomplete="off" id="brand_address" />
+                <span class="input-group-append">
+                    <div class="brand_filter_icon"><i class="fa fa-map-marker"></i></div>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12 col-12">
+            <select id="brand_country" name="ads_country" class="list_brand_filter mt-3 mb-3 list_brand_filter_text">
+                <option value="">Choose Country</option>
+                {% for country in countries %}
+                <option value="{{ country.name }}">{{ country.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-4 col-sm-12 col-12">
+            <select id="brand_state" name="ads_state" class="list_brand_filter mt-3 mb-3 list_brand_filter_text">
+                <option value="">Choose State</option>
+                {% for state in states %}
+                <option value="{{ state.name }}">{{ state.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-lg-4 col-sm-12 col-12">
+            <select class="list_brand_filter mt-3 mb-3 list_brand_filter_text" aria-label=".form-select-lg example" id="brand_city">
+                <option value="">Choose City</option>
+                {% for city in cities %}
+                <option value="{{ city.id }}">{{ city.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-lg-4 col-sm-12 col-12 pb-4">
+            <button class="tq-btn tq-btn-primary" id="form-submit" style="padding-left: 85px; padding-right: 85px;">SEARCH</button>
+        </div>
+    </div>

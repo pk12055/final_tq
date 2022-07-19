@@ -1,0 +1,252 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+
+{% block title %}Brand Homepage{% endblock title %}
+{% block extra_css %}
+
+<style>
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %} !important;
+    }
+
+    .brand_style_main_color{
+        background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-lg-3" style="margin-top: -80px;">
+            {% include 'product_side_filter.html' %}
+        </div>
+        <div class="col-lg-9">
+            <div class="container-fluid pb-5 pr-5">
+                <div class="row pt-5 pr-5 pl-3 no-gutters">
+                    <div class="col-lg-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb bg-transparent">
+                                <li class="breadcrumb-item"><a href="{% url 'categories'%}" class="brand_style_text_color">ALL PRODUCTS</a></li>
+                                <li class="breadcrumb-item active text-capitalize brand_style_text_color" aria-current="page">SALE</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="float-left brand_style_text_color">SALE</h3>
+                    </div>
+                    <div class="col-lg-3 offset-lg-3">
+                        <select class="select-control" onchange="OnSelectionChange(this)" id="sort">
+                            <option selected>Sort By:</option>
+                            <option value="low_price">Price Low to High</option>
+                            <option value="high_price">Price High to Low</option>
+                            <option value="low_rating">Rating Low to High</option>
+                            <option value="hight_rating">Rating High to Low</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    {% include "product_filter.html" %}
+                </div>
+                <div class="mt-4">
+                    <div class="row">
+
+                        {% if products.paginator.num_pages > 1 %}
+                            <div class="col-md-8">
+                                <div class="pagination" style="justify-content: center;">
+                                    <span class="step-links">
+                                        {% if products.has_previous %}
+                                            <a href="?page={{ products.previous_page_number }} {% for key, value in  request.GET.items %} {% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                                </svg> Previous</a>
+                                        {% endif %}
+
+                                        {% for num in products.paginator.page_range %}
+                                            {% if num == products.number %}
+                                                <a class="active" href="#">{{ num }}</a>
+                                            {% else %}
+                                                <a href="?page={{ num }}{% for key, value in  request.GET.items %} {% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if has_next %}
+                                            <a href="?page={{ products.next_page_number }} {% for key, value in  request.GET.items %} {% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor"
+                                            class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                            </svg></a>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div style="align-self: center;" class="col-md-2 text-muted text-uppercase font12">
+                            <div class="text-muted text-uppercase font12 top-link" id="js-top" style="text-align: start;">
+                                <span class="screen-reader-text">Back to top<i class="fa fa-arrow-up ml-2"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const scrollToTopButton = document.getElementById('js-top');
+
+    const scrollFunc = () => {
+        let y = window.scrollY;
+    };
+
+    window.addEventListener("scroll", scrollFunc);
+
+    const scrollToTop = () => {
+        const c = document.documentElement.scrollTop || document.body.scrollTop;
+        if (c > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            window.scrollTo(0, c - c / 10);
+        }
+    };
+
+    scrollToTopButton.onclick = function(e) {
+        e.preventDefault();
+        scrollToTop();
+    }
+
+</script>
+<script>
+    // function OnSelectionChange(select) {
+    //     sort = $('#sort').val();
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '{% url "products_filter" %}',
+    //         data: {
+    //             'sort': sort
+    //         },
+    //         success: function(response){
+    //             $("#filter_product").html(response.context);
+    //         }
+    //     });
+    // };
+
+    // $(document).ready(function() {
+    //     $('#product_category').on("click", function(e){
+    //         sort = $("input[type='checkbox']").val();
+    //         var url = location.protocol + '//' + location.host + location.pathname
+    //         window.location.href = window.location.href+"&sort="+sort
+
+    //     });
+    // });
+
+    $(".filter_value, #order_by").on('click', function() {
+        order_by = $("#order_by").val();
+        page = $('.page-item').parent().find('li.active').find('a').data('value');
+        alert(page);
+        var catagory = []
+        var markedCheckbox = document.getElementsByName('cat');  
+        for (var checkbox of markedCheckbox) {
+            if (checkbox.checked)
+                catagory.push(checkbox.value)
+        }
+
+        var size = []
+        var markedCheckbox = document.getElementsByName('pro_size');  
+        for (var checkbox of markedCheckbox) {
+            if (checkbox.checked)
+                size.push(checkbox.value)
+        }
+
+        var design = []
+        var markedCheckbox = document.getElementsByName('design');  
+        for (var checkbox of markedCheckbox) {
+            if (checkbox.checked)
+                design.push(checkbox.value)
+        }
+
+        var material = []
+        var markedCheckbox = document.getElementsByName('material');  
+        for (var checkbox of markedCheckbox) {
+            if (checkbox.checked)
+                material.push(checkbox.value)
+        }
+
+        var color = []
+        var markedCheckbox = document.getElementsByName('color');  
+        for (var checkbox of markedCheckbox) {
+            if (checkbox.checked)
+                color.push(checkbox.value)
+        }
+
+        data = {
+            'order_by': order_by,
+            'page': page,
+            'catagory': catagory,
+            'size': size,
+            'design': design,
+            'color': color,
+            'material': material
+        }
+
+        $.get({
+            'url': "{% url 'product_list' %}",
+            'data': data,
+            'cache': false,
+            'success': function(response) {
+                response = JSON.parse(response)
+                $('#filter_product').html(response['data'])
+            }
+        })
+
+    });
+
+    $(".page-item").on('click', function() {
+        order_by = $("#order_by").val();
+        page = $(this).find('a').data('value')
+        $(this).parent().find('li').removeClass('active')
+        $(this).addClass('active')
+        var catagory = []
+        var markedCheckbox = document.getElementsByName('cat');  
+        for (var checkbox of markedCheckbox) {
+            if (checkbox.checked)
+                catagory.push(checkbox.value)
+        }
+
+        var size = []
+        var markedCheckbox = document.getElementsByName('pro_size');  
+        for (var checkbox of markedCheckbox) {
+            if (checkbox.checked)
+                size.push(checkbox.value)
+        }
+        data = {
+            'order_by': order_by,
+            'page': page,
+            'catagory': catagory,
+            'size': size
+        }
+
+        $.get({
+            'url': "{% url 'product_list' %}",
+            'data': data,
+            'cache': false,
+            'success': function(response) {
+                response = JSON.parse(response)
+                $('#filter_product').html(response['data'])
+            }
+        })
+
+    });
+
+    $('input[type=radio]').click(function(){
+       if (this.previous) {
+         this.checked = false;
+     }
+     this.previous = this.checked;
+    });
+
+</script>
+{% endblock %}

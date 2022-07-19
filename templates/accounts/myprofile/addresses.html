@@ -1,0 +1,59 @@
+{% load static %}
+{% block content %}
+<div class="container">
+    <h4>MY ADDRESSES</h4>
+    <div class="row">
+        {% for address in user_address %}
+        <div class="col-md-6 mt-5">
+            <div class="address-card">
+                <div class="row mt-2">
+                    <div class="ml-2 col-lg-9 col-10">
+                        <p class="font-medium-reg">{{address.address_type}} address</p>
+                    </div>
+                    {% if address.is_parent %}
+                    <div class="col-md-2 col-1">
+                        <img src="{% static 'images/red/check-sign.svg' %}" height="10" />
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="address-title container mt-3 pb-5">
+                    <span>{{address.address}}</span>
+                </div>
+                <div class="address-body">
+                    <span></span>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-12 mb-2 text-center">
+                            <button type="button" class="tq-btn w-100 tq-btn-primary edit_address" name="edit" data-toggle="modal" data-target="#AddressModal" data-value="{{ address.id }}" data-text="{{ address.address }}">EDIT</button>
+                        </div>
+                        <div class="col-lg-12 col-12 mt-2 pb-3 text-center">
+                            <a href="#button" class="text-link remove_address" name="remove" data-toggle="modal" data-target="#RemoveAddressModal" data-value="{{ address.id }}" data-text="{{ address.address }}">REMOVE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-md-6">
+            <div class="col-md-6 mt-5" data-toggle="modal" data-target="#AddressModal">
+                <div class="new-address-card text-center">
+                    <div id="address-model">
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+                                +
+                            </div>
+                            <div class="col-md-12">
+                                Add Address
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

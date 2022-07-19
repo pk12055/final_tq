@@ -1,0 +1,95 @@
+{% load static %}
+
+{% block extra_css %}
+
+<style>
+    .brand_style_nav_text_color{
+        color: {% if brand_style.top_nav_texts %}{{ brand_style.top_nav_texts  }}{% endif %};
+    }
+</style>
+
+{% endblock %}
+
+<header class="app-header">
+    <div class="d-none d-sm-none d-xs-none d-md-none d-lg-block">
+        <nav class="navbar bg-theme-nav" style="justify-content:center; background-color: {% if brand_style.top_nav_background %}{{ brand_style.top_nav_background  }}{% else %}white{% endif %};">
+            <ul class="nav justify-content-start">
+
+            </ul>
+            <ul class="nav justify-content nav-items-block" style="{% if sales %}margin-left:280px;{% else %}margin-left:80px;{% endif %}">
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if categories %} active {% endif %} brand_style_nav_text_color" href="{% if edit %}{% url 'brand_category_edit' brand_obj.id %}{% else %}{% url 'brand_detail_category' brand_obj.id %}{% endif %}">CATEGORIES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if sales %} active {% endif %} brand_style_nav_text_color" href="{% if edit %}{% url 'brand_sale_edit' brand_obj.id %}{% else %}{% url 'brand_detail_sale' brand_obj.id %}{% endif %}">SALES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% if request.user.is_authenticated %}{% url 'account' %}?tab=info{% else %}{% url 'signup' %}{% endif %}">
+                        
+                            <img class="nav-img" src="{% if brand_obj.branc_pic %} /media/{{brand_obj.branc_pic}}{% else %}{{default_image}}{% endif %}" alt="profile_pic" height="45" width="45" /></a>
+                        
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if who %} active {% endif %} brand_style_nav_text_color" href="{% if edit %}{% url 'who_we_are_edit' brand_obj.id %}{% else %}{% url 'brand_who_we_are' brand_obj.id %}{% endif %}">WHO WE ARE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if contact %} active {% endif %} brand_style_nav_text_color" href="{% url 'get_in_touch' brand_obj.id %}">LET'S GO IN TOUCH</a>
+                </li>
+                <div class="cart-bag-item">
+                    {% if not product_detail %}
+                        {% if request.user == brand_obj.user %}
+                        <a class="fa fa-pencil p-3" href="{% url 'brand_homepage_edit' brand_obj.id %}" style="color: blue; font-size: 25px;"></a>
+                        {% endif %}
+                    
+                    {% endif %}
+                    <a href="{% if user.user_type == 'Brand' %} #{% else %}{% url 'cart' %}{% endif %}">
+                        <img src='{%static "images/blue/cart-bag.svg" %}' height="70" />
+                    </a>
+                </div>
+            </ul>
+        </nav>
+
+    </div>
+    <div class="d-block d-sm-block d-md-block d-lg-none">
+        <nav class="navbar bg-theme-nav">
+            <ul class="nav justify-content-start">
+            </ul>
+            <ul class="nav justify-content-end">
+                <div class="row" id="nav-img">
+                    <div class="col">
+                        <img src='{% static "images/search.svg" %}' height="20" />
+
+                    </div>
+                    <div class="col">
+                        <img id="mobile-nav-icon" src='{% static "images/menu-icon.svg" %}' height="20" />
+                    </div>
+                </div>
+                <div class="row" id="nav-cross">
+                    <div class="col">
+                        <a class="close" id="mobile-nav-cross"></a>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </div>
+    <div class="mobile-nav hide" id="mobile-nav">
+        <ul class="mobile-nav-items-block">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account' %}">
+                    <img class="nav-img" src="{% if user.profile_pic %}/media/{{user.profile_pic}}{% else %}{{default_image}}{% endif %}" alt="profile_pic" height="45" width="45" /></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-nav-link brand_style_nav_text_color" href="{% if edit %}{% url 'brand_category_edit' brand_obj.id %}{% else %}{% url 'brand_detail_category' brand_obj.id %}{% endif %}">CATEGORIES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-nav-link brand_style_nav_text_color" href="{% if edit %}{% url 'brand_sale_edit' brand_obj.id %}{% else %}{% url 'brand_detail_sale' brand_obj.id %}{% endif %}">SALES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-nav-link brand_style_nav_text_color" href="{% if edit %}{% url 'who_we_are_edit' brand_obj.id %}{% else %}% url 'brand_who_we_are' brand_obj.id %}{% endif %}">WHO WE ARE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-nav-link {% if contact %} active {% endif %} brand_style_nav_text_color" href="{% url 'get_in_touch' brand_obj.id %}">LET'S GO IN TOUCH</a>
+            </li>
+        </ul>
+    </div>
+</header>

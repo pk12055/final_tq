@@ -1,0 +1,30 @@
+{% load static %}
+
+<div class="container p-5" style="background-color:white;">
+
+<div class="row">
+		<div class="col-lg-6" style="text-align: start;">
+			<h6 style="letter-spacing: normal;"><b>{% if product_obj.product_name is not None %}{{ product_obj.product_name|upper }}{% endif %}</b></h6>
+		</div>
+		<div class="col-lg-6" style="text-align: end;">
+			<span style="color:darkgrey;">{% if product_obj.product_price is not None %}$ {{ product_obj.product_price }}{% else %}$ {% endif %}</span>
+		</div>
+		<div class="col-lg-6 mt-4" style="text-align: start;"> 
+			<span style="color:darkgrey;">Estimated Delivery</span>
+		</div>
+		<div class="col-lg-6 mt-4" style="text-align: end;">
+			$ 5
+		</div>
+		<div class="col-lg-6 mt-4" style="text-align: start;">
+			Total
+		</div>
+		<div class="col-lg-6 mt-4" style="text-align: end;">
+			$ 66
+		</div>
+	</div>
+	<div class="row">
+		<div class="container mt-5 text-center">
+			<a href="#" class="tq-btn tq-btn-primary" id="submit-btn" style="padding-left: 180px; padding-right: 180px;">PAY</a>
+		</div>
+	</div>
+</div>

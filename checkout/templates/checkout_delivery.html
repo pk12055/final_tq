@@ -1,0 +1,89 @@
+{% load static %}
+{% block extra_css %}
+
+<style>
+ .disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+</style>
+
+{% endblock %}
+
+
+<div class="container" style="padding-left: 65px;">
+	<div class="row">
+		<div class="col-lg-12"><h2><b>BILLING INFO</b></h2></div>
+		<div class="col-lg-12">
+			<form method="POST" enctype='multipart/form-data' id="billing-form" action="{% url 'billing_address' product_obj.id %}">
+                {% csrf_token %}
+                <div class="row mt-5 mb-3">
+                	<div class="col-md-1"><i class="fa fa-user"></i></div>
+                    <div class="col-md-5">
+                        <div class="tq-input-group">
+                        <input name="first_name" placeholder="First name" value="{% if user.first_name is not None %}{{user.first_name}}{% endif %}"
+                            class="input-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <input name="last_name" placeholder="Last name" value="{% if user.last_name is not None %}{{user.last_name}}{% endif %}" class="input-control"
+                            type="text" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                	<div class="col-md-1">
+                		<i class="fa fa-date"></i>
+                	</div>
+                    <div class="col-md-10">
+                        <input name="dob" id="id_dob" placeholder="Date of birth" class="input-control" type="date"
+                            onfocus="(this.type='date')" onblur="(this.type='text')"
+                            value="{% if user.dob is not None %}{{user.dob|date:'Y-m-d'}}{% endif %}" />
+                    </div>
+                </div>
+                <div class="row mb-2 mt-2">
+                    <div class="col-md-1"><i class="fa fa-envelope"></i></div>
+                    <div class="col-md-10">
+                        <div class="tq-input-group">
+                            <input name="email" id="id_email" placeholder="Email" value="{% if user.email is not None %}{{user.email}}{% endif %}"
+                            class="input-control" type="email"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2 mb-2">
+                	<div class="col-md-1">
+                		<i class="fa fa-map-marker"></i>
+                	</div>
+                    <div class="col-md-10">
+                        <input name="address" placeholder="Address" value="" class="input-control address_delivery"
+                            type="text" id="checkout_address" />
+                    </div>
+                </div>
+
+                <div class="row mt-4 mb-2">
+                	<div class="col-md-1"><i class="fa fa-telegram"></i></div>
+                	<div class="col-md-10">
+                        <div class="tq-input-group">
+                            <select class="select-control" name="address_type" id="shop_type">
+                                <option value="Home" selected="selected">Home</option>
+                                <option value="Office">Office</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-left: 0px;">
+                	<div class="col-md-11 pl-5">
+					  	<input type="checkbox" class="custom-control-input" id="sale" name="is_same_as_delivery" value="is_same_as_delivery" >
+					  	<label class="custom-control-label" for="sale">     Same as Delivery Address</label>
+                	</div>
+                </div>
+            </form>
+		</div>
+	</div>
+	
+</div>
+

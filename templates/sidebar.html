@@ -1,0 +1,22 @@
+{% load static %}
+
+{% if not brand_header1 %}
+    <aside class="app-sidebar d-none d-sm-none d-xs-none d-md-none d-lg-block" style="{% if more_width %}width: 110px;{% endif %}">
+        <div class="text-center mt-3">
+            <a href="{% url 'homepage' %}"><img src="{% static 'images/blue/sidebar-logo.svg' %}" height="50"/></a>
+        </div>
+        <div class="sidebar-socials text-center">
+            <div class="row">
+                <div class="col-md-12 mt-3">
+                    <i class="fa fa-instagram"></i>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <i class="fa fa-twitter"></i>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <i class="fa fa-facebook"></i>
+                </div>
+            </div>  
+        </div>
+    </aside>
+{% endif %}
