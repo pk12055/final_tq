@@ -449,21 +449,30 @@ def brand_signup(request):
             brand_obj.branc_pic = image
             brand_obj.save()
 
-        BrandCategory.objects.create(
-            brand=brand_obj
-        )
+        # brand_category = BrandCategory.objects.get(brand=brand_obj)
+        # BrandCategory.objects.create(
+        #     brand=brand_obj
+        # )
 
-        Category.objects.create(
-            brand=brand_obj
-        )
+        # Category.objects.create(
+        #     brand=brand_obj
+        # )
 
-        BrandStyle.objects.create(
-            brand=brand_obj,
-            site_background='#ffffff',
-            main_color='#808080',
-            background_color_2nd='#EFEFEF',
-            top_nav_background='#ffffff'
-        )
+        brand_style = BrandStyle.objects.get(brand=brand_obj)
+        brand_style.brand=brand_obj
+        brand_style.site_background='#ffffff'
+        brand_style.main_color='#808080'
+        brand_style.background_color_2nd='#EFEFEF'
+        brand_style.top_nav_background='#ffffff'
+        brand_style.save()
+        
+        # BrandStyle.objects.create(
+        #     brand=brand_obj,
+        #     site_background='#ffffff',
+        #     main_color='#808080',
+        #     background_color_2nd='#EFEFEF',
+        #     top_nav_background='#ffffff'
+        # )
 
         return redirect('email_validation')
 

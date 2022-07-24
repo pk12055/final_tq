@@ -48,3 +48,8 @@ Thumbs.db
 *.mov
 *.wmv
 
+media/
+
+.env
+/db.sqlite3
+settings_local.py

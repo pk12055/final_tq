@@ -209,5 +209,5 @@ except:
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
-# BASE_URL = 'http://127.0.0.1:8000'
-BASE_URL = 'https://tquarters-app.herokuapp.com'
+BASE_URL = 'http://127.0.0.1:8000'
+# BASE_URL = 'https://tquarters-app.herokuapp.com'
