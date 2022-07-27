@@ -6,164 +6,166 @@
             <img src="{% static 'images/blue/sidebar-logo.svg' %}" height="50" /><b style="margin-left: 20px;"> SHOP <br>BUILDER</b>
         </ul>
     </nav>
-    <div class="accordion mt-5" id="accordionExample" style="height: 500px;  overflow-y: scroll; overflow-x: hidden;">
-        <div class="card border-0 bg-transparent">
-            <div class="card-header bg-transparent" id="headingOne">
-                <div class="mb-0">
-                    <p class="text-link text-uppercase btn btn-link btn-block text-left mb-0" type="button"
-                        data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                        aria-controls="collapseOne"><a href="{% url 'brand_homepage_edit' brand_obj.id %}" style="{% if brand_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
-                        STYLE </a><span class="float-right">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-                        </span>
-                    </p>
+    <div style="height: 600px;">
+        <div class="accordion mt-5" id="accordionExample" style="height: 500px;  overflow-y: scroll; overflow-x: hidden;">
+            <div class="card border-0 bg-transparent">
+                <div class="card-header bg-transparent" id="headingOne">
+                    <div class="mb-0">
+                        <p class="text-link text-uppercase btn btn-link btn-block text-left mb-0" type="button"
+                            data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                            aria-controls="collapseOne"><a href="{% url 'brand_homepage_edit' brand_obj.id %}" style="{% if brand_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
+                            STYLE </a><span class="float-right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </span>
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <div id="collapseOne" class="collapse {% if brand_sidebar %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body" style="padding-left: 33px !important;">
-                    <label id="product_designer">
-                            <a href="#" style="font-size:11px; color: darkgrey;" id="back_color">Site background</a><input type="color" name="site_background" class="site_background" value="{% if brand_style.site_background %}{{ brand_style.site_background }}{% endif %}" style="border-bottom: none; margin-left: 18px; padding-left: 15px;"><br>
-                            
-                            <a href="#" style="font-size:11px; color: darkgrey;" id="main_color">Main color</a><input type="color" name="main_color" class="main_color" style="margin-left: 47px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.main_color %}{{ brand_style.main_color }}{% endif %}"><br>
-                            
-                            <a href="#" style="font-size:11px; color: darkgrey;" id="text_color">Text color</a><input type="color" name="text_color" class="text_color" style="margin-left: 49px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.texts_color %}{{ brand_style.texts_color }}{% endif %}"><br>
-                            
-                            <a href="#" style="font-size:11px; color: darkgrey;" id="2nd_back_color">2nd Background color</a><input type="color" class="background_color_2nd" name="background_color_2nd" style="margin-left: -11px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd }}{% endif %}"><br>
-                            
-                            <a href="#" style="font-size:11px; color: darkgrey;" id="top_nav_color">Top nav background</a><input type="color" name="top_nav_background" class="top_nav_background" style="margin-left: -2px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.top_nav_background %}{{ brand_style.top_nav_background }}{% endif %}"><br>
-                            
-                            <a href="#" style="font-size:11px; color: darkgrey;" id="top_nav_text">Top nav texts</a><input type="color" name="top_nav_text" class="top_nav_text" style="margin-left: 33px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.top_nav_texts %}{{ brand_style.top_nav_texts }}{% endif %}"><br>
-                            
-                            <a href="#" style="font-size:11px; color: darkgrey;" id="top_logo">Logo<a href="#" class="image-upload" style="margin-left: 73px; font-size: 11px;">
-                                <label for="file-input">
-                                    Replace
-                                </label>
-                                <input class="upload-avatar" id="file-input" name="profile_pic" />
-                                <input id="inputfile" type="file" name="files[]" class="hidden">
-                           </a></a>
-                    </label>
+                <div id="collapseOne" class="collapse {% if brand_sidebar %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body" style="padding-left: 33px !important;">
+                        <label id="product_designer">
+                                <a href="#" style="font-size:11px; color: darkgrey;" id="back_color">Site background</a><input type="color" name="site_background" class="site_background" value="{% if brand_style.site_background %}{{ brand_style.site_background }}{% endif %}" style="border-bottom: none; margin-left: 18px; padding-left: 15px;"><br>
+                                
+                                <a href="#" style="font-size:11px; color: darkgrey;" id="main_color">Main color</a><input type="color" name="main_color" class="main_color" style="margin-left: 47px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.main_color %}{{ brand_style.main_color }}{% endif %}"><br>
+                                
+                                <a href="#" style="font-size:11px; color: darkgrey;" id="text_color">Text color</a><input type="color" name="text_color" class="text_color" style="margin-left: 49px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.texts_color %}{{ brand_style.texts_color }}{% endif %}"><br>
+                                
+                                <a href="#" style="font-size:11px; color: darkgrey;" id="2nd_back_color">2nd Background color</a><input type="color" class="background_color_2nd" name="background_color_2nd" style="margin-left: -11px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd }}{% endif %}"><br>
+                                
+                                <a href="#" style="font-size:11px; color: darkgrey;" id="top_nav_color">Top nav background</a><input type="color" name="top_nav_background" class="top_nav_background" style="margin-left: -2px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.top_nav_background %}{{ brand_style.top_nav_background }}{% endif %}"><br>
+                                
+                                <a href="#" style="font-size:11px; color: darkgrey;" id="top_nav_text">Top nav texts</a><input type="color" name="top_nav_text" class="top_nav_text" style="margin-left: 33px; border-bottom: none; padding-left: 15px;" value="{% if brand_style.top_nav_texts %}{{ brand_style.top_nav_texts }}{% endif %}"><br>
+                                
+                                <a href="#" style="font-size:11px; color: darkgrey;" id="top_logo">Logo<a href="#" class="image-upload" style="margin-left: 73px; font-size: 11px;">
+                                    <label for="file-input">
+                                        Replace
+                                    </label>
+                                    <input class="upload-avatar" id="file-input" name="profile_pic" />
+                                    <input id="inputfile" type="file" name="files[]" class="hidden">
+                            </a></a>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card border-0 bg-transparent">
-            <div class="card-header bg-transparent" id="headingTwo">
-                <div class="mb-0">
-                    <p class="text-link text-uppercase btn btn-link btn-block text-left collapsed mb-0" type="button"
-                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                        aria-controls="collapseTwo"><a href="{% url 'brand_category_edit' brand_obj.id %}" style="{% if category_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
-                        CATEGORIES </a><span class="float-right">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-                        </span>
-                    </p>
+            <div class="card border-0 bg-transparent">
+                <div class="card-header bg-transparent" id="headingTwo">
+                    <div class="mb-0">
+                        <p class="text-link text-uppercase btn btn-link btn-block text-left collapsed mb-0" type="button"
+                            data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                            aria-controls="collapseTwo"><a href="{% url 'brand_category_edit' brand_obj.id %}" style="{% if category_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
+                            CATEGORIES </a><span class="float-right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div id="collapseTwo" class="collapse {% if edit_mode_category %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body" style="padding-left: 33px !important;">
+                        <label id="product_category">
+                            {% if cat_obj.first_main_text %}
+                            <a href="#" style="font-size:11px; color: darkgrey;" id="back_color">{{ cat_obj.first_main_text }}<a href="{% url 'brand_category_edit' brand_obj.id %}"><i class="fa fa-pencil" style="font-size:15px; margin-left: 29px; color: darkgrey;"></i></a></a><br>
+                                <a href="#" style="font-size:11px; color: darkgrey;" id="main_color">{{ cat_obj.second_main_text }}<a href="{% url 'brand_category_edit' brand_obj.id %}"><i class="fa fa-pencil" style="font-size:15px; margin-left: 27px; color: darkgrey;"></i></a></a><br>
+                            {% endif %}
+                        <label>
+                    </div>
                 </div>
             </div>
-            <div id="collapseTwo" class="collapse {% if edit_mode_category %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body" style="padding-left: 33px !important;">
-                    <label id="product_category">
-                        {% if cat_obj.first_main_text %}
-                        <a href="#" style="font-size:11px; color: darkgrey;" id="back_color">{{ cat_obj.first_main_text }}<a href="{% url 'brand_category_edit' brand_obj.id %}"><i class="fa fa-pencil" style="font-size:15px; margin-left: 29px; color: darkgrey;"></i></a></a><br>
-                            <a href="#" style="font-size:11px; color: darkgrey;" id="main_color">{{ cat_obj.second_main_text }}<a href="{% url 'brand_category_edit' brand_obj.id %}"><i class="fa fa-pencil" style="font-size:15px; margin-left: 27px; color: darkgrey;"></i></a></a><br>
-                        {% endif %}
-                    <label>
+            <div class="card border-0 bg-transparent">
+                <div class="card-header bg-transparent" id="headingThree">
+                    <div class="mb-0">
+                        <p class="text-link text-uppercase btn btn-link btn-block text-left collapsed mb-0" type="button"
+                            data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                            aria-controls="collapseThree"><a href="{% if not add_product %}{% url 'add_product' brand_obj.id %}{% else %}#{% endif %}" style="{% if product_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
+                            PRODUCTS</a> <span class="float-right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div id="collapseThree" class="collapse {% if edit_mode_product %}show{% endif %}" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body" style="padding-left: 33px !important;">
+                        <label id="product_designer">
+                            {% if not add_product %}
+                                <a href="{% url 'add_product' brand_obj.id %}" style="font-size:12px;"><i class="fa fa-plus" style="color:black; font-size: 15px; margin-bottom: 10px;">  <p style="margin-left: 20px; margin-top: -13px;">Add a new item</p></i></a>
+                            {% else %}
+                                <button type="submit" id="product-submit" class="btn-sm tq-btn-primary pl-5 pr-5" value="ADD" style="color: #007bff; border-color: #007bff;">Done</button>
+                            {% endif %}<br>
+                                {% for i in product_list %}
+                                    <span style="text-align: start; color: grey;">{{i.product_name}}   <a href="{% url 'edit_product' i.id %}"><i class="fa fa-pencil product_edit" style="font-size:12px; color: darkgrey;" data-value="{{ i.id }}"></i></a></span><br>
+                                {% endfor %}
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card border-0 bg-transparent">
-            <div class="card-header bg-transparent" id="headingThree">
-                <div class="mb-0">
-                    <p class="text-link text-uppercase btn btn-link btn-block text-left collapsed mb-0" type="button"
-                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
-                        aria-controls="collapseThree"><a href="{% if not add_product %}{% url 'add_product' brand_obj.id %}{% else %}#{% endif %}" style="{% if product_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
-                        PRODUCTS</a> <span class="float-right">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-                        </span>
-                    </p>
+            <div class="card border-0 bg-transparent">
+                <div class="card-header bg-transparent" id="headingFour">
+                    <div class="mb-0">
+                        <p class="text-link text-uppercase btn btn-link btn-block text-left collapsed mb-0" type="button"
+                            data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                            aria-controls="collapseFour"><a href="{% url 'brand_sale_edit' brand_obj.id %}" style="{% if sale_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
+                            ON SALE </a><span class="float-right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </span>
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div id="collapseThree" class="collapse {% if edit_mode_product %}show{% endif %}" aria-labelledby="headingThree" data-parent="#accordionExample">
-                <div class="card-body" style="padding-left: 33px !important;">
-                    <label id="product_designer">
-                        {% if not add_product %}
-                            <a href="{% url 'add_product' brand_obj.id %}" style="font-size:12px;"><i class="fa fa-plus" style="color:black; font-size: 15px; margin-bottom: 10px;">  <p style="margin-left: 20px; margin-top: -13px;">Add a new item</p></i></a>
-                        {% else %}
-                            <button type="submit" id="product-submit" class="btn-sm tq-btn-primary pl-5 pr-5" value="ADD" style="color: #007bff; border-color: #007bff;">Done</button>
-                        {% endif %}<br>
+                <div id="collapseFour" class="collapse {% if edit_mode_sale %}show{% endif %}" aria-labelledby="headingFour" data-parent="#accordionExample">
+                    <div class="card-body" style="padding-left: 33px !important;">
+                        <label id="product_color">
                             {% for i in product_list %}
+                            {% if i.is_sale %}
                                 <span style="text-align: start; color: grey;">{{i.product_name}}   <a href="{% url 'edit_product' i.id %}"><i class="fa fa-pencil product_edit" style="font-size:12px; color: darkgrey;" data-value="{{ i.id }}"></i></a></span><br>
+                            {% endif %}
                             {% endfor %}
-                    </label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card border-0 bg-transparent">
-            <div class="card-header bg-transparent" id="headingFour">
-                <div class="mb-0">
-                    <p class="text-link text-uppercase btn btn-link btn-block text-left collapsed mb-0" type="button"
-                        data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
-                        aria-controls="collapseFour"><a href="{% url 'brand_sale_edit' brand_obj.id %}" style="{% if sale_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
-                        ON SALE </a><span class="float-right">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-                        </span>
-                    </p>
+            <div class="card border-0 bg-transparent">
+                <div class="card-header bg-transparent" id="headingFive">
+                    <div class="mb-0">
+                        <p class="text-link text-uppercase btn btn-link btn-block text-left collapsed mb-0" type="button"
+                            data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+                            aria-controls="collapseFive"><a href="{% url 'who_we_are_edit' brand_obj.id %}" style="{% if who_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
+                            WHO WE ARE </a><span class="float-right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </span>
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div id="collapseFour" class="collapse {% if edit_mode_sale %}show{% endif %}" aria-labelledby="headingFour" data-parent="#accordionExample">
-                <div class="card-body" style="padding-left: 33px !important;">
-                    <label id="product_color">
-                        {% for i in product_list %}
-                        {% if i.is_sale %}
-                            <span style="text-align: start; color: grey;">{{i.product_name}}   <a href="{% url 'edit_product' i.id %}"><i class="fa fa-pencil product_edit" style="font-size:12px; color: darkgrey;" data-value="{{ i.id }}"></i></a></span><br>
-                        {% endif %}
-                        {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="card border-0 bg-transparent">
-            <div class="card-header bg-transparent" id="headingFive">
-                <div class="mb-0">
-                    <p class="text-link text-uppercase btn btn-link btn-block text-left collapsed mb-0" type="button"
-                        data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
-                        aria-controls="collapseFive"><a href="{% url 'who_we_are_edit' brand_obj.id %}" style="{% if who_sidebar %}color: #007bff;{% else %}color:black;{% endif %}">
-                        WHO WE ARE </a><span class="float-right">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-chevron-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-                        </span>
-                    </p>
-                </div>
-            </div>
-            <div id="collapseFive" class="collapse {% if edit_mode_who %}show{% endif %}" aria-labelledby="headingFive" data-parent="#accordionExample">
-                <div class="card-body" style="padding-left: 33px !important;">
-                    <label id="product_color">
-                        <a style="text-align: start; color: darkgrey; font-size: 11px;">{{who_we_are_obj.para_1|slice:":15"}} <a href="{% url 'who_we_are_edit' brand_obj.id %}"><i class="fa fa-pencil" style="font-size:15px; margin-left: 27px; color: darkgrey;"></i></a></a><br>
-                        <!-- <a style="text-align: start; color: darkgrey; font-size: 11px;">{{who_we_are_obj.para_2|slice:":15"}}   <a href="{% url 'who_we_are_edit' brand_obj.id %}"><i class="fa fa-pencil" style="font-size:15px; margin-left: 27px; color: darkgrey;"></i></a></a><br>
-                        <a style="text-align: start; color: darkgrey; font-size: 11px;">{{who_we_are_obj.para_3|slice:":15"}}  <a href="{% url 'who_we_are_edit' brand_obj.id %}"> <i class="fa fa-pencil" style="font-size:15px; margin-left: 27px; color: darkgrey;"></i></a></a><br> -->
-                    </label>
+                <div id="collapseFive" class="collapse {% if edit_mode_who %}show{% endif %}" aria-labelledby="headingFive" data-parent="#accordionExample">
+                    <div class="card-body" style="padding-left: 33px !important;">
+                        <label id="product_color">
+                            <a style="text-align: start; color: darkgrey; font-size: 11px;">{{who_we_are_obj.para_1|slice:":15"}} <a href="{% url 'who_we_are_edit' brand_obj.id %}"><i class="fa fa-pencil" style="font-size:15px; margin-left: 27px; color: darkgrey;"></i></a></a><br>
+                            <!-- <a style="text-align: start; color: darkgrey; font-size: 11px;">{{who_we_are_obj.para_2|slice:":15"}}   <a href="{% url 'who_we_are_edit' brand_obj.id %}"><i class="fa fa-pencil" style="font-size:15px; margin-left: 27px; color: darkgrey;"></i></a></a><br>
+                            <a style="text-align: start; color: darkgrey; font-size: 11px;">{{who_we_are_obj.para_3|slice:":15"}}  <a href="{% url 'who_we_are_edit' brand_obj.id %}"> <i class="fa fa-pencil" style="font-size:15px; margin-left: 27px; color: darkgrey;"></i></a></a><br> -->
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="container text-center mt-5">
             <button class="" style="color:black; background-color: transparent; border: none;" id="draft-submit">SAVE AS DRAFT</button>
-            <button type="submit" id="form-submit" class="tq-btn tq-btn-block mt-3" value="ADD" style="border: none;">Publish</button>
+            <button type="submit" id="form-submit" class="tq-btn tq-btn-block mt-3" style="border: none;">Publish</button>
         </div>
     </div>
 </div>

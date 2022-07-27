@@ -16,6 +16,9 @@
     .brand_style_background_color_2nd{
         background-color: {% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd  }}{% else %}#EFEFEF{% endif %};
     }
+    .wrapper__justify-content{
+        justify-content:center !important;
+    }
 
 
 </style>
@@ -95,10 +98,10 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="text-center">
-                                <div class="wrapper pt-4">
+                                <div class="wrapper wrapper__justify-content pt-4">
                                     <div class="underline-area brand_style_main_color">
                                         <div class="title brand_style_text_color">
-                                            <span>DO YOU LIKE WHAT YOU SEE?</span>
+                                            <span>tOP SELLERS</span>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +116,7 @@
                                         <div class="card" style="border: 2px dotted #8080805e; text-align:center;">
                                             <img id="preview" src="" />
                                             <i class="fa fa-plus brand_style_text_color" style="padding-top:120px;"></i>
-                                            <p class="brand_style_text_color" style="padding:0px 0px 120px 0px; text-align: center; font-size: 13px;">ADD A PHOTO FOR BANNER</p>
+                                            <p class="brand_style_text_color" style="padding:0px 50px 120px 50px; text-align: center; font-size: 13px;">Add a product and flag it to see it on the homepage</p>
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -214,7 +217,7 @@
                         <div class="text-center">
                             <div class="wrapper pt-4">
                                 <div class="underline-area brand_style_main_color">
-                                    <div class="title brand_style_text_color">
+                                    <div class="title__font-size brand_style_text_color">
                                         <span>DO YOU LIKE WHAT YOU SEE?</span>
                                     </div>
                                 </div>
@@ -395,6 +398,8 @@
         b.setAttribute("value", "true");
         $('#brand_homepage').submit();
     });
+
+
 
     </script>
     {% endblock %}

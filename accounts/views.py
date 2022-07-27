@@ -142,6 +142,12 @@ def verify_email(request, key):
         user.save()
         messages.success(request, "Your email has been verified successfully!")
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        brand_obj = Brand.objects.create(
+                    user=user
+                )
+        if user.user_type == 'Brand':
+            return redirect("/brand-homepage-edit/"+str(brand_obj.id))    
+            
         return redirect("/")
 
     messages.error(request, "This link is not valid. Please login, resend and verify your email again!")
