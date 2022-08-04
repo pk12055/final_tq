@@ -78,7 +78,7 @@ label {
  .mid-container {
      margin-left: 90px;
      position: relative;
-     padding: 40px;
+     padding: 20px;
  }
 
 
@@ -204,6 +204,7 @@ label {
  .font-medium-reg {
      font-family: var(--font-family-medium);
      font-style: normal;
+     font-size: 14px;
  }
 
  .font6 {
@@ -320,8 +321,9 @@ label {
  }
 
  .mobile-nav {
-     background-color: #ffff;
-     height: 100vh;
+    background-color: #ffff;
+    height: 91vh;
+    margin-top: 19%;
  }
 
  .mobile-nav-items-block {
@@ -356,11 +358,18 @@ label {
 
 
  .close {
-     position: absolute;
+     /* position: absolute;
      right: 32px;
      width: 32px;
      height: 32px;
-     opacity: 0.3;
+     opacity: 0.3; */
+    position: absolute;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+    top: -20px;
+    font-weight: bold;
  }
 
  .close:hover {
@@ -409,6 +418,10 @@ label {
      padding-top: 30px;
      font-size: 40px;
  }
+ .login-title__mobile {
+    letter-spacing: 10px;
+    font-size: 40px;
+}
 
  .bg-auth {
      position: absolute;
@@ -455,6 +468,12 @@ label {
      padding: 8px 60px;
      border: 2px solid #4273F5;
  }
+
+ .tq-btn.tq-btn-primary__mobile {
+    background-color: transparent;
+    padding: 8px 50px;
+    border: 2px solid #4273F5;
+}
 
  .tq-btn.tq-btn-outline {
      background-color: transparent;
@@ -853,7 +872,11 @@ label {
  }
 
  img.bg-auth {
-    height: 808px;
+    height: 900px;
+    width: 400px;
+    object-fit: cover;
+    top: 90px;
+    z-index: 1;
  }
  .e-shop {
     margin-top: 100px;
@@ -913,13 +936,21 @@ img.indie-img {
     top: -145px;
 }
 .underline-area {
-    background-color: #007bff;
+    /* background-color: #007bff;
     height: 20px;
     margin-left: 35px;
     margin-top: 2px;
     min-width: 320px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     height: 40px;
+    margin-top: 38px; */
+    background-color: #007bff;
+    height: 20px;
+    margin-left: 20px;
+    margin-top: 2px;
+    min-width: 320px;
+    margin-bottom: 15px;
+    height: 30px;
     margin-top: 38px;
  }
 
@@ -1131,10 +1162,14 @@ img.img-b {
      }
 
      .hero-title-bg {
-        top: 41px !important;
+        /* top: 41px !important;
         left: 15%;
         width: 84%;
-        height: 167px;
+        height: 167px; */
+        top: 40px !important;
+        left: 31%;
+        width: 70%;
+        height: 210px;
     }
     .heros-image img {
         height: 197px;
@@ -1182,15 +1217,22 @@ img.img-b {
          background-color: #EFEFEF;
      }
      .hero-title {
-        font-size: 48px;
+        font-size: 60px;
         letter-spacing: 15px;
         text-align: left;
     }
     .title {
-        letter-spacing: 5px;
+        /* letter-spacing: 5px;
         font-size: 50px;
         text-align: center;
         margin-top: -49px;
+        margin-left: -45px;
+        text-transform: uppercase;
+        font-weight: initial; */
+        letter-spacing: 5px;
+        font-size: 40px;
+        text-align: center;
+        margin-top: -30px;
         margin-left: -45px;
         text-transform: uppercase;
         font-weight: initial;
@@ -1206,7 +1248,8 @@ img.img-b {
     }
    
     .underline-area {
-        min-width: 252px;
+        /* min-width: 252px; */
+        min-width: 300px;
     }
     .indie-title-desc {
         padding: 10px 0px 0px 5px !important;
@@ -1217,11 +1260,16 @@ img.img-b {
         
     }
     .indie-title-bg {
-        top: 8%;
+        /* top: 8%;
         left: 11%;
         height: 190px;
         width: 88%;
-        z-index: 1;
+        z-index: 1; */
+        top: 7%;
+        left: 30%;
+        height: 190px;
+        width: 70%;
+        z-index: 0;
     }
     /* bussiness */
     img.img-b {
@@ -1496,6 +1544,7 @@ img.img-b {
          width: 100%;
          bottom: 0;
          background-color: #000000;
+         z-index: 1;
      }
 
      .mobile-row {
@@ -1630,7 +1679,7 @@ img.img-b {
      .bg-auth {
         position: absolute;
         height: 140%;
-        left: calc(100vw - 100vw);
+        left: calc(120vw - 100vw);
         top: 13%;
     }
 
@@ -2052,10 +2101,11 @@ img.img-b {
          font-size: 30px;
      }
      .res-margin-top{
-        margin-top: 58px;
+        margin-top: 110px;
      }
      .indie-title-desc {
         padding: 10px 150px 10px 38px;
+        z-index: 1;
      }
      /* category  */
     .mobile-top-saller-wrapper{
@@ -2345,7 +2395,7 @@ img.img-b {
     letter-spacing: 0.55px;
     color: #8D8D8D;
     text-transform: uppercase;
-    opacity: 1;"
+    opacity: 1;
  }
 
 .all-item{
@@ -2371,7 +2421,7 @@ img.img-b {
     letter-spacing: 20px;
     text-transform: uppercase;
     font-weight: bold;
- }
+}
 
 ::-webkit-scrollbar {
     width: 0.5em;
@@ -2381,10 +2431,31 @@ img.img-b {
     background: #ccc
 }
 ::-webkit-scrollbar-track-piece {
-    /* background: #888; */
     background: #eee;
 }
 ::-webkit-scrollbar-thumb {
-    /* background: #eee; */
     background: #888;
-}​
+} 
+
+.cursor-pointer{
+    cursor: pointer;
+}
+.social-link ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.social-link ul li {
+    display: inline;
+}
+.social-link ul li a {
+    color: white;
+    padding: 30px;
+    font-size: 22px;
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}

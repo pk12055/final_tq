@@ -54,6 +54,7 @@
         <div class="d-block d-sm-block d-md-block d-lg-none">
             <nav class="navbar bg-theme-nav">
                 <ul class="nav justify-content-start">
+                    
                 </ul>
                 <ul class="nav justify-content-end">
                     <div class="row" id="nav-img">
@@ -158,8 +159,11 @@
             </nav>
         </div>
         <div class="d-block d-sm-block d-md-block d-lg-none">
-            <nav class="navbar bg-theme-nav">
+            <nav class="navbar bg-theme-nav sticky">
                 <ul class="nav justify-content-start">
+                    <div class="text-center">
+                        <a href="{% url 'homepage' %}"><img src="{% static 'images/blue/sidebar-logo.svg' %}" height="50"/></a>
+                    </div>
                 </ul>
                 <ul class="nav justify-content-end">
                     <div class="row" id="nav-img">
@@ -203,10 +207,11 @@
                     <a class="nav-link text-nav-link {% if join %} active {% endif %}" href="{% url 'signup' %}">JOIN</a>
                 </li>
             </ul>
-            <div style="background: #4273F5;" align="center">
+            <div style="background: #4273F5;position: relative; top: 26.9%;" align="center">
                 <a href="{% if user.user_type == 'Brand' %} #{% else %}{% url 'cart' %}{% endif %}">
-                <button class="btn"
-                    style="background-color: #4273F5;border: none;color: #fff;padding: 16px 32px;text-align: center;font-size: 16px;margin: 4px 2px;transition: 0.3s;">Bag</button>
+                <button class="btn text-uppercase"
+                    style="background-color: #4273F5;color: #fff;font-size: 26px;">
+                    <img src="{% static 'images/blue/cart-bag.svg' %}" class="bag-img"> your Bag</button>
                 </a>
                 </div>
         </div>

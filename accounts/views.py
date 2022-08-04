@@ -142,9 +142,7 @@ def verify_email(request, key):
         user.save()
         messages.success(request, "Your email has been verified successfully!")
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        brand_obj = Brand.objects.create(
-                    user=user
-                )
+        brand_obj = Brand.objects.get(user=user)
         if user.user_type == 'Brand':
             return redirect("/brand-homepage-edit/"+str(brand_obj.id))    
             
@@ -464,21 +462,21 @@ def brand_signup(request):
         #     brand=brand_obj
         # )
 
-        brand_style = BrandStyle.objects.get(brand=brand_obj)
-        brand_style.brand=brand_obj
-        brand_style.site_background='#ffffff'
-        brand_style.main_color='#808080'
-        brand_style.background_color_2nd='#EFEFEF'
-        brand_style.top_nav_background='#ffffff'
-        brand_style.save()
+        # brand_style = BrandStyle.objects.get(brand=brand_obj)
+        # brand_style.brand=brand_obj
+        # brand_style.site_background='#ffffff'
+        # brand_style.main_color='#808080'
+        # brand_style.background_color_2nd='#EFEFEF'
+        # brand_style.top_nav_background='#ffffff'
+        # brand_style.save()
         
-        # BrandStyle.objects.create(
-        #     brand=brand_obj,
-        #     site_background='#ffffff',
-        #     main_color='#808080',
-        #     background_color_2nd='#EFEFEF',
-        #     top_nav_background='#ffffff'
-        # )
+        BrandStyle.objects.create(
+            brand=brand_obj,
+            site_background='#ffffff',
+            main_color='#808080',
+            background_color_2nd='#EFEFEF',
+            top_nav_background='#ffffff'
+        )
 
         return redirect('email_validation')
 
@@ -1065,7 +1063,7 @@ def brand_category(request, key):
 
     context = {
         'brand_obj': brand_obj,
-        'categories': 'categories',
+        'category': 'category',
         'products': products,
         'edit': 'edit',
         'product_detail': 'product_detail',

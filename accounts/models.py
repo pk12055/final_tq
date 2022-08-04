@@ -59,9 +59,9 @@ class User(AbstractUser, BaseTimeStampModel):
                     user=self,
                     brand=brand_obj
                 )
-                BrandCategory.objects.create(brand=brand_obj)
-                BrandStyle.objects.create(brand=brand_obj)
-                Category.objects.create(brand=brand_obj)
+                # BrandCategory.objects.create(brand=brand_obj)
+                # BrandStyle.objects.create(brand=brand_obj)
+                # Category.objects.create(brand=brand_obj)
         super().save(*args, **kwargs)
 
 
