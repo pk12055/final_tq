@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-# import django_heroku
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -128,27 +128,27 @@ AUTH_USER_MODEL = 'accounts.User'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd3d4h4n79jnj28',
-#         'USER': 'ggslrwilfabfhw',
-#         'PASSWORD': 'c931835ab536e80136d7f61c58265ee1584eb80c1cb80562b13bb889cb720f67',
-#         'HOST': 'ec2-23-23-151-191.compute-1.amazonaws.com',
-#         'PORT': '5432'
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tquarters',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'NAME': 'd3d4h4n79jnj28',
+        'USER': 'ggslrwilfabfhw',
+        'PASSWORD': 'c931835ab536e80136d7f61c58265ee1584eb80c1cb80562b13bb889cb720f67',
+        'HOST': 'ec2-23-23-151-191.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'tquarters',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
 
 
 # Password validation
@@ -194,7 +194,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 
 MEDIA_URL = '/media/'
 
@@ -221,5 +221,5 @@ except:
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
-BASE_URL = 'http://127.0.0.1:8000'
-# BASE_URL = 'https://tquarters-app.herokuapp.com'
+# BASE_URL = 'http://127.0.0.1:8000'
+BASE_URL = 'https://tquarters-app.herokuapp.com'
