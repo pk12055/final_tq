@@ -1,0 +1,101 @@
+{% load static %}
+{% if stores %}
+{% for i in stores %}
+	<div class="col-lg-12 pr-3 pl-4 pt-5">
+        <div class="card-img store-card">
+            <div class="card-card-body">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner text-left">
+                        <div class="carousel-item active">
+                            <div class="brand-like-area">
+                                <div class="product-like">
+                                    <form action="{% url 'follow_store' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="store_id" value="{{ i.id }}">
+                                        {% if user not in i.store_follower.all %}
+                                            <button type="submit" class="follow_btn"><i class="fa fa-heart-o"> FOLLOW</i></button>
+                                        {% else %}
+                                            <button type="submit" class="follow_btn"><i class="fa fa-heart"> UNFOLLOW</i></button>
+                                        {% endif %}
+                                    </form>
+                                </div>
+                            </div>
+                            <img class="store-image" src="{% static  'images/women.svg' %}"  width="100%" style="object-fit: cover;">
+                        </div>
+                        <div class="carousel-item">
+                            <div class="brand-like-area">
+                                <div class="product-like">
+                                    <form action="{% url 'follow_store' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="store_id" value="{{ i.id }}">
+                                        {% if user not in i.store_follower.all %}
+                                            <button type="submit" class="follow_btn"><i class="fa fa-heart-o"> FOLLOW</i></button>
+                                        {% else %}
+                                            <button type="submit" class="follow_btn"><i class="fa fa-heart"> UNFOLLOW</i></button>
+                                        {% endif %}
+                                    </form>
+                                </div>
+                            </div>
+                            <img class="store-image" src="{% static  'images/women.svg' %}" width="100%" style="object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="banner pl-2 d-none d-lg-block">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: start; margin-top: -10px; font-family: 'din-medium';">
+                        <span style="font-size: 20px;">{% if i.shop_name is not None %}{{ i.shop_name|upper }}{% endif %}</span>
+                        {% if i.is_email_verified %}
+                        <span class="verified_icon pl-2">
+                            <b><i class="fa fa-check-circle" style="font-weight: bold;"><span>VERIFIED</span></i></b>
+                        </span>
+                        {% endif %}
+                        <br>
+                        <span style="color: darkgrey;">{% if i.shop_city is not None %}{{ i.shop_city }},{% endif %} {% if i.shop_state is not None %}{{ i.shop_state }}{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mob-banner d-lg-none d-xs-block" style="height: 80px;">
+                <div class="d-flex justify-content-around">
+                    <div class="banner-icon pt-2" style="margin-left: -65px;">
+                        {% if i.is_email_verified %}
+                        <div class="verified_icon">
+                            <b><i class="fa fa-check-circle" style="font-weight: bold;"><span>VERIFIED</span></i></b>
+                        </div>
+                        {% endif %}
+                        <span style="font-size: 20px;">{% if i.shop_name is not None %}{{ i.shop_name|upper }}{% endif %}</span><br>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 pr-3 pl-4 pt-4" style="text-align: justify;">
+    	<p>{{ i.shop_description }}</p>
+    </div>
+    <div class="col-md-5 pl-4 d-none d-lg-block" style="text-align: start; font-family: 'din-medium';">
+    	{% if i.shop_address or i.shop_city is not None or i.shop_state is not None or  i.shop_zip_code is not None or i.shop_country is not None %}<i class="fa fa-map-marker" style="color:#007bff;"></i>{% endif %} <span style="color: darkgrey;">{% if i.shop_address %}{{ i.shop_address }},{% endif %} {% if i.shop_city is not None %}{{ i.shop_city }},{% endif %} {% if i.shop_state is not None %}{{ i.shop_state }},{% endif %}{% if i.shop_zip_code is not None %}{{ i.shop_zip_code }},{% endif %} {% if i.shop_country is not None %}{{ i.shop_country }}{% endif %}</span>
+
+    </div>
+
+    <div class="col-9 pl-4 d-lg-none d-xs-block" style="text-align: start; font-family: 'din-medium';">
+        {% if i.shop_address or i.shop_city is not None or i.shop_state is not None or  i.shop_zip_code is not None or i.shop_country is not None %}<i class="fa fa-map-marker" style="color:#007bff;"></i>{% endif %} <span style="color: darkgrey;">{% if i.shop_address %}{{ i.shop_address }},{% endif %} {% if i.shop_city is not None %}{{ i.shop_city }},{% endif %} {% if i.shop_state is not None %}{{ i.shop_state }},{% endif %}{% if i.shop_zip_code is not None %}{{ i.shop_zip_code }},{% endif %} {% if i.shop_country is not None %}{{ i.shop_country }}{% endif %}</span>
+
+    </div>
+
+    <div class="col-md-2 d-none d-lg-block" style="text-align: start; font-family: 'din-medium';">
+    	<i class="fa fa-heart-o" style="color:#007bff;"></i>  <span style="color: darkgrey;">{% if not i.store_follower.count %}0{% else %}{{ i.store_follower.count }}{% endif %} followers</span>
+    </div>
+    <div class="col-3 d-lg-none d-xs-block" style="font-family: 'din-medium';">
+        <i class="fa fa-heart-o" style="color:#007bff;"></i>  <span style="color: darkgrey;">{% if not i.store_follower.count %}0{% else %}{{ i.store_follower.count }}{% endif %}</span>
+    </div>
+    <div class="col-md-5 d-none d-lg-block" style="text-align: end;">
+    	<a class="tq-btn tq-btn-primary" href="#">GET IN TOUCH</a>
+    </div>
+    <div class="col-md-5 d-lg-none d-xs-block pt-3" style="text-align: center;">
+        <a class="tq-btn tq-btn-primary" href="#">GET IN TOUCH</a>
+    </div>
+{% endfor %}
+{% else %}
+{% include 'empty_data.html' %}
+{% endif %}

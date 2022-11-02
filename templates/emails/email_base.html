@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+    <style type="text/css">
+    .logo {
+        font-family: 'Caveat', cursive;
+    }
+
+    p {
+        font-family: Poppins;
+    }
+    </style>
+    {% block email_style %}
+    {% endblock %}
+</head>
+
+<body>
+    <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust:none; margin:0; padding:0; position:relative; width: 100%; text-align: center;">
+        <tr>
+            <td align="center">
+                <center style="-webkit-text-size-adjust:none; max-width: 600px; width: 100%;">
+                    <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust:none;background-color:#f0b143; border: 1px solid white;" width="100%">
+                        <tr>
+                            <td>
+                                <center style="-webkit-text-size-adjust:none; width: 100%; background: #1F2E35; ">
+                                    <a href="#" target="_blank">
+                                        <img src="/static/images/logo.svg" alt="" style="width: 170px;" alt="Quilio-logo" />
+                                    </a>
+                                </center>
+                                <table border="0" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust:none; margin:0 auto; padding:0; position: relative; z-index: 1; background-color: #fafafa;" width="100%">
+                                    <tr>
+                                        <td style="-webkit-text-size-adjust:none; padding-top: 22px; padding-bottom: 36px; padding-right: 32px; padding-left:52px;">
+                                            <p style="text-align: center; font-size: 30px; font-weight:  400;">
+                                                {{ subject }}</p>
+                                            <span style="-webkit-text-size-adjust:none; display:inline-block; width:100%;">
+                                                <span class="text" style="-webkit-text-size-adjust:none; font-size: 16px; font-weight: 300; font-style: normal; font-stretch: normal; line-height: 1.75; letter-spacing: normal; color: #2a2e3a;">
+                                                    {% block content_email %}
+                                                    {% endblock %}
+                                                </span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

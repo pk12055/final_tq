@@ -1,0 +1,273 @@
+{% load static %}
+{% block content %}
+<div class="container" style="padding: 0px;">
+    <h4>MY SHOPS</h4>
+    <div class="row">
+        {% for shop in user_shops %}
+        <div class="col-md-6 mt-5">
+            <div class="address-card">
+                <div class="row mt-2">
+                    <div class="ml-2 col-lg-9 col-10">
+                        <p class="font-medium-reg">{{shop.shop_type}}</p>
+                    </div>
+                    <div class="col-md-2 col-1">
+                        <img src="{% static 'images/red/check-sign.svg' %}" height="10" />
+                    </div>
+                </div>
+                <div class="address-title container mt-3 pb-5">
+                    <span>{{shop.shop_name}}</span>
+                </div>
+                <div class="address-body p-2 " style="min-height: 100px;">
+                    <span>{{shop.shop_city}} {{shop.shop_state}}, {{shop.shop_country}} - {{shop.shop_zip_code}}</span>
+                </div>
+                <div class="container p-2">
+                    <div class="row">
+                        <div class="col-lg-12 col-12 mb-2 text-center">
+                            <button type="button" class="tq-btn w-100 tq-btn-primary brand_edit_shop" name="edit" data-toggle="modal" data-target="#BrandShopModal" data-value="{{ shop.id }}" data-text="{{ shop }}">EDIT</button>
+                        </div>
+                        <div class="col-lg-12 col-12 mt-2 pb-3 text-center">
+                            <a href="#button" class="text-link brand_remove_shop" name="remove" data-toggle="modal" data-target="#RemoveBrandShopModal" data-value="{{ shop.id }}" data-text="{{ shop }}">REMOVE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-md-6">
+            <div class="col-md-6 mt-5" data-toggle="modal" data-target="#BrandShopModal">
+                <div class="new-address-card text-center">
+                    <div id="address-model">
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+                                +
+                            </div>
+                            <div class="col-md-12">
+                                Add new shop
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal -->
+<div class="modal fade" id="BrandShopModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-3">
+            <div class="row">
+                <div class="col-md-9 margin-left-40" id="brand_shop-edit">
+                    <h1>NEW STORE</h1>
+                </div>
+                <div class="col-md-1">
+                    <span class="fa fa-close" data-dismiss="modal"></span>
+                </div>
+            </div>
+            <form method="POST" id="brand_shop-form" autocomplete="off">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 pb-2">
+                                <input name="shop_name" class="input-control" type="search"
+                                    placeholder="Shop Name", id="brand_shop_name" />
+                            </div>
+                        </div>
+                        <div id="address">
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <input name="shop_city" class="input-control field" type="text" placeholder="City"
+                                        id="brand_shop_locality" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input name="shop_zip_code" class="input-control field" type="text" id="brand_shop_postal_code"
+                                        placeholder="Zipcode" />
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <input name="shop_state" class="input-control field" type="text"
+                                        id="brand_shop_state" placeholder="State" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input name="shop_country" class="input-control field" type="text" id="brand_shop_country"
+                                        placeholder="Country" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 pt-2 mb-3 mt-3">
+                                    <select class="select-control" name="shop_type" id="brand_shop_type">
+                                        <option value="Public" selected="selected">Public</option>
+                                        <option value="Private">Private</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="brand_shop_action" value="add" id="brand_shop_action_id">
+                <input type="hidden" name="user" value="{{user.id}}" id="current_brand_user">
+                <input type="hidden" name="brand_store_id" id="brand_store_id">
+                <div class="text-center container mt-2 pb-2">
+                    <button type="submit" id="brand_shop_action" class="tq-btn tq-btn-primary" value="ADD">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="RemoveBrandShopModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-3">
+            <div class="row">
+                <div class="col-md-9 margin-left-40">
+                    <h3>ARE YOU SURE?</h3>
+                </div>
+                <div class="col-md-1">
+                    <span class="fa fa-close" data-dismiss="modal"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="container" id="brand_remove_shop_message">
+                    </div>
+                </form>
+            </div>
+            <div class="text-center container mt-2 pb-2">
+                <button type="button" id="brand_remove_shop" class="tq-btn tq-btn-primary">REMOVE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(function validate() {
+
+        var secure_rules = {
+            rules: {
+                shop_name: {
+                    required: true
+                },
+                shop_city: {
+                    required: true,
+                },
+                shop_zip_code: {
+                    required: true,
+                },
+                shop_country: {
+                    required: true,
+                },
+                shop_state: {
+                    required: true,
+                },
+                shop_type: {
+                    required: true,
+                },
+            },
+            submitHandler: function (f) {
+                $.ajax({
+                    url: "{% url 'add_brand_store' %}",
+                    type: "POST",
+                    data: $(f).serialize(),
+                    success: function (response) {
+                        response = JSON.parse(response)
+                        location.href = "{% url 'account' %}?tab=my_store"
+                    }
+                });
+            },
+            invalidHandler: function (f) {
+                $(f).submit();
+            }
+        }
+        $('#brand_shop-form').validate(secure_rules);
+    });
+
+    jQuery("body").on("click", ".brand_remove_shop", function () {
+        var brand_store_id = jQuery(this).data('value');
+        var title = jQuery(this).data('text');
+        $("#brand_remove_shop_message").html('<p>' + title + ' will be removed </p>')
+        $("#brand_remove_shop").on("click", function () {
+            $.ajax({
+                'url': "{% url 'add_brand_store' %}",
+                'type': 'POST',
+                'cache': false,
+                'data': {
+                    'brand_store_id': brand_store_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'shop_action': 'remove'
+                },
+                success: function (response) {
+                    response = JSON.parse(response);
+                    location.href = "{% url 'account' %}?tab=my_store"
+                }
+            });
+        })
+    });
+
+    jQuery("body").on("click", ".brand_edit_shop", function () {
+        var brand_store_id = jQuery(this).data('value');
+        $("#brand_shop_action").text('Edit')
+        $("#brand_store_id").val(brand_store_id)
+        $("#brand_shop_action_id").val('edit')
+        $("#brand_shop-edit").html('<h1>EDIT SHOP</h1>')
+        $.ajax({
+            'url': "{% url 'add_brand_store' %}",
+            'type': "POST",
+            'data': {
+                'brand_store_id': brand_store_id,
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'brand_shop_action': 'edit'
+            },
+            success: function (response) {
+                response = JSON.parse(response)
+                type = response['brand_shop_type']
+                $("#brand_shop_name").val(response['brand_shop_name'])
+                $("#brand_shop_locality").val(response['brand_shop_city'])
+                $("#brand_shop_postal_code").val(response['brand_shop_zip_code'])
+                $("#brand_shop_state").val(response['brand_shop_state'])
+                $("#brand_shop_country").val(response['brand_shop_country'])
+                $("#brand_shop_type").val(type)
+                $('#brand_shop_type').find('option[value=' + type + ']').attr('selected', 'selected');
+
+                $("#brand_shop_action").on("click", function () {
+                    $("#brand_shop_action_id").val('edit_save')
+                    $.ajax({
+                        'url': "{% url 'add_brand_store' %}",
+                        'type': 'POST',
+                        'cache': false,
+                        data: {'data': $('#brand_shop-form').serialize()},
+                        success: function (response) {
+                            response = JSON.parse(response)
+                            location.href = "{% url 'account' %}?tab=my_store"
+                        }
+                    });
+                })
+            }
+        });
+    })
+
+    $('#BrandShopModal').on('hidden.bs.modal', function (e) {
+        $(this).find("input,textarea,select").val('').end()
+        $("#brand_shop_action").text('Add')
+        $("#brand_shop-edit").html('<h1>ADD SHOP</h1>')
+        $('#brand_shop-form').trigger("reset");
+        $("#brand_shop_type").val('Public')
+        $('#brand_shop_type').find('option[value="Public"]').attr('selected', 'selected');
+        $("#brand_shop-form").find('input[name=csrfmiddlewaretoken]').val('{{ csrf_token }}')
+        $("#current_brand_user").val('{{user.id}}')
+        $("#brand_shop_action_id").val('add')
+    })
+
+</script>
+
+{% endblock %}

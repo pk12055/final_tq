@@ -1,0 +1,73 @@
+{% load static %}
+{% block content %}
+<h1>orders</h1>
+{% for key, value in products.items %}
+<div class="row pl-4 pr-5 pt-5">
+    <div class="col-lg-6">
+        <h2>{{ key|upper }}</h2>
+    </div>
+    <div class="col-lg-3" style="text-align: end;">
+        <span style="color: darkgrey;">Delivered on {{ key }}</span>
+    </div>
+    <div class="col-lg-3" style="text-align: start;">
+        <a href="#">Return an item</a>
+    </div>
+</div>
+<div class="row pl-4 pr-4">
+        {% for i in value %}
+
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-5">
+            <div class="product-card">
+                <a href="{% url 'product_detail' i.product.id %}">
+                    <div class="product-card-body">
+                        <div class="product-like-area">
+                            <div class="product-like">
+                                <form action="{% url 'favourite' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ i.product.id }}">
+                                    {% if user not in i.product.favourite.all %}
+                                    <button type="submit" class="follow_btn"><i class="fa fa-heart-o"></i></button>
+                                    {% else %}
+                                    <button type="submit" class="follow_btn"><i class="fa fa-heart"></i></button>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                        <img class="product-image card-img"
+                            src="{% if i.product.product_pic %}/media/{{i.product.product_pic}}{% else %}{%static 'images/product-image.svg' %}{% endif %}"
+                            height="100%" alt="Vans" />
+
+                    </div>
+                </a>
+                <div class="product-card-details">
+                    <div class="product-title">
+                        {% if i.product.product_name is not None %}{{ i.product.product_name }}{% endif %}
+                        {{i.product.id}}
+                    </div>
+                    <div class="product-brand-name">
+                        {% if i.product.brand is not None %}{{ i.product.brand }}{% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-6 product-price">
+                            {% if i.product.product_price is not None %}$ {{ i.product.product_price }}{% else %}$ 0.00{% endif %}
+                        </div>
+                        <div class="col-6 text-right">
+                            {% for review in product_review %}
+                                {% if i.product == review.product %}
+                                    {% with ''|center:review.rating as range %}
+                                    {% for i in range %}
+                                        <img src="{%static 'images/star.svg' %}" style="width: 21px; height: 20px;" />
+                                    {% endfor %}
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

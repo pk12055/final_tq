@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="auth-app mt-5">
+    <div class="tq-join-text mt-5 pt-5 d-none d-lg-block">
+        <div class="wrapper pl-4" style="justify-content: start !important;">
+            <div class="underline-area" style="height: 40px; min-width: 177px;">
+                <div class="title" style="font-size: 60px; margin-top: -60px; margin-left: -45px;">
+                    JOIN
+                </div>
+            </div>
+        </div>
+        <p class="font-medium-reg pl-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna</p>
+    </div>
+    <div class="brand-logo-container text-right pl-3">
+        <img src="{% static 'images/arrow-thin-left.png' %}" />
+        <p>THIS MODEL WEARS</p>
+        <div class="brand-logo text-right">
+            <img src="{% static 'images/brand-logo.png' %}" />
+        </div>
+    </div>
+    <div class="mt-5 pt-5 pb-5 d-lg-none d-block">
+        <div class="join">
+            <div class="wrapper pl-4">
+                <div class="underline-area" style="min-width: 177px;">
+                    <div class="title">
+                        JOIN
+                    </div>
+                </div>
+            </div>
+            <p class="font-medium-reg pl-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna</p>
+        </div>
+        <div class="p-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title login-title__mobile">
+                        LOGIN
+                    </div>
+                    <form method="POST" enctype='multipart/form-data' id="login-form">
+                        {% csrf_token %}
+                        <div class="login_mobile">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input name="email" placeholder="Email" class="input-control" type="email"
+                                        required style="font-family: 'din-medium'"/>
+                                    {% if form.errors %}
+                                    {{ form.errors.email }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-12">
+                                    <div class="tq-input-group">
+                                        <input name="password" id="password" placeholder="Password"
+                                            class="input-control" type="password" required style="font-family: 'din-medium'"/>
+
+                                        <span class="input-group-append">
+                                            <div class="tq-input-group-text bg-transparent pointer">
+                                                <i id="show-password" class="fa fa-eye-slash"></i>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-right font12"><a class="text-muted"
+                                        href="{% url 'forgot_password' %}">forgot password?</a></div>
+                            </div>
+                            <div class="row login-cta">
+                                <div class="col-lg-6 mt-2">
+                                    <a class="text-link font14" href="{% url 'signup' %}">I DON'T HAVE AN ACCOUNT</a>
+
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="submit" class="tq-btn tq-btn-primary">LOGIN</button>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4 text-muted font-medium-reg font12">
+                                or sign with
+                            </div>
+                            <div class="text-center mt-2">
+                                <div class="row">
+                                    <div class="col-md-4 col-4">
+                                        <i class="fa fa-instagram"></i>
+                                    </div>
+                                    <div class="col-md-4 col-4">
+                                        <i class="fa fa-twitter"></i>
+                                    </div>
+                                    <div class="col-md-4 col-4">
+                                        <a class='btn' href='/accounts/facebook/login/?process=login'
+                                            style="color: black;"><i class="fa fa-facebook"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>    
+            </div>
+        </div>
+    </div>
+    <div class="row mobile-row row-right-margin d-none d-lg-block">
+        <div class="col-lg-6">
+            <img src="{% static 'images/bg-auth.svg' %}" class="bg-auth"/>
+        </div>
+        <div class="col-lg-6">
+            <div class="login-container">
+                <div class="tq-card" style="left:550px;">
+                    <div class="card-title login-title">
+                        LOGIN
+                    </div>
+                    <form method="POST" enctype='multipart/form-data' id="login-form">
+                        {% csrf_token %}
+                        <div class="card-body p-5">
+                            <div class="row mt-2 mb-3">
+                                <div class="col-md-12">
+                                    <input name="email" placeholder="Email" class="input-control" type="email"
+                                        required style="font-family: 'din-medium'"/>
+                                    {% if form.errors %}
+                                    {{ form.errors.email }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-12">
+                                    <div class="tq-input-group">
+                                        <input name="password" id="password" placeholder="Password"
+                                            class="input-control" type="password" required style="font-family: 'din-medium'"/>
+
+                                        <span class="input-group-append">
+                                            <div class="tq-input-group-text bg-transparent pointer">
+                                                <i id="show-password" class="fa fa-eye-slash"></i>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-right font12"><a class="text-muted"
+                                        href="{% url 'forgot_password' %}">forgot password?</a></div>
+                            </div>
+                            <div class="row login-cta">
+                                <div class="col-lg-6 mt-2">
+                                    <a class="text-link font14" href="{% url 'signup' %}">I DON'T HAVE AN ACCOUNT</a>
+
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="submit" class="tq-btn tq-btn-primary">LOGIN</button>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4 text-muted font-medium-reg font12">
+                                or sign with
+                            </div>
+                            <div class="text-center mt-2">
+                                <div class="row">
+                                    <div class="col-md-4 col-4 d-none">
+                                        <i class="fa fa-instagram"></i>
+                                    </div>
+                                    <div class="col-md-4 col-4">
+                                        <i class="fa fa-twitter d-none"></i>
+                                    </div>
+                                    <div class="col-md-4 col-4">
+                                        <a class='btn' href='/accounts/facebook/login/?process=login'
+                                            style="color: black;"><i class="fa fa-facebook"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-lg-none d-none">
+        <div class="mobile-brand-logo-container text-left">
+            <img src="{% static 'images/arrow-thin-left.png' %}" />
+            <p>THIS MODEL WEARS</p>
+            <div class="brand-logo text-left">
+                <img src="{% static 'images/brand-logo.png' %}" />
+            </div>
+        </div>
+        <div class="">
+            <img src="{% static 'images/bg-auth.svg' %}" class="login-mobile-bg-auth" />
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+    $(document).ready(function () {
+        $('#login-form').validate({
+            errorPlacement: function(error, element) {
+               if (element.attr("type") == "password"){
+                    error.appendTo(element.parent().parent());
+                }else{
+                    error.appendTo( element.parent());
+            }
+            },
+        });
+    });
+
+</script>
+{% endblock %}

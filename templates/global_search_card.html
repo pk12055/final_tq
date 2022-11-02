@@ -1,0 +1,174 @@
+{% load static %}
+
+    {% for i in combined_data %}
+    
+	    {% if i.product_name %}
+	    <div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-5">
+	        <div style="width: 100px; height: 25px; background-color: yellow; transform: rotate(320deg); position: absolute; top: 30px;">PRODUCT
+	        </div>
+	        <div class="product-card">
+	            <a href="{% url 'product_detail' i.id %}">
+	                <div class="product-card-body">
+	                    <div class="product-like-area">
+	                        <div class="product-like">
+	                            <form action="{% url 'favourite' %}" method="POST">
+	                                {% csrf_token %}
+	                                <input type="hidden" name="product_id" value="{{ i.id }}">
+	                                {% if user not in i.favourite.all %}
+	                                <button type="submit" class="follow_btn"><i class="fa fa-heart-o"></i></button>
+	                                {% else %}
+	                                <button type="submit" class="follow_btn"><i class="fa fa-heart"></i></button>
+	                                {% endif %}
+	                            </form>
+	                        </div>
+	                    </div>
+	                    <img class="product-image card-img"
+	                        src="{% if i.product_pic %}/media/{{i.product_pic}}{% else %}{%static 'images/product-image.svg' %}{% endif %}"
+	                        height="100%" alt="Vans" />
+	                </div>
+	            </a>
+	            <div class="product-card-details">
+	                <div class="product-title">
+	                    <span>{{ i.product_name }}</span>
+	                </div>
+	                <div class="row">
+	                    <div class="col-6 product-price">
+	                        {% if i.product_price is not None %}$ {{ i.product_price }}{% else %}$ 0.00{% endif %}
+	                    </div>
+	                    <div class="col-6 text-right">
+	                        {% for review in product_review %}
+	                            {% if i == review.product %}
+	                                {% with ''|center:review.rating as range %}
+	                                {% for i in range %}
+	                                    <img src="{%static 'images/star.svg' %}" style="width: 21px; height: 20px;" />
+	                                {% endfor %}
+	                                {% endwith %}
+	                            {% endif %}
+	                        {% endfor %}
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    {% endif %}
+
+	    {% if i.brand_name %}
+	    <div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-5">
+	      <!--   <div style="width: 100px; height: 25px; background-color: yellow; transform: rotate(320deg); position: absolute; top: 30px;">BRAND
+	        </div> -->
+	        <div class="product-card">
+	            <a href="{% url 'brand_detail_homepage' i.id %}">
+	                <div class="product-card-body">
+	                    <div class="product-like-area">
+	                    	<div style="left: 0 !important; position: absolute;">
+	                    		<span class="follow_btn">BRAND</span>
+	                    	</div>
+	                        <div class="product-like">
+	                            <form action="{% url 'follow_brand' %}" method="POST">
+									{% csrf_token %}
+									<input type="hidden" name="brand_id" value="{{ i.id }}">
+									{% if user not in i.follower_count.all %}
+										<button type="submit" class="follow_btn"><i class="fa fa-heart-o"></i></button>
+									{% else %}
+										<button type="submit" class="follow_btn"><i class="fa fa-heart"></i></button>
+									{% endif %}
+								</form>
+	                        </div>
+	                    </div>
+	                    <img class="product-image card-img"
+	                        src="{% if i.branc_pic %}/media/{{i.branc_pic}}{% else %}{%static 'images/product-image.svg' %}{% endif %}"
+	                        height="100%" alt="Vans" />
+	                </div>
+	            </a>
+	            <div class="product-card-details">
+	                <div class="product-title">
+                        <span>{{ i.brand_name }}</span>
+                    </div>
+                    <div class="product-brand-name">
+                        <span style="color: darkgrey;">
+                            {% if i.visit %}
+                                {{ i.visit }}
+                            {% else %}
+                                0
+                            {% endif %} visitors
+                        </span>
+
+                        <span style="margin-left: 120px; color: darkgrey;">
+                            {% if i.brand_follower.count %}
+                                {{ i.brand_follower.count }}
+                            {% else %}
+                                0
+                            {% endif %} followers
+                        </span>
+                    </div>
+
+                    <div class="product-title" style="padding-top: 0px;">
+                    	<span>
+                            {% if i.brand_city is not None %}
+                                {{ i.brand_city }},
+                            {% endif %}
+                            {% if i.brand_state is not None %}
+                                {{ i.brand_state }}
+                            {% endif %}
+                    	</span>
+                	</div>
+	            </div>
+	        </div>
+	    </div>
+	    {% endif %}
+
+	    {% if i.shop_name %}
+	    <div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-5">
+	        <div style="width: 100px; height: 25px; background-color: yellow; transform: rotate(320deg); position: absolute; top: 30px;">STORE
+	        </div>
+	        <div class="product-card">
+	            <a href="{% url 'store_list' %}">
+	                <div class="product-card-body">
+	                    <div class="product-like-area">
+	                        <div class="product-like">
+	                            <form action="{% url 'follow_store' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="store_id" value="{{ i.id }}">
+                                    {% if user not in i.store_follower.all %}
+                                        <button type="submit" class="follow_btn"><i class="fa fa-heart-o"></i></button>
+                                    {% else %}
+                                        <button type="submit" class="follow_btn"><i class="fa fa-heart"></i></button>
+                                    {% endif %}
+                                </form>
+	                        </div>
+	                    </div>
+	                    <img class="product-image card-img"
+	                        src="{%static 'images/product-image.svg' %}"
+	                        height="100%" alt="Vans" />
+	                </div>
+	            </a>
+	            <div class="product-card-details">
+	                <div class="product-title">
+                        <span>{{ i.shop_name }}</span>
+                    </div>
+                    <div class="product-brand-name">
+
+                        <span style="color: darkgrey;">
+                            {% if i.store_follower.count %}
+                                {{ i.store_follower.count }}
+                            {% else %}
+                                0
+                            {% endif %} followers
+                        </span>
+                    </div>
+                    <div class="product-title" style="padding-top: 0px;">
+                        <span>
+                            {% if i.shop_city is not None %}
+                                {{ i.shop_city }},
+                            {% endif %}
+                            {% if i.shop_state is not None %}
+                                {{ i.shop_state }}
+                            {% endif %}
+                        </span>
+                    </div>
+	            </div>
+	        </div>
+	    </div>
+	    {% endif %}
+
+{% endfor %}

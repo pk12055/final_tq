@@ -1,0 +1,212 @@
+{% load static %}
+
+<div class="profile-tabs">
+    <div class="pt-3">
+        <ul class="nav nav-fill" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="sold-tab" data-toggle="tab" href="#sold" role="tab"
+                    aria-controls="sold" aria-selected="true"><p style="font-size: 50px; margin-bottom: -30px; letter-spacing: 5px;">25</p><br>ITEMS SOLD THIS MONTH</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" id="earning-tab" data-toggle="tab" href="#earning" role="tab"
+                    aria-controls="earning" aria-selected="true"><p style="font-size: 50px; margin-bottom: -30px; letter-spacing: 5px;">11.3k</p><br>MONTHLY EARNING</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" id="followers-tab" data-toggle="tab" href="#followers" role="tab"
+                    aria-controls="followers" aria-selected="false"><p style="font-size: 50px; margin-bottom: -30px; letter-spacing: 5px;">5.6k</p><br>TOTAL FOLLOWERS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="sell-tab" data-toggle="tab" href="#sell" role="tab"
+                    aria-controls="sell" aria-selected="false"><p style="font-size: 50px; margin-bottom: -30px; letter-spacing: 5px;">58</p><br>TOTAL ITEMS ON SELL</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="sold" role="tabpanel" aria-labelledby="sold-tab">
+                <div id="container1"></div>
+            </div>
+            <div class="tab-pane fade" id="earning" role="tabpanel" aria-labelledby="earning-tab">
+                <div id="container2"></div>
+            </div>
+            <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
+                <div id="container3"></div>
+            </div>
+            <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+                <div id="container4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.21/angular.js"></script>
+    <!--<link rel="stylesheet" href="style.css" />-->
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script>
+var chart = new Highcharts.Chart({
+
+    title: false,
+
+    exporting: false,
+
+    credits: {
+        enabled: false
+    },
+  chart: {
+    renderTo: 'container1',
+    marginBottom: 80
+  },
+
+yAxis: {
+    title: false
+},
+
+  xAxis: {
+    categories: ['Jan', 'Feb', 'Mar', 'Apr'],
+    labels: {
+      rotation: 90
+    }
+  },
+
+  series: [{
+    data: [29, 40, 36, 129],
+    enableMouseTracking: false,
+    showInLegend: false,
+    name: 'Items Sold',
+    color: "#4273F5",
+    lineWidth: 4,
+    marker: {
+        fillColor: '#4273F5',
+        lineColor: '#4273F5',
+        lineWidth: 7
+    }
+  }]
+});
+</script>
+
+<script>
+var chart = new Highcharts.Chart({
+
+    title: false,
+
+    exporting: false,
+
+    credits: {
+        enabled: false
+    },
+  chart: {
+    renderTo: 'container2',
+    marginBottom: 80
+  },
+
+yAxis: {
+    title: false
+},
+
+  xAxis: {
+    categories: ['Jan', 'Feb', 'Mar', 'Apr'],
+    labels: {
+      rotation: 90
+    }
+  },
+
+  series: [{
+    data: [29, 71, 106, 129],
+    enableMouseTracking: false,
+    showInLegend: false,
+    name: 'Total Earning',
+    color: "#4273F5",
+    lineWidth: 4,
+    marker: {
+        fillColor: '#4273F5',
+        lineColor: '#4273F5',
+        lineWidth: 7
+    }   
+  }]
+});
+</script>
+
+<script>
+var chart = new Highcharts.Chart({
+
+    title: false,
+
+    exporting: false,
+
+    credits: {
+        enabled: false
+    },
+  chart: {
+    renderTo: 'container3',
+    marginBottom: 80
+  },
+
+yAxis: {
+    title: false
+},
+  xAxis: {
+    categories: ['Jan', 'Feb', 'Mar', 'Apr'],
+    labels: {
+      rotation: 90
+    }
+  },
+
+  series: [{
+    data: [29, 71, 106, 129],
+    enableMouseTracking: false,
+    showInLegend: false,
+    name: 'Total Followers',  
+    color: "#4273F5",
+    lineWidth: 4,
+    marker: {
+        fillColor: '#4273F5',
+        lineColor: '#4273F5',
+        lineWidth: 7
+    }
+  }]
+});
+</script>
+
+<script>
+var chart = new Highcharts.Chart({
+
+    title: false,
+
+    exporting: false,
+
+    credits: {
+        enabled: false
+    },
+  chart: {
+    renderTo: 'container4',
+    marginBottom: 80
+  },
+
+  yAxis: {
+    title: false
+},
+  xAxis: {
+    categories: ['Jan', 'Feb', 'Mar', 'Apr'],
+    labels: {
+      rotation: 90
+    }
+  },
+
+  series: [{
+    data: [29, 71, 106, 100],
+    enableMouseTracking: false,
+    showInLegend: false,
+    color: "#4273F5",
+    name: 'Items on Sell',
+    lineWidth: 4,
+    marker: {
+        fillColor: '#4273F5',
+        lineColor: '#4273F5',
+        lineWidth: 7
+    }  
+  }]
+});
+</script>
+{% endblock %}

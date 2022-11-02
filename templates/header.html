@@ -1,0 +1,236 @@
+{% load static %}
+
+{% if request.user.is_authenticated %}
+    <header class="app-header">
+        <div class="d-none d-sm-none d-xs-none d-md-none d-lg-block">
+            <nav class="navbar bg-theme-nav">
+                <ul class="nav justify-content-start">
+                </ul>
+                <div style="margin-right: auto;">
+                    <div class="row ml-5 pl-5">
+                        <div class="col-lg-10">
+                            <form method="GET" action="{% url 'main_search' %}">
+                                <div class="tq-input-group">
+                                    <input name="main_search" class="font-medium input-control py-2 border-right-0" type="search" value="{{ name }}" placeholder="search" autocomplete="off" />
+                                    <span class="input-group-append">
+                                        <div class="tq-input-group-text bg-transparent pointer"><i class="fa fa-search"></i></div>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav justify-content-end nav-items-block">
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if home %} active {% endif %}" aria-current="page" href="/">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if bussiness %} active {% endif %}" href="{% url 'bussiness' %}">FOR BRANDS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if categories %} active {% endif %}" href="{% url 'categories' %}">CATEGORIES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if brand_list %} active {% endif %}" href="{% url 'brand_list' %}">BRANDS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if store_list %} active {% endif %}" href="{% url 'store_list' %}">STORES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if contact %} active {% endif %}" href="{% url 'contact_us_view' %}">CONTACTS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% if brand_header_id %} {% url 'brand_detail_homepage' brand_header_id.id %}{% else %}{% url 'account' %}?tab=info{% endif %}">
+                            <img class="nav-img" src="{% if user.profile_pic %}/media/{{user.profile_pic}}{% else %}{{default_image}}{% endif %}"  height="45" width="45" /></a>
+                    </li>
+                </ul>
+                <div class="cart-bag-item">
+                <a href="{% if user.user_type == 'Brand' %} #{% else %}{% url 'cart' %}{% endif %}">
+                    <img src='{%static "images/blue/cart-bag.svg" %}' height="70" />
+                </a>
+                </div>
+            </nav>
+        </div>
+        <div class="d-block d-sm-block d-md-block d-lg-none">
+            <nav class="navbar bg-theme-nav">
+                <ul class="nav justify-content-start">
+                    
+                </ul>
+                <ul class="nav justify-content-end">
+                    <div class="row" id="nav-img">
+                        <div class="col">
+                            <img src='{% static "images/search.svg" %}' height="20" />
+
+                        </div>
+                        <div class="col">
+                            <img id="mobile-nav-icon" src='{% static "images/menu-icon.svg" %}' height="20" />
+                        </div>
+                    </div>
+                    <div class="row" id="nav-cross">
+                        <div class="col">
+                            <a class="close" id="mobile-nav-cross"></a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+        <div class="mobile-nav hide" id="mobile-nav">
+            <ul class="mobile-nav-items-block">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% if user.user_type == 'Brand' %}{% url 'brand_detail_homepage' brand_header_id.id %}{% else %}{% url 'account' %}{% endif %}">
+                        <img class="nav-img" src="{% if user.profile_pic %}/media/{{user.profile_pic}}{% else %}{{default_image}}{% endif %}" alt="profile_pic" height="45"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if home %} active {% endif %}" aria-current="page" href="/">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if bussiness %} active {% endif %}" href="{% url 'bussiness' %}">FOR BRANDS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if categories %} active {% endif %}" href="{% url 'categories' %}">CATEGORIES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if brand_list %} active {% endif %}" href="{% url 'brand_list' %}">BRANDS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link" href="{% url 'store_list' %}">STORES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link" href="{% url 'contact_us_view' %}">CONTACTS</a>
+                </li>
+            </ul>
+            <div class="mobile-nav-footer">
+                <a href="{% if user.user_type == 'Brand' %} #{% else %}{% url 'cart' %}{% endif %}">
+                <button class="btn"
+                    style="background-color: #4273F5;border: none;color: #fff;padding: 16px 32px;text-align: center;font-size: 16px;margin: 4px 2px;transition: 0.3s;">Bag</button>
+                </a>
+                </div>
+        </div>
+    </header>
+    {% else %}
+    <header class="app-header">
+        <div class="d-none d-sm-none d-xs-none d-md-none d-lg-block">
+            <nav class="navbar bg-theme-nav">
+                <ul class="nav justify-content-start">
+
+                </ul>
+                <div style="margin-right: auto;">
+                    <div class="row ml-5 pl-5">
+                        <div class="col-md-10">
+                            <form method="GET" action="{% url 'product_list' %}?flag=ALL">
+                                <div class="tq-input-group">
+                                    <input name="main_search" class="font-medium input-control py-2 border-right-0" type="search" value="{{ name }}" placeholder="search" autocomplete="off" />
+                                    <span class="input-group-append">
+                                        <div class="tq-input-group-text bg-transparent pointer"><i class="fa fa-search"></i></div>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav justify-content-end nav-items-block">
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if home %} active {% endif %}" aria-current="page" href="/">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if bussiness %} active {% endif %}" href="{% url 'bussiness' %}">FOR BRANDS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if categories %} active {% endif %}" href="{% url 'categories' %}">CATEGORIES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if brand_list %} active {% endif %}" href="{% url 'brand_list' %}">BRANDS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if store_list %} active {% endif %}" href="{% url 'store_list' %}">STORES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link" href="{% url 'contact_us_view' %}">CONTACTS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nav-link {% if join %} active {% endif %}" href="{% url 'signup' %}">JOIN</a>
+                    </li>
+                </ul>
+                <div class="cart-bag-item">
+                    <a href="{% if user.user_type == 'Brand' %} #{% else %}{% url 'cart' %}{% endif %}">
+                    <img src='{%static "images/blue/cart-bag.svg" %}' height="70" />
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <div class="d-block d-sm-block d-md-block d-lg-none">
+            <nav class="navbar bg-theme-nav sticky">
+                <ul class="nav justify-content-start">
+                    <div class="text-center">
+                        <a href="{% url 'homepage' %}"><img src="{% static 'images/blue/sidebar-logo.svg' %}" height="50"/></a>
+                    </div>
+                </ul>
+                <ul class="nav justify-content-end">
+                    <div class="row" id="nav-img">
+                        <div class="col">
+                            <img src='{% static "images/search.svg" %}' height="20" />
+
+                        </div>
+                        <div class="col">
+                            <img id="mobile-nav-icon" src='{% static "images/menu-icon.svg" %}' height="20" />
+                        </div>
+                    </div>
+                    <div class="row" id="nav-cross">
+                        <div class="col">
+                            <a class="close" id="mobile-nav-cross"></a>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+        <div class="mobile-nav hide" id="mobile-nav">
+            <ul class="mobile-nav-items-block">
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if home %} active {% endif %}" aria-current="page" href="/">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if bussiness %} active {% endif %}" href="{% url 'bussiness' %}">FOR BRANDS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if categories %} active {% endif %}" href="{% url 'categories' %}">CATEGORIES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if brand_list %} active {% endif %}" href="{% url 'brand_list' %}">BRANDS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if store_list %} active {% endif %}" href="{% url 'store_list' %}">STORES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link" href="{% url 'contact_us_view' %}">CONTACTS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-nav-link {% if join %} active {% endif %}" href="{% url 'signup' %}">JOIN</a>
+                </li>
+            </ul>
+            <div style="background: #4273F5;position: relative; top: 26.9%;" align="center">
+                <a href="{% if user.user_type == 'Brand' %} #{% else %}{% url 'cart' %}{% endif %}">
+                <button class="btn text-uppercase"
+                    style="background-color: #4273F5;color: #fff;font-size: 26px;">
+                    <img src="{% static 'images/blue/cart-bag.svg' %}" class="bag-img"> your Bag</button>
+                </a>
+                </div>
+        </div>
+    </header>
+{% endif %}
+
+
+<script>
+    $('#nav-cross').toggle('hide')
+    $('#mobile-nav-icon').click(function () {
+        $('#main-app').toggle()
+        $('#mobile-nav').toggle('show')
+        $('#nav-cross').toggle('show')
+        $('#nav-img').toggle('hide')
+    })
+    $('#mobile-nav-cross').click(function () {
+        $('#main-app').toggle()
+        $('#mobile-nav').toggle('hide')
+        $('#nav-cross').toggle('hide')
+        $('#nav-img').toggle('show')
+    })
+</script>

@@ -1,0 +1,113 @@
+{% load static %}
+{% block content %}
+<div class="container" style="padding: 0px;">
+    <h4>MY INFO</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" enctype='multipart/form-data' id="info-form">
+                {% csrf_token %}
+                <div class="row mt-5 mb-3">
+                    <div class="col-md-6">
+                        <div class="tq-input-group">
+                        <span class="input-group-append">
+                            <div class="tq-input-group-text bg-transparent pointer"><i class="fa fa-user"></i></div>
+                        </span>
+                        <input name="first_name" placeholder="First name" value="{% if user.first_name is not None %}{{user.first_name}}{% endif %}"
+                            class="input-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input name="last_name" placeholder="Last name" value="{% if user.last_name is not None %}{{user.last_name}}{% endif %}" class="input-control"
+                            type="text" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <input name="dob" id="id_dob" placeholder="Date of birth" class="input-control" type="date"
+                            onfocus="(this.type='date')" onblur="(this.type='text')"
+                            value="{% if user.dob is not None %}{{user.dob|date:'Y-m-d'}}{% endif %}" />
+                    </div>
+
+                </div>
+                <div class="row mt-2 mb-2">
+                    <div class="col-md-6">
+                        <div class="tq-input-group">
+                            <span class="input-group-append">
+                                <div class="tq-input-group-text bg-transparent pointer"><i class="fa fa-map-marker"></i></div>
+                            </span>
+                        <select class="brand_filter brand_filter_text mt-1" name="country" placeholder="Country" style="border-bottom: 1px solid #ced4da !important;">
+                            <div id="options-select">
+                                {% for country in form.country %}
+                                    {{country}}
+                                {% endfor %}
+                            </div>
+                        </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input name="city" placeholder="City" value="{% if user.city is not None %}{{user.city}}{% endif %}" class="input-control" />
+                    </div>
+                </div>
+                <div class="row mb-2 mt-4">
+                    <div class="col-md-12">
+                        <div class="tq-input-group">
+                            <span class="input-group-append">
+                                <div class="tq-input-group-text bg-transparent pointer"><i class="fa fa-envelope"></i></div>
+                            </span>
+                            <input name="email" id="id_email" placeholder="Email" value="{% if user.email is not None %}{{user.email}}{% endif %}"
+                            class="input-control" type="email" readonly />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $('#info-form').change(function () {
+        $('#info-form').submit();
+    })
+    $(function validate() {
+
+        var secure_rules = {
+            rules: {
+                first_name: {
+                    required: true
+                },
+                last_name: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                },
+            },
+            submitHandler: function (f) {
+                $.ajax({
+                    url: "{% url 'account' %}",
+                    type: "POST",
+                    data: $(f).serialize(),
+                    success: function (response) {
+                        response = JSON.parse(response)
+                        if (response['status']) {
+                            $("#id_email").parent().find('label').remove()
+                            toastr.success(response['message']);
+                        } else {
+                            $("#id_email").parent().find('label').remove()
+                            $("#id_email").focus();
+                            $('#id_email').parent().append('<label class="error">' + response['error'] + '</label>')
+                        }
+                    }
+                });
+            },
+            invalidHandler: function (f) {
+                $(f).submit();
+            }
+        }
+        $('#info-form').validate(secure_rules);
+    });
+</script>
+{% endblock %}

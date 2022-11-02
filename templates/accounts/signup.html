@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% load static %}
+<!--{% load account socialaccount %}-->
+{% block title %}Sign Up {% endblock title %}
+
+{% block content %}
+<div class="auth-app mt-5">
+    <div class="tq-join-text mt-5 pt-5 d-none d-lg-block">
+        <div class="wrapper pl-4">
+            <div class="underline-area" style="min-width: 177px;">
+                <div class="title">
+                    JOIN
+                </div>
+            </div>
+        </div>
+        <p class="font-medium-reg pl-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna</p>
+    </div>
+    <div class="brand-logo-container text-right pl-3">
+        <img src="{% static 'images/arrow-thin-left.png' %}" />
+        <p>THIS MODEL WEARS</p>
+        <div class="brand-logo text-right">
+            <img src="{% static 'images/brand-logo.png' %}" />
+        </div>
+    </div>
+    <div class="mt-5 pt-5 pb-5 d-lg-none d-block">
+        <div class="join">
+            <div class="wrapper pl-4">
+                <div class="underline-area" style="min-width: 177px;">
+                    <div class="title">
+                        JOIN
+                    </div>
+                </div>
+            </div>
+            <p class="font-medium-reg pl-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna</p>
+        </div>
+        <div class="p-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title login-title__mobile">
+                        SIGN UP
+                    </div>
+                    <form method="POST" enctype='multipart/form-data' id="signup-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 col-6">
+                                <input name="first_name" placeholder="First name" class="input-control" type="text" style="font-family: 'din-medium'"/>
+    
+                            </div>
+                            <div class="col-md-6 col-6">
+                                <input name="last_name" placeholder="Last name" class="input-control" type="text" style="font-family: 'din-medium'"/>
+    
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-3">
+                            <div class="col-md-12">
+                                <input name="email" placeholder="Email" class="input-control" type="email" style="font-family: 'din-medium'"/>
+    
+                                {% if form.errors %}
+                                {{ form.errors.email }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="tq-input-group">
+                                <input name="password" id="password" placeholder="Password" class="input-control" type="password" required style="font-family: 'din-medium'"/>
+                                <span class="input-group-append">
+                                    <small class="tq-input-group-text bg-transparent pointer"><i id="show-password" class="fa fa-eye-slash"></i></small>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-4">
+                                    <input id="customer" type="checkbox" name="user_type" value="Consumer" />
+                                    <label for="customer" class="font12 font-medium-reg">I'm a consumer</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="shop" type="checkbox" name="user_type" value="Shop" />
+                                    <label for="shop" class="font12 font-medium-reg">I own a shop</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="brand" type="checkbox" name="user_type" value="Brand" />
+                                    <label for="brand" class="font12 font-medium-reg">I own a brand</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="mb-4">
+                                <button type="submit" class="tq-btn tq-btn-primary__mobile">SIGN UP</button>
+                            </div>
+                            <div style="font-size:14px">
+                                <a class="text-link" href="{% url 'login' %}">I HAVE AN ACCOUNT</a>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4 text-muted font-medium-reg font12">
+                            or sign with
+                        </div>
+                        <div class="text-center mt-2">
+                            <div class="row">
+                                <div class="col-md-4 col-4">
+                                    <i class="fa fa-instagram"></i>
+                                </div>
+                                <div class="col-md-4 col-4">
+                                    <i class="fa fa-twitter"></i>
+                                </div>
+                                <div class="col-md-4 col-4">
+                                    <i class="fa fa-facebook"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>    
+            </div>
+        </div>
+    </div>
+    <div class="row mobile-row row-right-margin d-none d-lg-block">
+        <div class="col-lg-6">
+            <img src="{% static 'images/bg-auth.svg' %}" class="bg-auth" />
+        </div>
+        <div class="signup-container">
+            <div class="tq-card" style="left:225px;">
+                <div class="card-title login-title">
+                    SIGN UP
+                </div>
+                <form method="POST" enctype='multipart/form-data' id="signup-form">
+                    {% csrf_token %}
+                    <div class="card-body pr-5 pl-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input name="first_name" placeholder="First name" class="input-control" type="text" style="font-family: 'din-medium'"/>
+
+                            </div>
+                            <div class="col-md-6">
+                                <input name="last_name" placeholder="Last name" class="input-control" type="text" style="font-family: 'din-medium'"/>
+
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-3">
+                            <div class="col-md-12">
+                                <input name="email" placeholder="Email" class="input-control" type="email" style="font-family: 'din-medium'"/>
+
+                                {% if form.errors %}
+                                {{ form.errors.email }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="tq-input-group">
+                                <input name="password" id="password" placeholder="Password" class="input-control" type="password" required style="font-family: 'din-medium'"/>
+                                <span class="input-group-append">
+                                    <small class="tq-input-group-text bg-transparent pointer"><i id="show-password" class="fa fa-eye-slash"></i></small>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-4">
+                                    <input id="customer" type="checkbox" name="user_type" value="Consumer" />
+                                    <label for="customer" class="font12 font-medium-reg">I'm a consumer</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="shop" type="checkbox" name="user_type" value="Shop" />
+                                    <label for="shop" class="font12 font-medium-reg">I own a shop</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="brand" type="checkbox" name="user_type" value="Brand" />
+                                    <label for="brand" class="font12 font-medium-reg">I own a brand</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-6 mt-2">
+                                <a class="text-link" href="{% url 'login' %}">I HAVE AN ACCOUNT</a>
+                            </div>
+                            <div class="col-lg-6 col-md-1 col-1">
+                                <button type="submit" class="tq-btn tq-btn-primary">SIGN UP</button>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4 text-muted font-medium-reg font12">
+                            or sign with
+                        </div>
+                        <div class="text-center mt-2">
+                            <div class="row">
+                                <div class="col-md-4 col-4">
+                                    <i class="fa fa-instagram"></i>
+                                </div>
+                                <div class="col-md-4 col-4">
+                                    <i class="fa fa-twitter"></i>
+                                </div>
+                                <div class="col-md-4 col-4">
+                                    <i class="fa fa-facebook"></i>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="d-lg-none d-none">
+        <div class="mobile-brand-logo-container text-left">
+            <img src="{% static 'images/arrow-thin-left.png' %}" />
+            <p>THIS MODEL WEARS</p>
+            <div class="brand-logo text-left">
+                <img src="{% static 'images/brand-logo.png' %}" />
+            </div>
+        </div>
+        <div class="mobile-row">
+            <img src="{% static 'images/bg-auth.svg' %}" class="signup-mobile-bg-auth" />
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $('input[type="checkbox"]').on('change', function () {
+        $('input[type="checkbox"]').not(this).prop('checked', false);
+    })
+    $(function validate() {
+
+        var secure_rules = {
+            rules: {
+                first_name: {
+                    required: true,
+                },
+                last_name: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                },
+                user_type: {
+                    required: true,
+                },
+            },
+            errorPlacement: function(error, element) {
+                if (element.attr("type") == "password"){
+                 error.appendTo(element.parent().parent());
+                }else{
+                 error.appendTo( element.parent());
+            }},
+            submitHandler: function (f) {
+                $(f).submit();
+            },
+            invalidHandler: function (f) {
+                $(f).submit();
+            }
+        }
+        $('#signup-form').validate(secure_rules);
+    });
+
+</script>
+{% endblock %}

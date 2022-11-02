@@ -1,0 +1,63 @@
+{% load static %}
+
+<div class="modal-dialog checkout-pop" role="document" style="max-width: 350px; top: -65px;
+    right: 35px; position: absolute; z-index: 1">
+    	<div class="modal-content">
+      		<div class="modal-body">
+      			<div class="container">
+      				<div class="row">
+      					<div class="col-lg-4">
+      						<div class="card-img">
+			                	<img class="" src="{% if product_obj.product_pic %}/media/{{ product_obj.product_pic }}{% else %}{%static 'images/product-image.svg' %}{% endif %}" alt="profile_pic" width='100%'/>
+			            	</div>
+			            </div>
+			            <div class="col-lg-8">
+		            		<div class="container">
+		            			<div class="row">
+		            				<div class="col-lg-12">
+		            					<h6 style="letter-spacing: normal;"><b>{% if product_obj.product_name is not None %}{{ product_obj.product_name|upper }}{% endif %}</b></h6>
+		            				</div>
+		            				<div class="col-lg-12">
+		            					<span style="color:darkgrey;">{% if product_obj.brand.brand_name is not None %}{{ product_obj.brand.brand_name }}{% endif %}</span>
+		            				</div>
+		            				<div class="col-lg-12">
+		            					$ {% if product_obj.product_price is not None %}{{ product_obj.product_price }}{% endif %}
+		            				</div>
+		            				<div class="col-lg-10 mt-1">
+		            					x<span id="quan" value=''></span>
+		            				</div>
+		            			</div>
+		            		</div>
+		            	</div>
+      				</div>
+      				<div class="row mt-1 p-3">
+    					<div class="col-lg-12" style="border-bottom: 1px solid grey;">
+    					</div>
+    				</div>
+    				<div class="row mt-1">
+    					<div class="col-lg-8">
+    						Estimated Delivery
+    					</div>
+    					<div class="col-lg-4" style="text-align:end;">
+    						$ 5
+    					</div>
+    					<div class="col-lg-8 mt-2">
+    						Total
+    					</div>
+    					<div class="col-lg-4 mt-2" style="text-align:end;">
+    						$ <span id="total_val" value=''></span>
+    					</div>
+    				</div>
+
+    				<div class="row">
+    					<div class="col-lg-12 text-center mt-4">
+    						<a href="{% url 'checkout' product_obj.id %}"  class="tq-btn tq-btn-primary" style="padding-left:100px; padding-right:100px;">CHECKOUT</a>
+    					</div>
+    					<div class="col-lg-12 text-center mt-2">
+    						<a href="{% url 'cart' %}" class="tq-btn tq-btn-primary" style="border: none;">VIEW BAG</a>
+    					</div>
+    				</div>
+      			</div>
+      		</div>
+    	</div>
+  	</div>

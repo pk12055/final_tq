@@ -1,0 +1,62 @@
+
+{% load static %}
+{% block content %}
+<h1>favorites</h1>
+<div class="row pl-4 pr-4">
+   {% if favourite_products %}
+      {% for i in favourite_products %}
+
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 mt-5">
+            <div class="product-card">
+                <a href="{% url 'product_detail' i.id %}">
+                    <div class="product-card-body">
+                        <div class="product-like-area">
+                            <div class="product-like">
+                                <form action="{% url 'favourite' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ i.id }}">
+                                    <button type="submit" class="follow_btn"><i class="fa fa-heart"></i></button>
+
+                                </form>
+                            </div>
+                        </div>
+                        <img class="product-image card-img"
+                            src="{% if i.product_pic %}/media/{{i.product_pic}}{% else %}{%static 'images/product-image.svg' %}{% endif %}"
+                            height="100%" alt="Vans" />
+
+                    </div>
+                </a>
+                <div class="product-card-details">
+                    <div class="product-title">
+                        {% if i.product_name is not None %}{{ i.product_name }}{% endif %}
+                    </div>
+                    <div class="product-brand-name">
+                        {% if i.brand is not None %}{{ i.brand }}{% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-6 product-price">
+                            {% if i.product_price is not None %}$ {{ i.product_price }}{% else %}$ 0.00{% endif %}
+                        </div>
+                        <div class="col-6 text-right">
+                            {% for review in product_review %}
+                                {% if i.product == review.product %}
+                                    {% with ''|center:review.rating as range %}
+                                    {% for i in range %}
+                                        <img src="{%static 'images/star.svg' %}" style="width: 21px; height: 20px;" />
+                                    {% endfor %}
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      {% endfor %}
+
+   {% else %}
+    <h6>YOUR FAVORITE PRODUCT LIST IS CURRENTLY EMPTY. FIND SOMETHING EXCITING TO PUT IN IT!</h6>
+   {% endif %}
+</div>
+{% endblock %}

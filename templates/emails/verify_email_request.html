@@ -1,0 +1,51 @@
+{% extends 'emails/email_base.html' %}
+{% block email_style %}
+<style>
+.name {
+    font-size: 16px;
+}
+
+.para {
+    font-size: 15px;
+    margin-left: 22px;
+}
+
+.verify_btn {
+    text-decoration: none;
+    padding: 10px 17px 10px 17px;
+    border-radius: 6px;
+    color: white !important;
+    background-color: #358939;
+    display: inline-block;
+    position: relative;
+    padding: 11.5px 40px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.verify_btn:hover {
+    color: #333;
+}
+
+.post-info>a.verify-btn {
+    background-color: #f2f2f2;
+    color: #535453;
+    margin-top: 10px;
+}
+</style>
+{% endblock %}
+{% block content_email %}
+<p class="name">Hi <strong>{{ user.first_name }},</strong></p>
+<p>Thanks, for connecting with 1Quarters. Please click on Verify Email to verify your email address.</p>
+<center>
+    <span class="post-info">
+        <a href="{{ verify_link }}" class="verify_btn">Verify Email</a>
+    </span>
+</center>
+<p style="font-size:16px; margin-bottom:20px;line-height: 21px;">
+    Thanks,<br />
+    1Quarters Team
+</p>
+{% endblock %}

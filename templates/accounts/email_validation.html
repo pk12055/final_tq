@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Forgot Password -  Success{% endblock title %}
+
+{% block content %}
+<div class="mt-5">
+    <div class="tq-join-text mt-5 pt-5">
+        <div class="wrapper pl-3" style="justify-content: start !important;">
+            <div class="underline-area" style="height: 40px; min-width: 177px;">
+                <div class="title" style="font-size: 60px; margin-top: -60px; margin-left: -45px;">
+                    JOIN
+                </div>
+            </div>
+        </div>
+        <p class="font-medium-reg pl-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna</p>
+    </div>
+    <div class="brand-logo-container text-right pl-2">
+        <img src="{% static 'images/arrow-thin-left.png' %}" />
+        <p>THIS MODEL WEARS</p>
+        <div class="brand-logo text-right">
+            <img src="{% static 'images/brand-logo.png' %}" />
+        </div>
+    </div>
+    <div class="row mobile-row row-right-margin" style="padding-right: 100px;">
+        <div class="col-lg-6">
+            <img src="{% static 'images/bg-auth.svg' %}" class="bg-auth" style="left: calc(100vw - 110vw)"/>
+        </div>
+        <div class="col-lg-6">
+            <div class="login-container">
+                <div class="tq-card">
+                    <div class="card-title login-title">
+                        REQUEST SENT
+                    </div>
+                    <form method="POST" enctype='multipart/form-data' id="login-form">
+                        {% csrf_token %}
+                        <div class="card-body p-5">
+                            <div class="row">
+                             
+                            </div>
+                            <div class="row">
+                            </div>
+                            <div class="row text-center"> 
+                                <div class="col-lg-12 mb-2">
+                                    <img src="{% static 'images/blue/check-sign.svg' %}"/>
+                                    <p class="font12 mt-2"> please check your email to verify your accounts</p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <a href="{% url 'resend_email' %}" class="tq-btn tq-btn-primary">RESEND</a>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4 text-muted font-medium-reg font12">
+                                or sign with
+                            </div>
+                            <div class="text-center mt-2">
+                                <div class="row">
+                                    <div class="col-md-4 col-4">
+                                        <i class="fa fa-instagram"></i>
+                                    </div>
+                                    <div class="col-md-4 col-4">
+                                        <i class="fa fa-twitter"></i>
+                                    </div>
+                                    <div class="col-md-4 col-4">
+                                        <a class='btn' href='/accounts/facebook/login/?process=login' style="color: black;"><i class="fa fa-facebook"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-lg-none">
+        <div class="mobile-brand-logo-container text-left">
+            <img src="{% static 'images/arrow-thin-left.png' %}" />
+            <p>THIS MODEL WEARS</p>
+            <div class="brand-logo text-left">
+                <img src="{% static 'images/brand-logo.png' %}" />
+            </div>
+        </div>
+        <div class="">
+            <img src="{% static 'images/bg-auth.svg' %}" class="login-mobile-bg-auth" />
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function () {
+        $('#login-form').validate({});
+    });
+</script>
+{% endblock %}

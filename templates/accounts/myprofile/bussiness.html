@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Product List{% endblock title %}
+{% block extra_css %}
+
+<style>
+    input[type=radio] {
+        display: none;
+    }
+
+    .card {
+        position: absolute;
+        width: 60%;
+        height: 100%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        transition: transform .4s ease;
+        cursor: pointer;
+    }
+
+
+    .cards {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 20px;
+    }
+
+    #item-1:checked~.cards #song-3,
+    #item-2:checked~.cards #song-1,
+    #item-3:checked~.cards #song-2 {
+        transform: translatex(-40%) scale(.8);
+        opacity: .4;
+        z-index: 0;
+    }
+
+    #item-1:checked~.cards #song-2,
+    #item-2:checked~.cards #song-3,
+    #item-3:checked~.cards #song-1 {
+        transform: translatex(40%) scale(.8);
+        opacity: .4;
+        z-index: 0;
+    }
+
+    #item-1:checked~.cards #song-1,
+    #item-2:checked~.cards #song-2,
+    #item-3:checked~.cards #song-3 {
+        transform: translatex(0) scale(1);
+        opacity: 1;
+        z-index: 1;
+
+        img {
+            box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="main-container bg-gray" style="margin-bottom: 0px;">
+    <div class="container pt-5 title-block" style="margin-bottom: -51px;">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="mt-5">
+                    <h1 class="title-font">SHOW WHAT YOU HAVE AND JOIN TODAY</h1>
+                    <div class="hero-title-bg-block"></div>
+                </div>
+            </div>
+            <div class="col-lg-6 pr-5">
+                <img class="img-fluid img-b" src="{%static 'images/3rd.png' %}">
+            </div>
+            <div class="col-lg-2 modal-blobk">
+                <img src="{% static 'images/arrow-thin-right.png' %}" height="10">
+                <p class="font12">THIS MODEL WEARS</p>
+                <img src="{% static 'images/brand-logo.png' %}" height="60" />
+
+            </div>
+        </div>
+    </div>
+
+    <div class="top-seller-wrapper p-5 mt-5">
+        <div class="section-heading mb-5">
+            <div class="wrapper">
+                <div class="underline-area">
+                    <div class="title">
+                        Why join?
+                    </div>
+                </div>
+            </div>
+            <p class="font-medium-reg pl-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore
+                magna aliqua.</p>
+        </div>
+        <div class="d-lg-flex parent  container mb-5">
+            <div class="p-1 ">
+                <img class="img-fluid" src="{%static 'images/Mask Group 10.png' %}">
+            </div>
+            <div class="p-1 ">
+                <div class="pb-4" style="text-align: start;">WORLDWIDE EXPOSURE</div>
+                <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor
+                    incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip
+                    ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco
+                    laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
+
+        <div class="d-lg-flex flex-lg-row-reverse parent  container mb-5">
+            <div class="p-1">
+                <img class="img-fluid" src="{%static 'images/mask_group1.png' %}">
+            </div>
+            <div class="p-1" >
+                <div class="pb-4 p-3" style="text-align: start;">CUSTOMIZE YOUR E-SHOP</div>
+                <p class="p-3" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor
+                    incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip
+                    ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco
+                    laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
+        <div class="d-lg-flex parent  container mb-5">
+            <div class="p-1">
+                <img class="img-fluid" src="{%static 'images/Mask Group 32.png' %}">
+            </div>
+            <div class="p-1">
+                <div class="pb-4" style="text-align: start;">WORLDWIDE EXPOSURE</div>
+                <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor
+                    incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip
+                    ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco
+                    laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <a class="tq-btn tq-btn-primary" href="{% url 'signup' %}">JOIN NOW</a>
+        </div>
+    </div>
+
+    <div class="mid-container bg-gray" style="margin-left: 0px; padding-left: 145px; padding-right: 110px;">
+    </div>
+
+    <!-- <div class="e-shop">
+        <div class="row ">
+            <div class="col-lg-6" >
+                    <h1 class="e-shop-hero-title">
+                        CREATE YOUR
+                         OWN INDIE
+                         E-SHOP
+                        </h1>
+                    <div class="e-shop-hero-title-bg3"></div>
+                    <div class="eshop-description">
+                        <p>Lorem ipsum dolor sit amet consectetur 
+                            adipisicing elit. Dolorem debitis quia
+                             quidem voluptatum exercitationem commodi 
+                             dolore architecto maiores consequuntur? 
+                             Delectus provident ipsa esse ad fugit 
+                             deserunt assumenda adipisci earum dolor!</p>
+                    </div> 
+            </div>
+            <div class="col-md-6">
+              <img class="e-shop-img" src="{%static 'images/clay-imac-27-mockup-right-view_.png' %}" height="350">
+            </div>  
+        </div>
+    </div> -->
+
+    <div class="container ccc">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="title-desc">
+					<h1 class=" create-indie-titles indie-title-desc">CREATE YOUR OWN IDIE E-SHOP</h1>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, assumenda? Unde a nobis
+						nostrum minima necessitatibus tempora sapiente ab ea.</p>
+					<div style="display: flex; justify-content: center;">
+						<a class="tq-btn tq-btn-primary">DISCOVER</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<img class="img-fluid" src="{%static 'images/clay-imac-27-mockup-right-view_.png' %}" style="position: relative; z-index: 2;">
+			</div>
+			<div class="indie-title-bg"></div>
+		</div>
+	</div>
+
+    <div class="top-seller-wrapper p-5 mt-5">
+        <div class="section-heading">
+            <div class="wrapper">
+                <div class="underline-area d-none d-lg-block ">
+                    <div class="title">
+                        CONTROL YOUR BUSINESS
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center d-none d-lg-none">
+                    <h3> CONTROL YOUR BUSINESS</h3>
+                </div>
+            </div>
+            <p class="font-medium-reg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore
+                magna aliqua.</p>
+        </div>
+        <div class="row d-none d-lg-block " style="padding:100px;">
+            <div class="container" style="margin-bottom: 200px;">
+                <input type="radio" name="slider" id="item-1" checked>
+                <input type="radio" name="slider" id="item-2">
+                <input type="radio" name="slider" id="item-3">
+                <div class="cards">
+                    <label class="card" for="item-1" id="song-1">
+                        <img src="{% static 'images/group3.png' %}" alt="Freelancer Platform - step-3" height='550'>
+                    </label>
+                    <label class="card" for="item-2" id="song-2">
+                        <img src="{% static 'images/group2.png' %}" alt="Freelancer Platform - step-2" height='550'>
+                    </label>
+                    <label class="card" for="item-3" id="song-3">
+                        <img src="{% static 'images/group.png' %}" alt="Freelancer Platform - step-1" height='550'>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column d-none d-lg-none" >
+          <div class="p-2">
+            <img class="img-fluid" src="{% static 'images/group3.png' %}" alt="Freelancer Platform - step-3">
+          </div>
+          <div class="p-2">
+            <img class="img-fluid" src="{% static 'images/group2.png' %}" alt="Freelancer Platform - step-2">
+          </div>
+          <div class="p-2">
+            <img class="img-fluid" src="{% static 'images/group.png' %}" alt="Freelancer Platform - step-1">
+          </div>
+        </div>
+    </div>
+    <div class="container top-seller-container mt-5">
+        <div class="wrapper">
+            <div class="underline-area d-none d-lg-block">
+                <div class="title what-you-waiting">
+                    WHAT ARE YOU WAITING FOR?
+                </div>
+            </div>
+            <div class="d-flex justify-content-center d-none d-lg-none">
+                <h3>WHAT ARE YOU WAITING FOR?</h3>
+            </div>
+        </div>
+        <p class="font-medium-reg text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div class="pt-4 text-center">
+            <a href="{% url 'signup' %}" class="tq-btn tq-btn-primary">JOIN NOW</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+    // var textWidth = document.getElementById("text").offsetWidth;
+    // document.getElementById('underline-area').style.width = textWidth + "px";
+    // console.log(textWidth)
+
+    $('input').on('change', function () {
+        $('body').toggleClass('blue');
+    });
+
+</script>
+
+{% endblock %}

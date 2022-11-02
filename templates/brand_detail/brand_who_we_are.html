@@ -1,0 +1,123 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+
+{% block title %}Brand Homepage{% endblock title %}
+{% block extra_css %}
+
+<style>
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %} !important;
+    }
+
+    .brand_style_main_color{
+        background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};
+    }
+
+    .brand_style_background_color_2nd{
+        background-color: {% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd  }}{% else %}#EFEFEF{% endif %} !important;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid p-0" style="magin-left: 0px;">
+    <div class="row no-gutters">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+            <div class="container-fluid p-0">
+            	<div class="row no-gutters">
+                    <div class="col-lg-12 pb-4">
+                        <div class="card-img brand_style_main_color" style=" height: 550px;">
+                            <div class="image-upload">
+                                {% if who_we_are_obj.pic and not who_we_are_obj.is_draft %}
+                                <img src="/media/{{ who_we_are_obj.pic }}" style="height: 550px;" width="100%"/>
+                                {% endif %}
+                            </div>
+                            <div class="who-we-are-banner">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="wrapper pl-4 pt-4" style="justify-content: start !important;">
+                                            <div class="underline-area brand_style_main_color">
+                                                <div class="title brand_style_text_color">
+                                                    WHO WE ARE
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 brand_style_text_color">
+                                        <p>{{ who_we_are_obj.para_1 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-5 pt-4" style="text-align: start; margin-left: 0px;">
+                <div class="row">
+                    <div class="col-lg-12 brand_style_text_color">
+                        <p><b>{{ who_we_are_obj.para_2 }}</b></p>
+                    </div>
+
+                    <div class="col-lg-12 mt-5 brand_style_text_color">
+                        <p>{{ who_we_are_obj.para_3 }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 pt-5 pb-5 brand_style_background_color_2nd" style="padding-left:0px; margin-right: 0px;">
+                <div class="row mr-0">
+                    <div class="col-lg-3">
+                        <div class="float-right">
+                            <a class="nav-link" href="{% url 'account' %}">
+                            <img class="nav-img" src="{% if user.profile_pic %}/media/{{user.profile_pic}}{% else %}{{default_image}}{% endif %}" alt="profile_pic" height="75" width="75" /></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-12 brand_style_text_color">
+                                <h3>PULKIT KUMAR</h3>
+                            </div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 pt-3">
+                        <button class="tq-btn tq-btn-primary brand_style_text_color" style="{% if brand_style.main_color %}background-color: {{ brand_style.main_color  }}{% endif %} !important;">FOLLOW</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+    $('#product_description12').hide();
+    $(document).on('click', '#aaaa', function(){
+        $('#product_description12').show();
+        $('#product_description21').hide();
+    });
+
+    $('#product_description122').hide();
+    $(document).on('click', '#aaaaa', function(){
+        $('#product_description122').show();
+        $('#product_description212').hide();
+    });
+
+    $('#product_description1222').hide();
+    $(document).on('click', '#aaaaaa', function(){
+        $('#product_description1222').show();
+        $('#product_description2122').hide();
+    });
+
+</script>
+{% endblock %}

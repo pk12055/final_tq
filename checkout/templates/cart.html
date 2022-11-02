@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Your Bag{% endblock title %}
+
+{% block content %}
+
+<!-- <div class="hero-container">
+    <div class="page-title">
+        <img src="{% static  'images/blue/your-bag.svg' %}" height="100" />
+    </div>
+    <div>
+        <p class="font-medium">YOUR SHOPPING BAG IS CURRENTLY EMPTY. FIND SOMETHING EXCITING TO PUT IN IT!</p>
+        <div class="text-center">
+            <button class="tq-btn tq-btn-primary text-uppercase">start shoppinig</button>
+        </div>
+    </div>
+</div> -->
+
+    <div class="container-fluid p-3" style="background-color: #EFEFEF;">
+         <div class="row pb-5">
+            <div class="page-title pt-5">
+                <div class="wrapper pl-3" style="justify-content: start !important;">
+                    <div class="underline-area" style="height: 40px; min-width: 177px;">
+                        <div class="title" style="font-size: 60px; margin-top: -60px; margin-left: -45px;">
+                            YOUR BAG ({{ product_obj.count }})
+                        </div>
+                    </div>
+                </div>     
+            </div>
+        </div>
+        {% if product_obj %}
+            {% for product in product_obj %}
+            <div class="row" style="padding: 100px 150px 0 120px !important; ">
+                <div class="col-lg-8">
+                    <div class="container p-4" style="background-color: white;">
+                        <div class="row">
+                            <div class="col-lg-6" style="text-align: start;">
+                                <span style="color:darkgrey;">Delivery From</span>
+                            </div>
+                            <div class="col-lg-6" style="text-align: end;">
+                                <span>NEW YORK</span>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <img class="" src="/media/{{ product.bag_product.product_pic }}" alt="profile_pic" style="height: 195px; width: 190px;"/>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-12" style="text-align: start;">
+                                            <h6 style="letter-spacing: normal;"><b>{% if product.bag_product.product_name is not None %}{{ product.bag_product.product_name|upper }}{% endif %}</b></h6>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <span style="color:darkgrey;">{% if product.bag_product.brand.brand_name is not None %}{{ product.bag_product.brand.brand_name }}{% endif %}</span>
+                                        </div>
+                                        <div class="col-lg-12 mt-5">
+                                            <span style="color:darkgrey;">Product Price:  </span>
+                                            $ {% if product.bag_product.product_price is not None %}{{ product.bag_product.product_price }}{% endif %}
+                                        </div>
+                                        <div class="col-lg-10 mt-5">
+                                            <span style="color:darkgrey;">Product Quantity:  </span>
+                                            x{{ product.quantity }}
+                                        </div>
+                                        <div class="col-lg-2 mt-5">
+                                            <a href="{% url 'remove_cart' product.id %}"><i class="fa fa-trash" style="text-align:end;"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="container p-3 pt-4 pb-5" style="background-color: white;">
+                        <div class="row">
+                            <div class="col-lg-6" style="text-align: start;">
+                                <h6 style="letter-spacing: normal;"><b>{% if product.bag_product.product_name is not None %}{{ product.bag_product.product_name|upper }}{% endif %}</b></h6>
+                            </div>
+                            <div class="col-lg-6" style="text-align: end;">
+                                $ {% if product.total_price is not None %}{{ product.total_price }}{% endif %}
+                            </div>
+                            <div class="col-lg-7 mt-2" style="text-align: start;">
+                                <span style="color:darkgrey;">Estimated Delivery</span>
+                            </div>
+                            <div class="col-lg-5 mt-2" style="text-align: end;">
+                                <span style="color:darkgrey;">$ 5</span>
+                            </div>
+                            <div class="col-lg-6 mt-2" style="text-align: start;">
+                                Total
+                            </div>
+                            <div class="col-lg-6 mt-2" style="text-align: end;">
+                                $ {{ product.total_payable }}
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mt-5 text-center">
+                                <a href="{% url 'checkout' product.bag_product.id %}" class="tq-btn tq-btn-primary">CHECKOUT</a>
+                            </div>
+                            <div class="col-lg-12 mt-2 text-center">
+                                <a href="{% url 'categories' %}" class="tq-btn tq-btn-primary" style="color: black; border:  none;">CONTINUE SHOPPING</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="row p-5 mt-5" style="justify-content: center;">
+                <p class="pb-3 pl-3">YOUR SHOPPING BAG IS CURRENTLY EMPTY. FIND SOMETHING EXCITING TO PUT IN IT!</p>
+                    <div class="col-lg-12 text-center pb-5 mb-5">
+                        <a href="{% url 'categories' %}" class="tq-btn tq-btn-primary" style="color: black;">CONTINUE SHOPPING</a>
+                    </div>
+            </div>
+            {% endif %}
+    </div>
+<div class="container mt-5 pb-5 pt-5" style="background-color: white;">
+    <h3 class="pl-5">TOP SELLER</h3>
+    <div class="row pl-5 pr-5 pb-5">
+            {% include 'product_filter.html' %}
+    </div>
+</div>
+
+{%endblock%}
+
+
+
+    {% block extra_js %}
+    <script>
+    jQuery("body").on("click", ".remove-product", function () {
+        product_id = 
+        jQuery.ajax({
+            type: 'POST',
+            url: '/cart/',
+            data: {},
+            contentType: false,
+            dataType: "json",
+            processData: false,
+            success: function (response) {
+            }
+        });
+    });
+    </script>
+    {% endblock %}

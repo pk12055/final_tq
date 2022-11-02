@@ -1,0 +1,95 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+
+{% block title %}Your Bag{% endblock title %}
+
+{% block extra_css %}
+
+<style>
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %};
+    }
+
+    .brand_style_background_color_2nd{
+        background-color: {% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd  }}{% else %}#EFEFEF{% endif %} !important;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container-fluid brand_style_background_color_2nd" style="padding-bottom: 200px;">
+    <div class="row" style="justify-content: center;">
+        <div class="wrapper pt-5 pr-5 pl-5">
+            <div class="underline-area" style="background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};">
+                <div class="title brand_style_text_color">
+                    LET's GET IN TOUCH
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="justify-content: center;">
+        <p class="pb-3 pr-3 pl-3 brand_style_text_color">SELECT A STATE TO DISCOVER NEW AWESOME INDEPENDENT STORES</p>
+    </div>
+</div>
+<div style="justify-content: center; padding-left: 230px; padding-right: 230px; margin-top: -200px; background-color: {% if brand_style.site_background %}{{ brand_style.site_background  }}{% endif %};">
+    <form method="POST" class="contact-input">
+        {% csrf_token %}
+        <div class="row mt-5">
+            <div class="col-lg-6 col-12 mt-5">
+                <input type="text" class="form-control" name="name" placeholder="Name" style="box-shadow: 2px 2px 4px grey;">
+            </div>
+
+            <div class="col-lg-6 col-12 mt-5">
+                <input type="email" class="form-control" name="email" placeholder="Email" style="box-shadow: 2px 2px 4px grey;">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-12 col-12">
+                <textarea class="form-control" rows="10" placeholder="Type your message here...." name="message" style="box-shadow: 2px 2px 4px grey;"></textarea>
+            </div>
+        </div>
+        <div class="row mt-5 mb-5">
+            <div class="col-lg-6" style="text-align: start;">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input for_sale" id="agree" name="agree" value="agree">
+                    <label class="custom-control-label brand_style_text_color" for="agree">ELECT A STATE TO DISCOVER NEW</label>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12" style="text-align: end;">
+                <button class="tq-btn tq-btn-primary brand_style_text_color" id="agree_btn" disabled style="{% if brand_style.main_color %}background-color: {{ brand_style.main_color  }}{% endif %} !important;">Send</button> 
+            </div>
+        </div>
+    </form>
+</div>
+
+{%endblock%}
+
+
+{% block extra_js %}
+<script>
+    $('.contact-input').validate({
+        rules:{
+            name:{
+                required: true
+            },
+            email:{
+                required: true
+            }
+        }
+    });
+   
+   $('#agree').click(function () {
+        if ($(this).is(':checked')) {
+
+            $('#agree_btn').removeAttr('disabled'); //enable input
+
+        } else {
+            $('#agree_btn').attr('disabled', true); //disable input
+        }
+    });
+   </script>
+    {%endblock%}

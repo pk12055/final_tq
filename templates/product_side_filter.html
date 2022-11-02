@@ -1,0 +1,196 @@
+<div class="filter-container" style="padding:20px; width: 240px;">
+    <h6 class="ml-4 pt-3 mb-5 text-uppercase">filters</h6>
+    <div style="border-bottom: 1px solid rgba(0,0,0,.125);"></div>
+    <form method="POST" id="filter_form" action="{% url 'products_filter' %}">
+                    {% csrf_token %}
+                    <div class="accordion" id="accordionExample" style="height: 500px;  overflow-y: scroll; overflow-x: hidden;">
+                        <div class="card border-0 bg-transparent">
+                            <div class="card-header bg-transparent" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="text-link text-uppercase btn btn-link btn-block text-left" type="button"
+                                        data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                        categories <span class="float-right">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body" style="padding-bottom: 0;">
+                                    <label id="product_category" class="dropdown-margin" style="margin-bottom: 0;">
+                                        {% for category in product_category %}
+                                        {% if category.product_category is not None %}
+                                        <input type="checkbox" value="{{ category.product_category }}" name="cat"  class="filter_value filterValue">
+                                        <p style="margin-top: -35px;">
+                                        {{ category.product_category|linebreaks }}</p>
+                                        {% endif %}
+                                        {% endfor %}
+                                    <label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 bg-transparent">
+                            <div class="card-header bg-transparent" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="text-link text-uppercase btn btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                        Size <span class="float-right">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body" style="padding-bottom: 0;">
+                                    <label id="product_size" class="dropdown-margin" style="margin-bottom: 0;">
+                                        {% for size in product_size %}
+                                        {% if size.0 is not None %}
+                                        <input type="checkbox" value="{{ size.0 }}" name="pro_size" class="filterValue filter_value">
+                                        <p style="margin-top: -35px;">{{ size.0|linebreaks }}</p>
+                                        {% endif %}
+                                        {% endfor %}
+                                    <label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 bg-transparent">
+                            <div class="card-header bg-transparent" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="text-link text-uppercase btn btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        Designer <span class="float-right">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body" style="padding-bottom: 0;">
+                                    <label id="product_designer" class="dropdown-margin" style="margin-bottom: 0;">
+                                        {% for designer in product_designer %}
+                                        {% if designer.product_designer is not None %}
+                                        <input type="checkbox" value="{{ designer.product_designer }}" name="design"  class="filter_value filterValue">
+                                        <p style="margin-top: -35px;">{{ designer.product_designer|linebreaks }}</p>
+                                        {% endif %}
+                                        {% endfor %}
+                                    <label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 bg-transparent">
+                            <div class="card-header bg-transparent" id="headingFour">
+                                <h2 class="mb-0">
+                                    <button class="text-link text-uppercase btn btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour">
+                                        color <span class="float-right">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                <div class="card-body" style="padding-bottom: 0;">
+                                    <label id="product_color" class="dropdown-margin" style="margin-bottom: 0;">
+                                        {% for color in product_color %}
+                                        {% for i in color %}
+                                        {{ i }}
+                                        <input type="checkbox" value="{{ color.0 }}" name="color" class="filterValue filter_value">
+                                        <p style="margin-top: -35px;">{{ i|linebreaks }}</p>
+                                        {% endfor %}
+                                        {% endfor %}
+                                    <label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 bg-transparent">
+                            <div class="card-header bg-transparent" id="headingFive">
+                                <h2 class="mb-0">
+                                    <button class="text-link text-uppercase btn btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+                                        aria-controls="collapseFive">
+                                        price <span class="float-right">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input class="input-control" type="text" placeholder="Minimum" id="product_min_price"
+                                                    onchange="OnSelectionChange(this)" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input class="input-control" type="text" placeholder="Maximum" id="product_max_price"
+                                                    onchange="OnSelectionChange(this)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 bg-transparent">
+                            <div class="card-header bg-transparent" id="headingSix">
+                                <h2 class="mb-0">
+                                    <button class="text-link text-uppercase btn btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapseSix" aria-expanded="false"
+                                        aria-controls="collapseSix">
+                                        Material <span class="float-right">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                                <div class="card-body" style="padding-bottom: 0;">
+                                    <label id="product_material" class="dropdown-margin" style="margin-bottom: 0;">
+                                        {% for material in product_material %}
+                                        {% if material.product_material is not None %}
+                                        <input type="checkbox" value="{{ material.product_material }}" name="material"  class="filter_value filterValue">
+                                        <p style="margin-top: -35px;">{{ material.product_material|linebreaks }}</p>
+                                        {% endif %}
+                                        {% endfor %}
+                                    <label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+    <div class="container mt-5">
+        <button class="tq-btn tq-btn-block">Clear Filters</button>
+
+    </div>
+</div>

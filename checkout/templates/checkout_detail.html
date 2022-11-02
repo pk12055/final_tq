@@ -1,0 +1,89 @@
+{% load static %}
+
+<div class="container pr-4 pt-2">
+    <form method="POST" id="payment-form" action="{% url 'bill_pay' %}?product_id={{product_obj.id}}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="row pl-3 pb-5"><h2>CARD INFO</h2></div>
+                <div class="row">
+                    <div class="col-lg-1 mt-2">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="col-lg-11">
+                        <div class="form-group">
+                            <input type="text" class="form-control q-form-control payment-card" name="card_name" id="name-on-card" placeholder="Cardholder's Name" style="font-family: 'din-medium'">
+                            <div id="card-name-errors" style="color: #ff7979; font-size: 12px;" role="alert"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1 mt-2">
+                        <i class="fa fa-envelope"></i>
+                    </div>
+                    <div class="col-lg-11 mt-2">
+                        <div class="form-group">
+                            <div id="element-card-number" class="payment-card">
+                                <!-- A Stripe Element will be inserted here. -->
+                            </div>
+                            <div id="card-errors" style="color: #ff7979; font-size: 12px;" role="alert"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1 mt-2">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="col-lg-6 mt-2">
+                        <div class="form-group">
+                            <div id="element-card-expiry" class="payment-card">
+                                <!-- A Stripe Element will be inserted here. -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 mt-2">
+                        <div class="form-group">
+                            <div id="element-card-cvc" class="payment-card">
+                                <!-- A Stripe Element will be inserted here. -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-2">
+                        <div class="form-group">
+                            <label class="q-form-label"><input type="checkbox" name="checkbox" id="checkbox"> I have read and accept <u>the terms and conditions.</u></label> 
+                            <div id="card-checkbox-errors" style="color: #ff7979; font-size: 12px;" role="alert"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-1"></div>
+            <div class="col-lg-6">
+                <div class="row pb-3"><h2>PAYMENT DETAILS</h2></div>
+                <div class="row p-5" style=" background-color: white;">
+                    <div class="col-lg-6" style="text-align: start;">
+                        <h6 style="letter-spacing: normal;"><b>{% if product_obj.bag_product.product_name is not None %}{{ product_obj.bag_product.product_name|upper }}{% endif %}</b></h6>
+                    </div>
+                    <div class="col-lg-6" style="text-align: end;">
+                        <span>{% if product_obj.total_price is not None %}$ {{ product_obj.total_price }}{% else %}$ {% endif %}</span>
+                    </div>
+                    <div class="col-lg-6 mt-2" style="text-align: start;"> 
+                        <span style="color:darkgrey;">Estimated Delivery</span>
+                    </div>
+                    <div class="col-lg-6 mt-2" style="text-align: end;">
+                        <span style="color:darkgrey;">$ 5</span>
+                    </div>
+                    <div class="col-lg-6 mt-2" style="text-align: start;">
+                        Total
+                    </div>
+                    <div class="col-lg-6 mt-2" style="text-align: end;">
+                        <span name="amount" id="payment-amount">{% if product_obj.total_payable is not None %}$ {{ product_obj.total_payable }}{% else %}$ {% endif %} </span>
+                        <div id="card-ammonut-errors"></div>
+                    </div>
+                    <div class="container mt-5 text-center">
+                        <button href="#" class="tq-btn tq-btn-primary" id="submit-btn" style="padding-left: 180px; padding-right: 180px;">PAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

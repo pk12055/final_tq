@@ -1,0 +1,52 @@
+{% load static %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="checkout-tabs">
+                <div class="container">
+                    <ul class="nav nav-fill pb-2" id="myTab" role="tablist">
+                        <li class="nav-item" style="text-align: start">
+                            <a class="nav-link active" id="card-tab" data-toggle="tab" href="#card" role="tab"
+                                aria-controls="card" aria-selected="true"><i class="fa fa-credit-card" style="    background-color: white;color: blue;padding-left: 125px;padding-right: 125px;
+    padding-top: 25px;padding-bottom: 25px;font-size: 50px;"></i></a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab"
+                                aria-controls="orders" aria-selected="false"><img src="{% static  'images/paypal.png' %}" height="100" width="300"></a>
+                        </li>
+                        <li class="nav-item" style="text-align: end;">
+                            <a class="nav-link" id="confirmation-tab" data-toggle="tab" href="#confirmation" role="tab"
+                                aria-controls="confirmation" aria-selected="false"><img src="{% static  'images/apple_pay.png' %}" height="100" width="300"></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="card" role="tabpanel" aria-labelledby="card-tab">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {% include 'checkout_detail.html' %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {% include 'checkout_detail.html' %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="confirmation" role="tabpanel" aria-labelledby="confirmation-tab">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {% include 'checkout_detail.html' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+	</div>
+	
+</div>

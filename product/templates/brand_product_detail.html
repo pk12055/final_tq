@@ -1,0 +1,256 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+{% load filter %}
+
+{% block title %}Brand Homepage{% endblock title %}
+{% block extra_css %}
+
+<style>
+ .disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %} !important;
+    }
+
+    .brand_style_main_color{
+        background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};
+    }
+
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%
+}
+
+#custCarousel .carousel-indicators {
+    position: static;
+    margin-top: 20px
+}
+
+#custCarousel .carousel-indicators>li {
+    width: 100px
+}
+
+#custCarousel .carousel-indicators li img {
+    display: block;
+    opacity: 0.5
+}
+
+#custCarousel .carousel-indicators li.active img {
+    opacity: 1
+}
+
+#custCarousel .carousel-indicators li:hover img {
+    opacity: 0.75
+}
+
+.carousel-item img {
+    width: 80%
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-lg-12">
+        	{% include 'checkout_pop.html' %}
+        	<div class="container p-5">
+        		<nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent">
+                        <li class="breadcrumb-item brand_style_text_color"><a href="{% url 'categories'%}">ALL PRODUCTS</a></li>
+                        <i class="fa fa-angle-left" style="color: darkgrey; font-weight: bold; margin-top: 6px; padding: 0px 5px 0px 5px;"></i>
+                        <li class="breadcrumb-item active text-capitalize brand_style_text_color" aria-current="page">{{ product_obj.product_name|upper }}</li>
+                    </ol>
+                </nav>
+            	<div class="row no-gutters pl-4">
+                    <div class="col-lg-5">
+                    	<div class="row">
+		                	<div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
+				                <!-- slides -->
+				                <div class="carousel-inner">
+				                	<div class="carousel-item active"> <img src="{% if product_obj.product_pic %}/media/{{ product_obj.product_pic }}{% else %}{%static 'images/product-image.svg' %}{% endif %}" alt="Hills" style="height: 520px; width: 428px;"> </div>
+				                	{% for img in img_obj %}
+				                	<div class="carousel-item"> <img src="/media/{{ img.p_image }}" alt="Hills" style="height: 520px; width: 428px;"> </div>
+						            {% endfor %}
+				                </div> <!-- Left right --> 
+
+				                <a class="carousel-control-prev" href="#custCarousel" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a> <a class="carousel-control-next" href="#custCarousel" data-slide="next"> <span class="carousel-control-next-icon"></span> </a> <!-- Thumbnails -->
+				                
+				                <ol class="carousel-indicators list-inline" style="float: left; margin-left: 0px; margin-right: 0px;">
+				                	<li class="list-inline-item"> <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#custCarousel"> <img src="{% if product_obj.product_pic %}/media/{{ product_obj.product_pic }}{% else %}{%static 'images/product-image.svg' %}{% endif %}" alt="profile_pic" style="height: 80px; width: 80px;" class="img-fluid"> </a> </li>
+				                	{% for img, i in range %}
+				                		<li class="list-inline-item active"> <a id="carousel-selector-{{i}}" class="selected" data-slide-to="{{ i }}" data-target="#custCarousel"> <img class="" src="/media/{{ img.p_image }}" alt="profile_pic" style="height: 80px; width: 80px;" class="img-fluid"> </a> </li>
+						            {% endfor %}
+				                </ol>
+				            </div>
+		                </div><img src="">
+	     
+                    </div>
+                    <div class="col-lg-7 pl-5">
+                    	<div class="row">
+                    		<div class="col-lg-12 pr-5 pl-5">
+                    			<h2 class="brand_style_text_color">{% if product_obj.product_name is not None %}{{ product_obj.product_name|upper }}{% endif %}</h2>
+                    			<span style="color: #6c757d;">{{ product_obj.brand.brand_name|upper }}</span>
+                    		</div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-lg-12 pl-5 pt-5 pr-5">
+                    			<p class="brand_style_text_color" style="font-size: 16px;">{% if product_obj.product_name is not None %}{{ product_obj.product_description }}{% endif %}</p>
+                    		</div>
+                    	</div>
+                    	<div class="row">
+                    		<div class="col-lg-6 pl-5 pt-5 pr-5">
+                    			<p class="brand_style_text_color">$ {% if product_obj.product_price is not None %}{{ product_obj.product_price }}{% else %}00{% endif %}.00</p>
+                    		</div>
+                    	</div>
+
+                    	<div class="row">
+                    		<div class="col-lg-12 pl-5 pt-3 pr-5">
+                    			<p class="brand_style_text_color">This product is from {% if product_obj.product_category is not None %}{{ product_obj.product_category }}{% endif %} category and made up of {% if product_obj.product_material is not None %}{{ product_obj.product_material }}{% endif %}</p>
+                    		</div>
+                    	</div>
+
+                    	<div class="row pb-4 pr-4 pl-4 pt-3">
+                    		<div class="col-lg-12 ml-1">
+                    			<label for="" style="color: grey;">Add size and quantity:</label>
+                    		</div>
+                    		<div class="col-lg-6">
+                    			<select class="brand_filter brand_filter_text" aria-label=".form-select-lg example" name="product_size" id="product_size">
+									<option selected class="brand_style_text_color">Choose a Size</option>
+									{% for key, value in remaining_size_and_quantity.items %}
+										<option value="{{ key }}" class="brand_style_text_color" {% if value == '0' %}disabled{% endif %}>{{ key }}</option><br>
+									{% endfor %}
+								</select>
+                    		</div>
+                    		<div class="col-lg-6 mt-1">
+                    			<input type="number" name="product_quantity" class="brand_style_text_color disabledbutton" value="Add Quantity" id="product_quantity" min='0' oninput="validity.valid||(value='');" placeholder="Add Quantity">
+                    		</div>
+                    	</div>
+                    	<div class="row pr-5 pl-4 pt-4">
+                    		<div class="col-lg-12">
+                    			<div class="row">
+				                	{% for color in product_obj.product_color %}
+				                	<div class="col-lg-2">
+				                		<div class="pt-4 pb-4 color" style="background-color:{{ color }}; border: 1px solid black;" value="{{ color }}"></div>
+				                	</div>
+				                	{% endfor %}
+		                		</div>
+                    		</div>
+                    	</div>
+                    </div>
+                </div>
+                <div class="row">
+                	<div class="col-lg-5 pl-4">
+		             
+                	</div>
+                	<div class="col-lg-1"></div>
+                	<div class="col-lg-5">
+                		<div class="row">
+            				<div class="col-lg-6 pt-5">
+            					<button class="tq-btn tq-btn-primary" {% if user.user_type == 'Brand' %} disabled data-toggle="tooltip" title="As a Brand user you can purchase a product" {% endif %} style="border: none; padding: 10px 40px; {% if user.user_type == 'Brand' %} cursor:not-allowed !important; {% endif %}">ADD TO MY WISHLIST</button>
+                			</div>
+                			<div class="col-lg-3 p-5">
+                        		<div class="text-center container pb-2">
+			                    	<button class="tq-btn tq-btn-primary" id="checkout-pop-btn" {% if user.user_type == 'Brand' %} disabled data-toggle="tooltip" title="As a Brand user you can purchase a product" {% endif %} style="{% if user.user_type == 'Brand' %} cursor:not-allowed !important; {% endif %}">ADD TO BAG</button>
+			                	</div>
+                			</div>
+                		</div>
+                	</div>
+                </div>
+        	</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+	{% if remaining_size_and_quantity %}
+		var data = {{ remaining_size_and_quantity|safe }};
+	{% else %}
+	    var data = 0
+	{% endif %}
+	String.prototype.format = function() {
+	  a = this;
+	  for (k in arguments) {
+	    a = a.replace("{" + k + "}", arguments[k])
+	  }
+	  return a
+	}
+	console.log("Hello, {0}!".format("World"))
+
+	$("#product_size").on("click", function(){
+		product_size = $('select[name="product_size"]').val()
+		if(product_size == 'Choose a Size'){
+			$('#product_quantity').addClass('disabledbutton')
+		}
+		if(product_size && product_size != 'Choose a Size'){
+	        $('#product_quantity').removeClass('disabledbutton')   
+		}
+	});
+
+	$('.checkout-pop').hide();
+    $("#checkout-pop-btn").on("click", function(){
+    	valid = true;
+    	product_size = $('select[name="product_size"]').val()
+    	product_quantity = $('#product_quantity').val()
+    	
+    	if(product_size == 'Choose a Size'){
+    		toastr.error('Select Size')
+    		valid = false;
+    	}
+
+    	else if (!product_quantity){
+    		toastr.error('Select Quantity')
+    		valid = false;
+    	}
+
+    	else if (product_quantity == 0){
+    		toastr.error('Select Quantity')
+    		valid = false;
+    	}
+
+    	else if (+data[product_size] == 0){
+    		toastr.error('Product is out of stock')
+    		valid = false;
+    	}
+
+    	else if(+product_quantity > +data[product_size]){
+			toastr.error('You can order maximum of {0} items'.format(data[product_size]))
+			valid = false;
+    	}
+
+    	if (valid){
+	    	$.ajax({
+	            type:"GET",
+	            url:"{% url 'add_to_bag' product_obj.id %}",
+	            data: {
+	                'size': product_size,
+	                'quantity': product_quantity,
+	            },
+	            success:function(response){
+	                if (response.status){
+	                	toastr.success('Product added to Bag successfullt!')
+	                	var quan = document.getElementById('quan');
+            			quan.innerHTML = product_quantity;
+            			var total_val = document.getElementById('total_val');
+            			total_val.innerHTML = ({{ product_obj.product_price }} * product_quantity) + 5;
+	                	$('.checkout-pop').show();
+	                }
+	            },
+	        });
+	    }
+	});
+
+</script>
+{% endblock %}
+

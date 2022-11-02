@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Your Bag{% endblock title %}
+
+{% block content %}
+
+
+<div class="container-fluid" style="padding-left: 150px; padding-right: 80px; margin-right: 0!important;">
+    <div class="row" id="combined_data">
+        {% include 'global_search_card.html' %}
+    </div>
+    {% if has_next %}
+        <div class="col-lg-12 mt-5" style="width: 100%;">
+            <div class="text-center">
+                <a class="btn btn-primary p-2" value="{{ next_page }}" page={{ next_page }} id="load-more" style="color:white; width: 100%;">VIEW MORE RESULTS</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock%}
+
+
+
+{% block extra_js %}
+<script>
+
+    $("#load-more").on("click", function() {
+        page = $("#load-more").attr('page');
+
+        data = {
+            'page': page
+        }
+        $.get({
+            'url': "{% url 'main_search' %}",
+            'data': data,
+            'cache': false,
+            'success': function(response) {
+                response = JSON.parse(response)
+                alert(response);
+                $('#combined_data').append(response['data'])
+                if (!response['has_next']) {
+                    $("#load-more").hide();
+                }
+                else{
+                    $('#load-more').attr('page', response.next_page)
+                    $("#load-more").show();
+                }
+
+            }
+        })
+    })
+</script>
+{% endblock %}
+
+{% if i.product_name is not None %}{{ i.product_name }}{% elif i.brand_name is not None %}{{ i.brand_name }}{% endif %}

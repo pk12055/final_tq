@@ -1,0 +1,72 @@
+{% load static %}
+
+<!-- .app-footer -->
+<footer class="app-footer" id="app-footer">
+    <div class="container footer-conatiner">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <img src={%static "images/blue/footer-logo.svg" %} />
+            </div>
+            <div class="col-md-9">
+                <div class="d-none d-md-block">
+                    <ul class="nav justify-content-start">
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link {% if home %} active {% endif %}" aria-current="page" href="/">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link {% if bussiness %} active {% endif %}" href="{% url 'bussiness' %}">FOR BRANDS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link {% if categories %} active {% endif %}" href="{% url 'categories' %}">CATEGORIES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link {% if brand_list %} active {% endif %}" href="{% url 'brand_list' %}">BRANDS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link {% if store_list %} active {% endif %}" href="{% url 'store_list' %}">STORES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link" href="#">CONTACTS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link {% if join %} active {% endif %}" href="{% url 'signup' %}">JOIN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link" href="#">TERMS OF USE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-footer-link" href="#">PRIVACY POLICY</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-white mt-3 footer-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.
+                </div>
+            </div>
+        </div>
+        <div class="social-link text-center text-white mt-3">
+            <ul>
+                <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                <li><a href=""><i class="fa fa-instagram"></i></a></li>
+            </ul>
+            {% comment %} <div class="row">
+                <div class="col-4">
+                    <i class="fa fa-instagram"></i>
+                </div>
+                <div class="col-4">
+                    <i class="fa fa-twitter"></i>
+                </div>
+                <div class="col-4">
+                    <i class="fa fa-facebook"></i>
+                </div>
+            </div>   {% endcomment %}
+        </div>
+        <div class="text-white mt-3 text-center">
+            10 Quarters <span class="footer-text">All Rights Reserved </span>
+        </div>
+    </div>
+</footer>
+<!-- /.app-footer -->

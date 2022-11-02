@@ -1,0 +1,144 @@
+{% extends 'brand_base.html' %}
+{% load static %}
+
+{% block title %}Brand Homepage{% endblock title %}
+{% block extra_css %}
+
+<style>
+    .brand_style_text_color{
+        color: {% if brand_style.texts_color %}{{ brand_style.texts_color  }}{% endif %} !important;
+    }
+
+    .brand_style_main_color{
+        background-color: {% if brand_style.main_color %}{{ brand_style.main_color  }}{% else %}grey{% endif %};
+    }
+    
+    .brand_style_background_color_2nd{
+        background-color: {% if brand_style.background_color_2nd %}{{ brand_style.background_color_2nd  }}{% else %}#EFEFEF{% endif %} !important;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-11">
+            <div class="container-fluid p-0">
+                <div class="row no-gutters">
+                    <div class="col-lg-12 pl-4 brand_style_background_color_2nd" style="padding-bottom:250px;">
+                            <div class="wrapper pl-4 mt-5 pt-5" style="justify-content: start !important;">
+                                <div class="underline-area brand_style_main_color" style="height: 40px;">
+                                    <div class="title brand_style_text_color" style="font-size: 60px; margin-top: -60px; margin-left: -45px;">
+                                        CATEGORIES
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="font-medium-reg mt-2 pl-4 brand_style_text_color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna</p>
+                        
+                    </div>
+                    <div class="col-lg-12 p-5" style="margin-top: -210px;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card-img brand_style_main_color" style="height: 420px;">
+                                    {% if cat_obj.main_pic_1 and not cat_obj.is_draft %}
+                                    <img src="/media/{{ cat_obj.main_pic_1 }}" style="height: 420px;" width="100%"/>
+                                    {% endif %}
+                                    <div class="banner">
+                                        <div class="row">
+                                            <div class="col-md-8 brand_style_text_color">
+                                                {% if cat_obj.first_main_text %} {{ cat_obj.first_main_text }}{% endif %}
+                                                <p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a href="{% url 'product_list' %}?flag=WOMEN" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card-img brand_style_main_color" style="height: 420px;">
+                                    {% if cat_obj.main_pic_2 and not cat_obj.is_draft %}
+                                    <img src="/media/{{ cat_obj.main_pic_2 }}" style="height: 420px;" width="100%"/>
+                                    {% endif %}
+                                    <div class="banner">
+                                        <div class="row">
+                                            <div class="col-md-8 brand_style_text_color">
+                                                {% if cat_obj.second_main_text %} {{ cat_obj.second_main_text }}{% endif %}
+                                                <p class="text-muted font10 font-medium-reg">{% include 'sale_text.html' %}</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a href="{% url 'product_list' %}?flag=
+                                                WOMEN" class="font10 font-medium-reg brand_style_text_color">BROWSE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mt-5 p-5 brand_style_background_color_2nd" style="padding-left:0px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="float-left brand_style_text_color">
+                            <h3>SHOP EDITOR'S PICS</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-5">
+                    {% if products.count > 2 %}
+                        <div class="owl-carousel" style="display: block;">
+                            {% include 'product_filter.html' %}
+                        </div>
+                    {% else %}
+                        {% include 'product_filter.html' %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="container mt-5 pb-5" style="padding-left:0px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <div class="wrapper pt-4">
+                                <div class="underline-area brand_style_main_color">
+                                    <div class="title brand_style_text_color">
+                                        DO YOU LIKE WHAT YOU SEE?
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="font-medium-reg p-3 brand_style_text_color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                        <div class="p-2 text-center">
+                            <button class="tq-btn tq-btn-primary brand_style_text_color" style="{% if brand_style.main_color %}background-color: {{ brand_style.main_color  }}{% endif %} !important;">FOLLOW</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+$('.owl-carousel').owlCarousel({
+    nav: true, 
+    dots: true,
+    loop: true,
+    navText: [
+        "<i class='fa fa-angle-left'></i>",
+        "<i class='fa fa-angle-right'></i>"
+      ],
+      autoplay: true,
+    });
+</script>
+{% endblock %}

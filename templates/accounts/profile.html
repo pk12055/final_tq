@@ -1,0 +1,478 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Account Settings{% endblock title %}
+{% block extra_css %}
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
+{% endblock %}
+{% block content %}
+<div class="profile-wrapper">
+    <div class="profile-header">
+        <div class="container mt-3 pb-5">
+            <div class="row pl-4 pr-4">
+                <div class="col-lg-1 col-md-1 col-12">
+                    <div class="image-upload">
+                        <label for="file-input">
+                            {% if user.profile_pic %}
+                            {% endif %}
+                            <img class="avatar nav-img" id="preview-img"
+                                src="{% if user.profile_pic %}{{media_url}}{{user.profile_pic}}{% else %}{{default_image}}{% endif %}"
+                                alt="profile_pic" height="65" />
+                        </label>
+                        <input class="upload-avatar" id="file-input" name="profile_pic" />
+                        <input id="inputfile" type="file" name="files[]" class="hidden">
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6 col-12 pl-5 pt-3">
+                    <h2>
+                        {{user.first_name|upper }}
+                    </h2>
+                    <p class="text-muted font14">
+                        Member since {{user.created|date:"d M Y"}}
+                    </p>
+                </div>
+                <div class="col-lg-1 col-md-4 col-12 mt-3">
+                    <a type="submit" class="tq-btn tq-btn-primary" href="{%url 'logout' %}">LOGOUT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-tabs">
+        <div class="container pt-3 mt-5 pl-5" style="padding-right: 90px;">
+            <ul class="nav nav-fill" id="myTab" role="tablist">
+
+                {% if user.user_type == 'Consumer' %}
+                <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'favorites' %}active show{% endif %}" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab"
+                        aria-controls="favorites" aria-selected="true">Favorites</a>
+                </li> 
+                {% endif %}
+
+                {% if user.user_type == 'Brand' %}
+                <li class="nav-item">
+                    <a class="nav-link{% if active_tab == 'insight' %}active show{% endif %}" id="insights-tab" data-toggle="tab" href="#insights" role="tab"
+                        aria-controls="favorites" aria-selected="true">Insights</a>
+                </li> 
+                {% endif %}
+
+                {% if user.user_type == 'Consumer' %}
+                <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'my_order' %}active show{% endif %}" id="orders-tab" data-toggle="tab" href="#orders" role="tab"
+                        aria-controls="orders" aria-selected="false">My Orders</a>
+                </li>
+                {% endif %}
+
+                {% if user.user_type == 'Brand' %}
+                <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'my_shop' %}active show{% endif %}" id="shops-tab" data-toggle="tab" href="#shops" role="tab"
+                        aria-controls="shops" aria-selected="false">My Shop(s)</a>
+                </li>
+                {% endif %}
+
+                {% if user.user_type == 'Shop' %}
+                <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'my_store' %}active show{% endif %}" id="stores-tab" data-toggle="tab" href="#stores" role="tab"
+                        aria-controls="stores" aria-selected="false">My Store(s)</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'message' %}active show{% endif %}" id="messages-tab" data-toggle="tab" href="#messages" role="tab"
+                        aria-controls="messages" aria-selected="false">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'info' %}active show{% endif %}" id="info-tab" data-toggle="tab"
+                        href="#info" role="tab" aria-controls="info" aria-selected="false">Personal info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_tab == 'password' %}active show{% endif %}" id="password-tab" data-toggle="tab" href="#password" role="tab"
+                        aria-controls="info" aria-selected="false">Change Password 
+                    </a>
+                </li>
+            </ul>
+            <hr />
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade {% if active_tab == 'favorites' %}active show{% endif %}" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+                    {% include 'accounts/myprofile/favorites.html' %}
+                </div>
+
+                <div class="tab-pane fade {% if active_tab == 'insight' %}active show{% endif %}" id="insights" role="tabpanel" aria-labelledby="insights-tab">
+                    {% include 'accounts/myprofile/insight.html' %}
+                </div>
+
+                <div class="tab-pane fade {% if active_tab == 'my_order' %}active show{% endif %}" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                    {% include 'accounts/myprofile/my_order.html' %}
+                </div>
+                <div class="tab-pane fade {% if active_tab == 'messages' %}active show{% endif %}" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+
+                </div>
+                <div class="tab-pane fade {% if active_tab == 'my_shop' %}active show{% endif %}" id="shops" role="tabpanel" aria-labelledby="shops-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% include 'accounts/myprofile/myshop.html' %}
+                        </div>
+                        <div class="col-md-6">
+                            {% include 'accounts/myprofile/referrals.html' %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade {% if active_tab == 'my_store' %}active show{% endif %}" id="stores" role="tabpanel" aria-labelledby="stores-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% include 'accounts/myprofile/mystore.html' %}
+                        </div>
+                        <div class="col-md-6">
+                            {% include 'accounts/myprofile/description.html' %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade {% if active_tab == 'info' %}active show{% endif %}" id="info" role="tabpanel"
+                    aria-labelledby="info-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% include 'accounts/myprofile/personal_info.html' %}
+                        </div>
+                        <div class="col-md-6">
+                            {% include 'accounts/myprofile/addresses.html' %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade {% if active_tab == 'password' %}active show{% endif %}" id="password" role="tabpanel" aria-labelledby="password-tab">
+                    {% include 'accounts/myprofile/change_password.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="AddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-3">
+            <div class="row">
+                <div class="col-md-9 margin-left-40" id="address-edit">
+                    <h1>NEW ADDRESS</h1>
+                </div>
+                <div class="col-md-1">
+                    <span class="fa fa-close" data-dismiss="modal"></span>
+                </div>
+            </div>
+            <form method="POST" id="address-form" autocomplete="off">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 pb-2">
+                                <input id="autocomplete" name="address" class="input-control" type="search"
+                                    placeholder="Address" />
+                            </div>
+                        </div>
+                        <div id="address">
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <input name="city" class="input-control field" type="text" placeholder="City"
+                                        id="locality" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input name="zip_code" class="input-control field" type="text" id="postal_code"
+                                        placeholder="Zipcode" />
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <input name="state" class="input-control field" type="text"
+                                        id="administrative_area_level_1" placeholder="State" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input name="country" class="input-control field" type="text" id="country"
+                                        placeholder="Country" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 pt-2 mb-3 mt-3">
+                                    <select class="select-control" name="address_type" id="address_type">
+                                        <option value="Home" selected="selected">Home</option>
+                                        <option value="Office">Office</option>
+                                        <option value="Other">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="action" value="add" id="action_id">
+                <input type="hidden" name="user" value="{{user.id}}" id="current_user">
+                <input type="hidden" name="address_id" id="address_id">
+                <div class="text-center container mt-2 pb-2">
+                    <button type="submit" id="_action" class="tq-btn tq-btn-primary" value="ADD">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="RemoveAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-3">
+            <div class="row">
+                <div class="col-md-9 margin-left-40">
+                    <h1>ARE YOU SURE?</h1>
+                </div>
+                <div class="col-md-1">
+                    <span class="fa fa-close" data-dismiss="modal"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="container" id="remove_message">
+                    </div>
+                </form>
+            </div>
+            <div class="text-center container mt-2 pb-2">
+                <button type="button" id="remove_action" class="tq-btn tq-btn-primary">REMOVE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClkKrCiFMsgoAOqDvyrjLoxAlFNwZ6nQ0&callback=initAutocomplete&libraries=places&v=weekly" async></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(function validate() {
+
+        var secure_rules = {
+            rules: {
+                address: {
+                    required: true
+                },
+                city: {
+                    required: true,
+                },
+                zip_code: {
+                    required: true,
+                },
+                country: {
+                    required: true,
+                },
+                state: {
+                    required: true,
+                },
+            },
+            submitHandler: function (f) {
+                $.ajax({
+                    url: "{% url 'account' %}",
+                    type: "POST",
+                    data: $(f).serialize(),
+                    success: function (response) {
+                        response = JSON.parse(response)
+                        location.href = "{% url 'account' %}?tab=info"
+                    }
+                });
+            },
+            invalidHandler: function (f) {
+                $(f).submit();
+            }
+        }
+        $('#address-form').validate(secure_rules);
+    });
+
+    jQuery("body").on("click", ".remove_address", function () {
+        var address_id = jQuery(this).data('value');
+        var title = jQuery(this).data('text');
+        $("#remove_message").html('<p>' + title + ' will be removed </p>')
+        $("#remove_action").on("click", function () {
+            $.ajax({
+                'url': "{% url 'account' %}",
+                'type': 'POST',
+                'cache': false,
+                'data': {
+                    'address_id': address_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'action': 'remove'
+                },
+                success: function (response) {
+                    response = JSON.parse(response);
+                    location.href = "{% url 'account' %}?tab=info"
+                }
+            });
+        })
+    });
+
+    jQuery("body").on("click", ".edit_address", function () {
+        var address_id = jQuery(this).data('value');
+        var title = jQuery(this).data('text');
+        $("#_action").text('Edit')
+        $("#address_id").val(address_id)
+        $("#action_id").val('edit')
+        $("#address-edit").html('<h1>EDIT ADDRESS</h1>')
+        $("#autocomplete").val(title);
+        $.ajax({
+            url: "{% url 'get_address' %}",
+            type: "POST",
+            data: {
+                'address_id': address_id,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (response) {
+                response = JSON.parse(response)
+                type = response['address_type']
+                $("#locality").val(response['city'])
+                $("#postal_code").val(response['zip_code'])
+                $("#administrative_area_level_1").val(response['state'])
+                $("#country").val(response['country'])
+                $("#address_type").val(type)
+                $('#address_type').find('option[value=' + type + ']').attr('selected', 'selected');
+
+                $("#_action").on("click", function () {
+                    $.ajax({
+                        'url': "{% url 'account' %}",
+                        'type': 'POST',
+                        'cache': false,
+                        data: $('#address-form').serialize(),
+                        success: function (response) {
+                            response = JSON.parse(response)
+                            location.href = "{% url 'account' %}?tab=info"
+                        }
+                    });
+                })
+            }
+        });
+    })
+
+    $('#AddressModal').on('hidden.bs.modal', function (e) {
+        $(this).find("input,textarea,select").val('').end()
+        $("#_action").text('Add')
+        $("#address_id").val('')
+        $("#address-edit").html('<h1>ADD ADDRESS</h1>')
+        $('#address-form').trigger("reset");
+        $("#address_type").val('Home')
+        $('#address_type').find('option[value="Home"]').attr('selected', 'selected');
+        $("#address-form").find('input[name=csrfmiddlewaretoken]').val('{{ csrf_token }}')
+        $("#current_user").val('{{user.id}}')
+        $("#action_id").val('add')
+    })
+</script>
+
+<script>
+    // This sample uses the Autocomplete widget to help the user select a
+    // place, then it retrieves the address components associated with that
+    // place, and then it populates the form fields with those details.
+    // This sample requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script
+    // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+    let placeSearch;
+    let autocomplete;
+    const componentForm = {
+        // street_number: "short_name",
+        // route: "long_name",
+        locality: "long_name",
+        administrative_area_level_1: "short_name",
+        country: "long_name",
+        postal_code: "short_name",
+    };
+
+    function initAutocomplete() {
+        // Create the autocomplete object, restricting the search predictions to
+        // geographical location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById("autocomplete"),
+            { types: ["geocode"] }
+        );
+        // Avoid paying for data that you don't need by restricting the set of
+        // place fields that are returned to just the address components.
+        autocomplete.setFields(["address_component"]);
+        // When the user selects an address from the drop-down, populate the
+        // address fields in the form.
+        autocomplete.addListener("place_changed", fillInAddress);
+    }
+
+    function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        const place = autocomplete.getPlace();
+
+        for (const component in componentForm) {
+            $("#" + component).val('');
+            // document.getElementById(component).disabled = false;
+        }
+
+        // Get each component of the address from the place details,
+        // and then fill-in the corresponding field on the form.
+        for (const component of place.address_components) {
+            const addressType = component.types[0];
+
+            if (componentForm[addressType]) {
+                const val = component[componentForm[addressType]];
+                $("#" + addressType).val(val);
+                if ($("#" + addressType).val()) {
+                    $("#" + addressType).prop('readonly', true);
+                }
+                // document.getElementById(addressType).value = val;
+            }
+        }
+    }
+
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const geolocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                const circle = new google.maps.Circle({
+                    center: geolocation,
+                    radius: position.coords.accuracy,
+                });
+                autocomplete.setBounds(circle.getBounds());
+            });
+        }
+    }
+
+    jQuery("body").on("click", ".upload-avatar", function () {
+        jQuery("#inputfile").click();
+    });
+
+    jQuery("body").on("click", ".remove-avatar", function () {
+        jQuery(".avatar").attr('src', '/static/images/default.png');
+        jQuery(".remove-avatar").hide()
+        jQuery.ajax({
+            type: 'POST',
+            url: '/remove-image/',
+            data: {},
+            contentType: false,
+            dataType: "json",
+            processData: false,
+            success: function (response) {
+            }
+        });
+    });
+
+    jQuery("#inputfile").change(function () {
+        var fd = new FormData();
+        var file = this.files;
+        fd.append("images", file[0]);
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '/upload-image/',
+            data: fd,
+            contentType: false,
+            dataType: "json",
+            processData: false,
+            success: function (response) {
+                jQuery(".avatar").attr('src', '/media/' + response.image_name);
+                jQuery(".remove-avatar").show()
+            }
+        });
+    });
+
+</script>
+{% endblock %}
